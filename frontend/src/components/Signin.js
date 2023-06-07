@@ -1,12 +1,39 @@
-import React from "react";
+
 import * as Components from "../SigninCss";
+import React, { useState } from "react";
+import axios from "axios";
+
 
 function Signin() {
-  const [signIn, toggle] = React.useState(true);
-  return (
+  const [signIn, setSignIn] = useState(true);
+
+  const handleSignUp = async (e) => {
+    e.preventDefault();
+    const form = e.target;
+    const formData = new FormData(form);
+
+    try {
+      const response = await axios.post("http://localhost:8000/signup/", formData);
+      console.log(response.data);
+      // Handle success response here
+
+      // Reset the form
+      form.reset();
+    } catch (error) {
+      console.log(error);
+      // Handle error response here
+    }
+  }
+    
+    // Define the toggle function
+  const toggle = (value) => {
+    setSignIn(value);
+  };
+
+    return(
     <Components.Container>
       <Components.SignUpContainer signinIn={signIn}>
-        <Components.Form>
+        <Components.Form onSubmit={handleSignUp}>
           <Components.Title>Create Account</Components.Title>
 
           <label for="cars">WHO ARE YOU?:</label>
@@ -59,7 +86,9 @@ function Signin() {
         </Components.Overlay>
       </Components.OverlayContainer>
     </Components.Container>
+    
   );
+ 
 }
 
 export default Signin;

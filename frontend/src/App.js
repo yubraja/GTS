@@ -1,11 +1,28 @@
-import React from "react";
+import React, { useState,useEffect } from "react";
 // import * as Components from "./Components";
 import Signin from "./components/Signin";
+import axios from "axios";
 import Home from "./components/Home";
 import About from "./components/About";
 import { BrowserRouter as Router, Route, Link, Routes } from "react-router-dom";
 
 function App() {
+
+  const[response,setresponse]=useState(null)
+  
+  useEffect(()=>{
+    async function getAllPublic(){try{
+      const response = await axios.get("http://localhost:8000/signup")
+      console.log(response.data)
+      setresponse(response.data)
+    }catch(error){
+      console.log(error)
+
+    }
+  }
+  getAllPublic()
+},[])
+
   return (
     <>
     <Signin />

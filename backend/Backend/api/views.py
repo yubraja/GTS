@@ -3,7 +3,7 @@
 from django.http import JsonResponse
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-from api.serializers import PublicSerializer
+from .serializers import PublicSerializer
 from rest_framework.viewsets import ModelViewSet
 
 
