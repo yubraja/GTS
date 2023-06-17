@@ -4,7 +4,7 @@ from .models import Public
 
 
 class PublicAdmin(admin.ModelAdmin):
-    list_display = ("name", "address", "email", "password", "citizenship_no")
+    list_display = ("name", "address", "email", "citizenship_no")
 
     def changelist_view(self, request, extra_context=None):
         # Your custom logic here

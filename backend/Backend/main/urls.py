@@ -30,7 +30,7 @@ urlpatterns =[
     path('admin/', admin.site.urls),
     path('',include('api.urls')),
     path('api/', include('api.urls')),
-    path('signup/', views.signup, name='Signup'),
+    path('signup/', views.signup, name='signup'),
     # path('Signin/', views.Signin, name='Signin'),
 ]
 
