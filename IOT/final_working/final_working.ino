@@ -111,10 +111,10 @@ void loop()
   if (Firebase.ready()) 
   {
     
-    Firebase.setInt(fbdo, "/test/a", distance);
+    Firebase.setInt(fbdo, "/ultrasonicSensors/distance", distance);
     delay(200);
 
-    Serial.printf("Get int a--  %s\n", Firebase.getInt(fbdo, "/test/a") ? String(fbdo.to<int>()).c_str() : fbdo.errorReason().c_str());
+    Serial.printf("Get int distance--  %s\n", Firebase.getInt(fbdo, "/ultrasonicSensors/distance") ? String(fbdo.to<int>()).c_str() : fbdo.errorReason().c_str());
     distance=fbdo.to<int>();
 
   Serial.println();  
