@@ -30,8 +30,15 @@ urlpatterns =[
     path('admin/', admin.site.urls),
     path('',include('api.urls')),
     path('api/', include('api.urls')),
-    path('signup/', views.signup, name='signup'),
-    # path('Signin/', views.Signin, name='Signin'),
+   
+     
+    path('signup/public/', views.signup_public, name='signup_public'),
+    path('signup/staff/', views.signup_staff, name='signup_staff'),
+    path('signup/officer/', views.signup_officer, name='signup_officer'),
+    
+    path('signin/public/', views.signin_public, name='signin_public'),
+    path('signin/staff/', views.signin_staff, name='signin_staff'),
+    path('signin/officer/', views.signin_officer, name='signin_officer'),
 ]
 
 # urls.py

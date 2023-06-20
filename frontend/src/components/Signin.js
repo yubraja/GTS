@@ -1,37 +1,105 @@
-import React from "react";
+// 
+import React, { useState } from "react";
+import axios from "axios";
 import * as Components from "../SigninCss";
 
 function Signin() {
-  const [signIn, toggle] = React.useState(true);
+  const [signIn, setSignIn] = useState(true);
+  const[userType, setUserType] = useState(""); //declaration outside the component
+
+  const handleSignUp = async (e) => {
+    e.preventDefault();
+    const form = e.target;
+    const formData = new FormData(form);
+    formData.append("userType", userType);
+    const serializedData = Object.fromEntries(formData.entries());
+
+    try {
+      let endpoint = "";
+      if (userType === "public") {
+        endpoint = "http://localhost:8000/signup/public/";
+      } else if (userType === "staff") {
+        endpoint = "http://localhost:8000/signup/staff/";
+      } else if (userType === "officer") {
+        endpoint = "http://localhost:8000/signup/officer/";
+      }
+
+      const response = await axios.post(endpoint, formData);
+      console.log(response.data);
+      // Handle success response here
+
+      // Reset the form
+      form.reset();
+    } catch (error) {
+      console.log(error);
+      // Handle error response here
+    }
+  };
+
+  //Handle SignIn
+
+  const handleSignIn = async (e) => {
+    e.preventDefault();
+    const form = e.target;
+    const formData = new FormData(form);
+    formData.append("userType", userType);
+    const serializedData = Object.fromEntries(formData.entries());
+
+    try {
+      let endpoint = "";
+      if (userType === "public") {
+        endpoint = "http://localhost:8000/signin/public/";
+      } else if (userType === "staff") {
+        endpoint = "http://localhost:8000/signin/staff/";
+      } else if (userType === "officer") {
+        endpoint = "http://localhost:8000/signin/officer/";
+      }
+
+      const response = await axios.post(endpoint, formData);
+      console.log(response.data);
+      // Handle success response here
+
+      // Reset the form
+      form.reset();
+    } catch (error) {
+      console.log(error);
+      // Handle error response here
+    }
+  };
+
+
   return (
     <Components.Container>
       <Components.SignUpContainer signinIn={signIn}>
-        <Components.Form>
+        <Components.Form onSubmit={handleSignUp} method="POST">
           <Components.Title>Create Account</Components.Title>
 
-          <label for="cars">WHO ARE YOU?:</label>
-          <select id="cars" name="cars">
-            <option value="volvo">GOVERNMENT</option>
-            <option value="saab">PUBLIC</option>
-            <option value="fiat">EMPLOYEE</option>
+
+          <label htmlFor="userType">WHO ARE YOU?:</label>
+          <select id="userType" name="userType" value={userType} onChange={(e) => setUserType(e.target.value)}>
+            <option value="">Select User Type</option>
+            <option value="officer">Government</option>
+            <option value="public">Public</option>
+            <option value="staff">Employee</option>
           </select>
-          <Components.Input type="text" placeholder="Name" />
-          <Components.Input type="text" placeholder="Address" />
-          <Components.Input type="email" placeholder="Email" />
-          <Components.Input type="password" placeholder="Password" />
-          <Components.Input type="password" placeholder="Confirm Password" />
-          <Components.Input type="number" placeholder="Citizenship No" />
-          <Components.Button>Sign Up</Components.Button>
+
+          <Components.Input type="text" placeholder="Name" name="name" />
+          <Components.Input type="text" placeholder="Address" name="address" />
+          <Components.Input type="email" placeholder="Email" name="email" />
+          <Components.Input type="password" placeholder="Password" name="password" />
+          <Components.Input type="password" placeholder="Confirm Password" name="confirmPassword" />
+          <Components.Input type="number" placeholder="Citizenship No" name="citizenshipNo" />
+          <Components.Button type="submit">Sign Up</Components.Button>
         </Components.Form>
       </Components.SignUpContainer>
 
       <Components.SignInContainer signinIn={signIn}>
-        <Components.Form>
+        <Components.Form onSubmit={handleSignIn} method="POST" >
           <Components.Title>Sign in</Components.Title>
           <Components.Input type="email" placeholder="Email" />
           <Components.Input type="password" placeholder="Password" />
           <Components.Anchor href="#">Forgot your password?</Components.Anchor>
-          <Components.Button>Sigin In</Components.Button>
+          <Components.Button>Sign In</Components.Button>
         </Components.Form>
       </Components.SignInContainer>
 
@@ -42,7 +110,7 @@ function Signin() {
             <Components.Paragraph>
               To keep connected with us please login with your personal info
             </Components.Paragraph>
-            <Components.GhostButton onClick={() => toggle(true)}>
+            <Components.GhostButton onClick={() => setSignIn(true)}>
               Sign In
             </Components.GhostButton>
           </Components.LeftOverlayPanel>
@@ -52,7 +120,7 @@ function Signin() {
             <Components.Paragraph>
               Enter Your personal details and start journey with us
             </Components.Paragraph>
-            <Components.GhostButton onClick={() => toggle(false)}>
+            <Components.GhostButton onClick={() => setSignIn(false)}>
               Sign Up
             </Components.GhostButton>
           </Components.RightOverlayPanel>

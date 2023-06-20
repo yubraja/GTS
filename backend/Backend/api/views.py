@@ -1,33 +1,111 @@
-#sending a POST request to the correct endpoint (/signup/ ) 
-
-from django.http import JsonResponse
+from rest_framework.parsers import JSONParser
+from django.contrib.auth import authenticate
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from .serializers import PublicSerializer
 from rest_framework.viewsets import ModelViewSet
-
-
+from django.contrib.auth.hashers import make_password
+from rest_framework import status
 from .models import Public
 
 class PublicViewSet(ModelViewSet):
     queryset = Public.objects.all()
     serializer_class = PublicSerializer
 
-@api_view(['POST'])
-def signup(request):
+@api_view(['GET', 'POST'])
+def signup_public(request):
     if request.method == 'POST':
-        # Extract form data from the request
-        name = request.data.get('name')
-        address = request.data.get('address')
-        email = request.data.get('email')
-        password = request.data.get('password')
-        citizenship_no = request.data.get('citizenshipNo')
+        serializer = PublicSerializer(data=request.data)
+        if serializer.is_valid():
+            password = make_password(serializer.validated_data['password'])
+            serializer.save(password=password)
+            return Response({'message': 'User created successfully'}, status=status.HTTP_201_CREATED)
 
-        # Create a new user object and save it to the database
-        user = Public(name=name, address=address, email=email, password=password, citizenship_no=citizenship_no)
-        user.save()
+    elif request.method == 'GET':
+        serializer = PublicSerializer(data=request.data)
+        if serializer.is_valid():
+            password = make_password(serializer.validated_data['password'])
+            serializer.save(password=password)
+            return Response({'message': 'User created successfully'}, status=status.HTTP_201_CREATED)
 
-        # Return a JSON response indicating success
-        return JsonResponse({'message': 'User created successfully'})
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+# staff Signup
+@api_view(['GET', 'POST'])
+def signup_staff(request):
+    if request.method == 'POST':
+        serializer = PublicSerializer(data=request.data)
+        if serializer.is_valid():
+            password = make_password(serializer.validated_data['password'])
+            serializer.save(password=password)
+            return Response({'message': 'User created successfully'}, status=status.HTTP_201_CREATED)
+
+    elif request.method == 'GET':
+        serializer = PublicSerializer(data=request.data)
+        if serializer.is_valid():
+            password = make_password(serializer.validated_data['password'])
+            serializer.save(password=password)
+            return Response({'message': 'User created successfully'}, status=status.HTTP_201_CREATED)
+
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+# officer Signup
+@api_view(['GET', 'POST'])
+def signup_officer(request):
+    if request.method == 'POST':
+        serializer = PublicSerializer(data=request.data)
+        if serializer.is_valid():
+            password = make_password(serializer.validated_data['password'])
+            serializer.save(password=password)
+            return Response({'message': 'User created successfully'}, status=status.HTTP_201_CREATED)
+
+    elif request.method == 'GET':
+        serializer = PublicSerializer(data=request.data)
+        if serializer.is_valid():
+            password = make_password(serializer.validated_data['password'])
+            serializer.save(password=password)
+            return Response({'message': 'User created successfully'}, status=status.HTTP_201_CREATED)
+
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+# Signin Section
+
+@api_view(['POST'])
+def signin_public(request):
+    email = request.data.get('email')
+    password = request.data.get('password')
+
+    user = authenticate(request, email=email, password=password)
+    if user is not None:
+        return Response({'message': 'Login successful'}, status=status.HTTP_200_OK)
     else:
-        return JsonResponse({'message': 'Invalid request'})
+        return Response({'message': 'Invalid credentials'}, status=status.HTTP_401_UNAUTHORIZED)
+
+
+# Staff signin
+@api_view(['POST'])
+def signin_staff(request):
+    email = request.data.get('email')
+    password = request.data.get('password')
+
+    user = authenticate(request, email=email, password=password)
+    if user is not None:
+        return Response({'message': 'Login successful'}, status=status.HTTP_200_OK)
+    else:
+        return Response({'message': 'Invalid credentials'}, status=status.HTTP_401_UNAUTHORIZED)
+
+
+# officer Signin
+@api_view(['POST'])
+def signin_officer(request):
+    email = request.data.get('email')
+    password = request.data.get('password')
+
+    user = authenticate(request, email=email, password=password)
+    if user is not None:
+        return Response({'message': 'Login successful'}, status=status.HTTP_200_OK)
+    else:
+        return Response({'message': 'Invalid credentials'}, status=status.HTTP_401_UNAUTHORIZED)
