@@ -1,23 +1,49 @@
-import React from "react";
+// 
+import React, { useEffect, useState } from "react";
 // import * as Components from "./Components";
 import Signin from "./components/Signin";
+import Home from "./components/Home";
+import About from "./components/About";
 import { BrowserRouter as Router, Route, Link, Routes } from "react-router-dom";
-import { ColorModeContext, useMode } from "./theme";
-import { CssBaseline, ThemeProvider } from "@mui/material";
-import Topbar from "./scenes/global/Topbar";
+
+import axios from "axios";
 
 function App() {
-  const [theme, colorMode] = useMode();
+  const[response,setresponse]=useState(null)
+  
+  useEffect(()=>{
+    async function getAllPublic(){try{
+      const response = await axios.post("http://localhost:8000/signup/")
+      console.log(response.data)
+      setresponse(response.data)
+    }catch(error){
+      console.log(error)
+
+    }
+  }
+  getAllPublic()
+
+
+  },[])
+
   return (
-    <ColorModeContext.Provider value={colorMode}>
-      <ThemeProvider theme={theme}>
-        <CssBaseline />
-        <main className="content">
-          <Topbar />
-        </main>
-        <Signin />
-      </ThemeProvider>
-    </ColorModeContext.Provider>
+    <>
+    <Signin />
+    
+      {/* <Router>
+        <Routes>
+          <Route path="/">
+            
+          </Route>
+          <Route path="/home">
+            <Home />
+          </Route>
+          <Route path="/about">
+            <About />
+          </Route>
+        </Routes>
+      </Router> */}
+    </>
   );
 }
 
