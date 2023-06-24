@@ -15,7 +15,7 @@ import Geography from "./scenes/geography";
 import { CssBaseline, ThemeProvider } from "@mui/material";
 import { ColorModeContext, useMode } from "./theme";
 import Calendar from "./scenes/calendar/calendar";
-import Signin from "./scenes/signin";
+// import Signin from "./scenes/signin";
 import Map from "./scenes/map";
 
 function App() {
@@ -31,7 +31,7 @@ function App() {
           <main className="content">
             <Topbar setIsSidebar={setIsSidebar} />
             <Routes>
-              <Route path="/" element={<Signin />} />
+              {/* <Route path="/" element={<Signin />} /> */}
               <Route path="/dash" element={<Dashboard />} />
               <Route path="/team" element={<Team />} />
               <Route path="/map" element={<Map />} />
