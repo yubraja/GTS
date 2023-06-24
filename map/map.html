@@ -47,6 +47,32 @@
         const lat=pos.coords.latitude;
         const lng=pos.coords.longitude;
         const accuracy= pos.coords.accuracy;
+        const driver_lat=27.67142;
+
+
+
+        const driver_lng=  85.33980;
+
+
+
+
+        var driverIcon = L.icon({
+             iconUrl: 'garbage_truck.png',
+             iconSize: [38, 50],
+             iconAnchor: [22, 94],
+             popupAnchor: [-3, -76],
+           
+            });
+            
+        var userIcon = L.icon({
+             iconUrl: 'user.png',
+             iconSize: [38, 38],
+             iconAnchor: [22, 94],
+             popupAnchor: [-3, -76],
+           
+            });
+
+
 
 
         if(marker){
@@ -57,8 +83,10 @@
         }
 
 
-        marker=L.marker([lat,lng]).addTo(map);
+        marker=L.marker([lat,lng],{icon:userIcon}).addTo(map);
         circle=L.circle([lat,lng],{radius: accuracy}).addTo(map);
+        marker2=L.marker([driver_lat,driver_lng],{icon:driverIcon}).addTo(map);
+
 
         if(!zoomed)
         {
