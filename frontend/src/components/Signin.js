@@ -1,11 +1,18 @@
-// 
+//
 import React, { useState } from "react";
 import axios from "axios";
 import * as Components from "../SigninCss";
+import Box from '@mui/material/Box';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
+import { styled } from "@mui/material";
+
 
 function Signin() {
   const [signIn, setSignIn] = useState(true);
-  const[userType, setUserType] = useState(""); //declaration outside the component
+  const [userType, setUserType] = useState(""); //declaration outside the component
 
   const handleSignUp = async (e) => {
     e.preventDefault();
@@ -66,35 +73,65 @@ function Signin() {
       // Handle error response here
     }
   };
+    const [age, setAge] = React.useState('');
 
-
+    const handleChange = (event) => {
+      setAge(event.target.value);
+    };
+  
   return (
     <Components.Container>
       <Components.SignUpContainer signinIn={signIn}>
         <Components.Form onSubmit={handleSignUp} method="POST">
           <Components.Title>Create Account</Components.Title>
 
-
-          <label htmlFor="userType">WHO ARE YOU?:</label>
-          <select id="userType" name="userType" value={userType} onChange={(e) => setUserType(e.target.value)}>
-            <option value="">Select User Type</option>
+          <label htmlFor="userType" >WHO ARE YOU?:</label>
+          <select id="userType" name="userType" value={userType} onChange={(e) => setUserType(e.target.value)} >
+            {/* <option value="">Select User Type</option> */}
             <option value="officer">Government</option>
             <option value="public">Public</option>
             <option value="staff">Employee</option>
           </select>
+           {/* <FormControl fullWidth>
+        <InputLabel id="demo-simple-select-label">Who Are You?*</InputLabel>
+        <Select
+          labelId="demo-simple-select-label"
+          id="demo-simple-select"
+          value={age}
+          label="Who Are You?"
+          onChange={handleChange}
+          sx={{margin:"7px"}}
+        >
+          <MenuItem value={10}>Citizen</MenuItem>
+          <MenuItem value={20}>Officer</MenuItem>
+          <MenuItem value={30}>Staff</MenuItem>
+        </Select>
+      </FormControl> */}
 
           <Components.Input type="text" placeholder="Name" name="name" />
           <Components.Input type="text" placeholder="Address" name="address" />
           <Components.Input type="email" placeholder="Email" name="email" />
-          <Components.Input type="password" placeholder="Password" name="password" />
-          <Components.Input type="password" placeholder="Confirm Password" name="confirmPassword" />
-          <Components.Input type="number" placeholder="Citizenship No" name="citizenshipNo" />
+          <Components.Input
+            type="password"
+            placeholder="Password"
+            name="password"
+          />
+          <Components.Input
+            type="password"
+            placeholder="Confirm Password"
+            name="confirmPassword"
+          />
+          <Components.Input
+            type="number"
+            placeholder="Citizenship No"
+            name="citizenshipNo"
+          />
           <Components.Button type="submit">Sign Up</Components.Button>
         </Components.Form>
       </Components.SignUpContainer>
 
       <Components.SignInContainer signinIn={signIn}>
-        <Components.Form onSubmit={handleSignIn} method="POST" >
+        <Components.Form onSubmit={handleSignIn} method="POST">
           <Components.Title>Sign in</Components.Title>
           <Components.Input type="email" placeholder="Email" />
           <Components.Input type="password" placeholder="Password" />

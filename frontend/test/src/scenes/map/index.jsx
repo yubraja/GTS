@@ -8,8 +8,10 @@ export default function Map() {
     <div>
        <Box m="20px">
       <Header title="LIVE LOCATION" subtitle="Map Is Comming Soon" />
+      {/* <Maplive/> */}
     </Box>
     </div>
   )
+  console.log("object")
 }
 

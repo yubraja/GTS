@@ -65,4 +65,3 @@ user2Marker.bindPopup('User 2');
 
 
 
-
