@@ -2,12 +2,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import * as Components from "../SigninCss";
-import Box from '@mui/material/Box';
-import InputLabel from '@mui/material/InputLabel';
-import MenuItem from '@mui/material/MenuItem';
-import FormControl from '@mui/material/FormControl';
-import Select from '@mui/material/Select';
-import { styled } from "@mui/material";
+
 
 
 function Signin() {
@@ -73,11 +68,7 @@ function Signin() {
       // Handle error response here
     }
   };
-    const [age, setAge] = React.useState('');
 
-    const handleChange = (event) => {
-      setAge(event.target.value);
-    };
   
   return (
     <Components.Container>
@@ -92,22 +83,7 @@ function Signin() {
             <option value="public">Public</option>
             <option value="staff">Employee</option>
           </select>
-           {/* <FormControl fullWidth>
-        <InputLabel id="demo-simple-select-label">Who Are You?*</InputLabel>
-        <Select
-          labelId="demo-simple-select-label"
-          id="demo-simple-select"
-          value={age}
-          label="Who Are You?"
-          onChange={handleChange}
-          sx={{margin:"7px"}}
-        >
-          <MenuItem value={10}>Citizen</MenuItem>
-          <MenuItem value={20}>Officer</MenuItem>
-          <MenuItem value={30}>Staff</MenuItem>
-        </Select>
-      </FormControl> */}
-
+        
           <Components.Input type="text" placeholder="Name" name="name" />
           <Components.Input type="text" placeholder="Address" name="address" />
           <Components.Input type="email" placeholder="Email" name="email" />
