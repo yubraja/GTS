@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import * as Components from "../SigninCss";
+import { Box } from "@mui/material";
 
 
 
@@ -71,6 +72,17 @@ function Signin() {
 
   
   return (
+    <Box sx={{
+      background: "#f6f5f7",
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "center",
+      flexDirection: "column",
+      fontFamily: "Montserrat, sans-serif",
+      height: "100vh",
+      margin: "-20px 0px"
+    }}>
+
     <Components.Container>
       <Components.SignUpContainer signinIn={signIn}>
         <Components.Form onSubmit={handleSignUp} method="POST">
@@ -140,6 +152,8 @@ function Signin() {
         </Components.Overlay>
       </Components.OverlayContainer>
     </Components.Container>
+    </Box>
+
   );
 }
 

@@ -24,7 +24,7 @@
     "formik": "^2.4.1",
     "react": "^18.1.0",
     "react-dom": "^18.1.0",
-    "react-pro-sidebar": "^1.1.0-alpha.1",
+    "react-pro-sidebar": "^0.7.1",
     "react-router-dom": "^6.11.2",
     "react-scripts": "^5.0.1",
     "styled-components": "^5.3.5",

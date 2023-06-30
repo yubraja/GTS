@@ -1,48 +1,47 @@
-// 
+//
 import React, { useEffect, useState } from "react";
-// import * as Components from "./Components";
 import Signin from "./components/Signin";
 import Home from "./components/Home";
 import About from "./components/About";
-import { BrowserRouter as Router, Route, Link, Routes } from "react-router-dom";
+import Dashboard from "./components/Appdash"
+import {  Route, Routes } from "react-router-dom";
 
 import axios from "axios";
 
 function App() {
-  const[response,setresponse]=useState(null)
-  
-  useEffect(()=>{
-    async function getAllPublic(){try{
-      const response = await axios.post("http://localhost:8000/signup/")
-      console.log(response.data)
-      setresponse(response.data)
-    }catch(error){
-      console.log(error)
+  const [response, setresponse] = useState(null);
 
+  useEffect(() => {
+    async function getAllPublic() {
+      try {
+        const response = await axios.post("http://localhost:8000/signup/");
+        console.log(response.data);
+        setresponse(response.data);
+      } catch (error) {
+        console.log(error);
+      }
     }
-  }
-  getAllPublic()
-
-
-  },[])
+    getAllPublic();
+  }, []);
 
   return (
     <>
-    <Signin />
-    
-      {/* <Router>
-        <Routes>
-          <Route path="/">
-            
-          </Route>
-          <Route path="/home">
-            <Home />
-          </Route>
-          <Route path="/about">
-            <About />
-          </Route>
-        </Routes>
-      </Router> */}
+      {" "}
+      <Routes>
+        <Route path="/" element={<Signin />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/dash" element={<Dashboard />} />
+        {/* <Route path="/team" element={<Team />} />
+        <Route path="/map" element={<Map />} />
+        <Route path="/invoices" element={<Invoices />} />
+        <Route path="/form" element={<Form />} />
+        <Route path="/bar" element={<Bar />} />
+        <Route path="/pie" element={<Pie />} />
+        <Route path="/line" element={<Line />} />
+        <Route path="/faq" element={<FAQ />} />
+        <Route path="/calendar" element={<Calendar />} />
+        <Route path="/geography" element={<Geography />} /> */}
+      </Routes>
     </>
   );
 }
