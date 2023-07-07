@@ -22,10 +22,10 @@
 //For the following credentials, see examples/Authentications/SignInAsUser/EmailPassword/EmailPassword.ino
 
 /* 2. Define the API Key */
-#define API_KEY "Ya4F7vVgltkJjaTKqZvfQXwTqglXDzpPFyE342Kk"
+#define API_KEY "AIzaSyDVsYuTgIBE7sZKaXkU2QPFa-eb7SKk5Rw"
 
 /* 3. Define the RTDB URL */
-#define DATABASE_URL "https://iotproject-2e54e-default-rtdb.firebaseio.com/" //<databaseName>.firebaseio.com or <databaseName>.<region>.firebasedatabase.app
+#define DATABASE_URL "https://iotdevice-35c41-default-rtdb.firebaseio.com" //<databaseName>.firebaseio.com or <databaseName>.<region>.firebasedatabase.app
 
 
 //Define Firebase Data object
