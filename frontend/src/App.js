@@ -18,6 +18,7 @@ import { ColorModeContext, useMode } from "./theme";
 import Calendar from "./scenes/calendar/calendar";
 import Signnn from "./components/Signnn";
 import Signup from "./components/signup";
+import ForgetPS from "./components/ForgetPS";
 import Map from "./scenes/map";
 
 function App() {
@@ -25,7 +26,7 @@ function App() {
   const [isSidebar, setIsSidebar] = useState(false);
   const location = useLocation();
 
-  const showSidebarAndTopbar = location.pathname !== "/" && location.pathname!=='/signup';
+  const showSidebarAndTopbar = location.pathname !== "/" && location.pathname!=='/signup' && location.pathname!=='/forgetps';
 
   return (
     <ColorModeContext.Provider value={colorMode}>
@@ -44,6 +45,7 @@ function App() {
             <Routes>
               <Route path="/" element={<Signnn />} />
               <Route path="/signup" element={<Signup />} />
+              <Route path="/forgetps" element={<ForgetPS />} />
               <Route path="/dash" element={<Dashboard />} />
               <Route path="/team" element={<Team />} />
               <Route path="/map" element={<Map />} />
