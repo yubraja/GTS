@@ -99,6 +99,29 @@
         }
 
         map.setView([lat,lng]);
+
+        const vehiclesAround = checkVehiclesAround(lat, lng,driver_lat,driver_lng);
+        print(vehiclesAround);
+
+        // if (vehiclesAround) {
+        //     sendEmail('user@example.com', 'Vehicle Alert', 'There are vehicles around your location.');
+        // }
+    
+    }
+
+
+    function checkVehiclesAround(lat,lng,driver_lat,driver_lat){
+
+        user_latlng=L.latLng(lat,lng);
+        driver_latlng=L.latLng(lat,lng);
+
+        console.log(distance(user_latlng,driver_lat));
+
+
+        return true;
+
+    // if(distance(user_latlng,driver_lantlng))
+
     }
 
     function error(err){
