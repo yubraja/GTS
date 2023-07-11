@@ -2,10 +2,26 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Signup</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    
+    <h1>Signup</h1>
+    <form id="signup-form">
+        <input type="text" name="name" placeholder="Name">
+        <input type="email" name="email" placeholder="Email">
+        <!-- Other signup fields -->
+
+        <button type="button" onclick="fetchUserLocation()">Fetch Location</button>
+        <input type="hidden" id="latitude" name="latitude">
+        <input type="hidden" id="longitude" name="longitude">
+
+        <button type="submit">Signup</button>
+    </form>
+
+    <script src="script.js"></script>
 </body>
 </html>
+In this example, the signup form includes fields for the user's name, email, and other necessary i
