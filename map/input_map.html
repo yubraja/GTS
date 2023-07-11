@@ -1,27 +1,81 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Signup</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Map</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+     integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+     crossorigin=""/>
+      <!-- Make sure you put this AFTER Leaflet's CSS -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+     integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+     crossorigin=""></script>
+    <style>
+        #map { 
+            visibility: hidden;
+            
+         }
+
+    </style>
 </head>
 <body>
-    <h1>Signup</h1>
-    <form id="signup-form">
-        <input type="text" name="name" placeholder="Name">
-        <input type="email" name="email" placeholder="Email">
-        <!-- Other signup fields -->
+    <h1>Input Map </h1>
+    <div id="map"></div>
 
-        <button type="button" onclick="fetchUserLocation()">Fetch Location</button>
-        <input type="hidden" id="latitude" name="latitude">
-        <input type="hidden" id="longitude" name="longitude">
 
-        <button type="submit">Signup</button>
-    </form>
+    <input  id="latitude" name="latitude">
+    <input  id="longitude" name="longitude">
 
-    <script src="script.js"></script>
+    <button onclick="showLocation()">FetchLocation</button>
+    
+
+
 </body>
+    
+<script>
+
+
+
+    function showLocation(){
+
+            var map = L.map('map');
+        // map.setView([0.6716736, 85.3318410], 13);
+        L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 19,
+            attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+        }).addTo(map);
+
+        navigator.geolocation.getCurrentPosition(success, error); 
+
+
+        function success(pos) {
+            const lat = pos.coords.latitude;
+            const lng = pos.coords.longitude;
+            // const accuracy = pos.coords.accuracy;
+
+            document.getElementById('latitude').value=lat;
+            document.getElementById('longitude').value=lng;
+
+
+
+        }
+
+
+
+        function error(err) {
+            if (err.code === 1) {
+                alert("Please provide geolocation access!!");
+            } else {
+                alert("Cannot get current location");
+            }
+        }
+
+    }
+</script>
+
+
+
 </html>
-In this example, the signup form includes fields for the user's name, email, and other necessary i
