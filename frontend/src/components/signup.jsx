@@ -16,6 +16,21 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { FormControl, Input, InputLabel, Menu, Select } from "@mui/material";
 import { MenuItem } from "react-pro-sidebar";
 
+const roles = [
+  {
+    value: "Citizen",
+    label: "Citizen || नागरिक ",
+  },
+  {
+    value: "Driver",
+    label: "Driver || सवारी चालक",
+  },
+  {
+    value: "Staff",
+    label: "Staff || कर्मचारी ",
+  },
+];
+
 function Copyright(props) {
   return (
     <Typography
@@ -80,42 +95,26 @@ export default function SignUp() {
             sx={{ mt: 3 }}
           >
             <Grid container spacing={2}>
-              {/* <Grid item xs={12}>
-              <TextField id="demo-simple-select-label">What is Your Role?</TextField>
-              <Select
-                labelId="demo-simple-select-label"
-                id="demo-simple-select"
-                value={role}
-                label="Role"
-                onChange={handleChange}
-              >
-                <MenuItem value={10}>CItizen</MenuItem>
-                <MenuItem value={20}>Driver</MenuItem>
-                <MenuItem value={30}>Staff</MenuItem>
-              </Select>
-              </Grid> */}
-
-              
-
-              <Grid item xs={12}  >
-              <FormControl fullWidth>
-                <InputLabel id="demo-simple-select-label"  InputLabelProps={{
-                     shrink: false,
-                   }}>What is your ROLE here?</InputLabel>
-                <Select
-                  labelId="demo-simple-select-label"
-                  id="demo-simple-select"
-                  value={role}
-                  label="What is your role here?"
-                  onChange={handleChange}
+              <Grid item xs={12}>
+                <TextField
+                  fullWidth
+                  id="outlined-select-roles-native"
+                  select
+                  label="Select Your Role"
+                  defaultValue="EUR"
                   autoFocus
+                  SelectProps={{
+                    native: true,
+                  }}
                 >
-                  <MenuItem value={role}>Citizen</MenuItem>
-                  <MenuItem value={role}>Driver</MenuItem>
-                  <MenuItem value={role}>Staff</MenuItem>
-                </Select>
-              </FormControl>
+                  {roles.map((option) => (
+                    <option key={option.value} value={option.value}>
+                      {option.label}
+                    </option>
+                  ))}
+                </TextField>
               </Grid>
+
               <Grid item xs={12} sm={6}>
                 <TextField
                   autoComplete="given-name"
@@ -124,7 +123,7 @@ export default function SignUp() {
                   fullWidth
                   id="firstName"
                   label="First Name"
-                  autoFocus
+                  
                 />
               </Grid>
               <Grid item xs={12} sm={6}>
@@ -189,7 +188,7 @@ export default function SignUp() {
                   control={
                     <Checkbox value="allowExtraEmails" color="primary" />
                   }
-                  label="I want to receive inspiration, marketing promotions and updates via email."
+                  label="Remember Me"
                 />
               </Grid>
             </Grid>
