@@ -1,142 +1,170 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Map</title>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
-     integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
-     crossorigin=""/>
-      <!-- Make sure you put this AFTER Leaflet's CSS -->
+        integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+    <!-- Make sure you put this AFTER Leaflet's CSS -->
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
-     integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
-     crossorigin=""></script>
-    <style>
-        #map { 
-            height: 850px;
-            
-         }
+        integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
 
+        <script src="https://smtpjs.com/v3/smtp.js"></script>  
+
+    <style>
+        #map {
+            height: 850px;
+
+        }
     </style>
 </head>
+
 <body>
     <h1>Map User Location</h1>
     <div id="map"></div>
 
-    
 
 
-    
+
+
 </body>
 
 <script>
     var map = L.map('map');
     map.setView([0.6716736, 85.3318410], 13);
     L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    maxZoom: 19,
-    attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+        maxZoom: 19,
+        attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
     }).addTo(map);
 
-    navigator.geolocation.watchPosition(sucess,error); 
+    navigator.geolocation.watchPosition(sucess, error);
 
-    let marker,circle,zoomed;
+    let marker, circle, zoomed;
 
-    function sucess(pos){
-         
-        const lat=pos.coords.latitude;
-        const lng=pos.coords.longitude;
-        const accuracy= pos.coords.accuracy;
-        
+    function sucess(pos) {
 
-
-
-        
-        const driver_lat=27.67142;
+        const lat = pos.coords.latitude;
+        const lng = pos.coords.longitude;
+        const accuracy = pos.coords.accuracy;
 
 
 
-        const driver_lng=  85.33980;
+
+
+        const driver_lat = 27.67142;
+
+
+
+        const driver_lng = 85.33980;
+        const user_email = 'adhikariyubraj894@gmail.com';
 
 
 
 
         var driverIcon = L.icon({
-             iconUrl: 'garbage_truck.png',
-             iconSize: [38, 50],
-             iconAnchor: [22, 94],
-             popupAnchor: [-3, -76],
-           
-            });
-            
+            iconUrl: 'garbage_truck.png',
+            iconSize: [38, 50],
+            iconAnchor: [22, 94],
+            popupAnchor: [-3, -76],
+
+        });
+
         var userIcon = L.icon({
-             iconUrl: 'user.png',
-             iconSize: [38, 38],
-             iconAnchor: [22, 94],
-             popupAnchor: [-3, -76],
-           
-            });
+            iconUrl: 'user.png',
+            iconSize: [38, 38],
+            iconAnchor: [22, 94],
+            popupAnchor: [-3, -76],
+
+        });
 
 
 
 
-        if(marker){
+        if (marker) {
 
             map.removeLayer(marker);
             map.removeLayer(circle);
-              
+
         }
 
 
-        marker=L.marker([lat,lng],{icon:userIcon}).addTo(map);
-        circle=L.circle([lat,lng],{radius: accuracy}).addTo(map);
-        marker2=L.marker([driver_lat,driver_lng],{icon:driverIcon}).addTo(map);
+        marker = L.marker([lat, lng], { icon: userIcon }).addTo(map);
+        circle = L.circle([lat, lng], { radius: accuracy }).addTo(map);
+        marker2 = L.marker([driver_lat, driver_lng], { icon: driverIcon }).addTo(map);
 
 
-        if(!zoomed)
-        {
-           zoomed= map.fitBounds(circle.getBounds());
+        if (!zoomed) {
+            zoomed = map.fitBounds(circle.getBounds());
         }
 
-        map.setView([lat,lng]);
+        map.setView([lat, lng]);
 
-        
-        user_latlng=L.latLng(lat,lng);
-        driver_latlng=L.latLng(driver_lat,driver_lng);
+
+        user_latlng = L.latLng(lat, lng);
+        driver_latlng = L.latLng(driver_lat, driver_lng);
 
         const vehiclesAround = checkVehiclesAround(user_latlng, driver_latlng);
+
+
         print(vehiclesAround);
 
-        // if (vehiclesAround) {
-        //     sendEmail('user@example.com', 'Vehicle Alert', 'There are vehicles around your location.');
-        // }
-    
+        if (vehiclesAround) {
+            sendEmail(user_email);
+
+        }
+
+
     }
 
 
-    function checkVehiclesAround(user_latlng,driver_lantlng){
+    function sendEmail(user_email) {
 
-        
+        const subject = 'Vehicle Alert';
+        const body_english = 'There is a garbage vehicle around your location . Please, separate the degradable and Non-degradable waste  before throwing it. '
+        const body_nepali='तपाईंको स्थान वरपर फोहोर फाल्ने गाडी छ। कृपया, यसलाई फाल्न अघि कुहिने र नकुहिने फोहोर अलग गर्नुहोस्।';
 
-        console.log(user_latlng.distanceTo(driver_latlng));
+
+        Email.send({
+        Host: "smtp.gmail.com",
+        Username : "garbagetrackingsystem@gmail.com",
+        Password : "123GarbageTS@",
+        To : user_email,
+        From : "garbagetrackingsystem@gmail.com",
+        Subject : subject,
+        Body : body_english+' '+body_nepali,
+        }).then(
+            message => alert("mail sent successfully")
+        );
 
 
-        return true;
+    }
+    function checkVehiclesAround(user_latlng, driver_lantlng) {
 
-    // if(distance(user_latlng,driver_lantlng))
+
+        distance = user_latlng.distanceTo(driver_latlng);
+
+
+
+        return distance;
+
+        // if(distance(user_latlng,driver_lantlng))
 
     }
 
-    function error(err){
+    function error(err) {
 
-        if(err.code===1){
+        if (err.code === 1) {
             alert("Please provide geolocation access!!");
         }
-        else{
-            alert("Cannot get current location");   
+        else {
+            alert("Cannot get current location");
         }
 
     }
 
 </script>
+
 </html>
