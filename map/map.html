@@ -41,10 +41,12 @@
     }).addTo(map);
 
     navigator.geolocation.watchPosition(sucess, error);
+    var email_count=0;
 
     let marker, circle, zoomed;
 
     function sucess(pos) {
+        count++;
 
         const lat = pos.coords.latitude;
         const lng = pos.coords.longitude;
@@ -109,12 +111,16 @@
         const vehiclesAround = checkVehiclesAround(user_latlng, driver_latlng);
 
 
-        print(vehiclesAround);
-
-        if (vehiclesAround) {
+        if(email_count==1)
+        {
             sendEmail(user_email);
 
+
+
+            
         }
+
+
 
 
     }
