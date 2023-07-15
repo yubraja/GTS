@@ -15,3 +15,6 @@ npm start
 ## Note: Remember you must be inside frontend directory.
 
 **Thank You!!!
+
+
+Hello ma binay rijal ma pani halka kam garxu
