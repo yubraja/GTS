@@ -1,11 +1,8 @@
 import React, { useEffect } from 'react';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
-import './download.jpeg'
-import './garbage-truck (1).png'
-import './garbage-truck.png'
-import './garbage_truck.png'
-import './garbageVehicle.jpg'
+import garbageTruck from './garbage_truck.png'
+import  user from './user.png'
 
 
 const MapComponent = () => {
@@ -27,14 +24,14 @@ const MapComponent = () => {
       const driver_lng = 85.33980;
 
       const driverIcon = L.icon({
-        iconUrl: 'garbage_truck.png',
+        iconUrl: garbageTruck,
         iconSize: [38, 50],
         iconAnchor: [22, 94],
         popupAnchor: [-3, -76],
       });
 
       const userIcon = L.icon({
-        iconUrl: 'user.png',
+        iconUrl: user,
         iconSize: [38, 38],
         iconAnchor: [22, 94],
         popupAnchor: [-3, -76],
