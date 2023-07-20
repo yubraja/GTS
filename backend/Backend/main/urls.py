@@ -26,10 +26,11 @@ admin.site.site_title = "Garbage Tracking System Admin Portal"
 admin.site.index_title = "Welcome to Garbage Tracking System Portal"
 
 urlpatterns =[
-     path('accounts/', include('allauth.urls')),
+    #path('accounts/', include('allauth.urls')),
     path('admin/', admin.site.urls),
     path('',include('api.urls')),
-    path('api/', include('api.urls')),
+]
+"""path('api/', include('api.urls')),
    
      
     path('signup/public/', views.signup_public, name='signup_public'),
@@ -39,9 +40,8 @@ urlpatterns =[
     path('signin/public/', views.signin_public, name='signin_public'),
     path('signin/staff/', views.signin_staff, name='signin_staff'),
     path('signin/officer/', views.signin_officer, name='signin_officer'),
-]
+"""
 
-# urls.py
 
 
 
