@@ -167,7 +167,7 @@ const Sidebar = () => {
               setSelected={setSelected}
             />
             <Item
-              title="Map"
+              title="Live Location"
               to="/map"
               icon={<EditLocationIcon />}
               selected={selected}
