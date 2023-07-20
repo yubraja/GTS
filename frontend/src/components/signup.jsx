@@ -26,10 +26,10 @@ const roles = [
     value: "Driver",
     label: "Driver || सवारी चालक",
   },
-  {
-    value: "Staff",
-    label: "Staff || कर्मचारी ",
-  },
+  // {
+  //   value: "Staff",
+  //   label: "Staff || कर्मचारी ",
+  // },
 ];
 
 function Copyright(props) {
@@ -156,21 +156,12 @@ export default function SignUp() {
                   autoComplete="off"
                 />
               </Grid>
-              {/* <Grid item xs={12}>
-                <TextField
-                  required
-                  fullWidth
-                  id="address"
-                  label="Address"
-                  name="address"
-                  autoComplete="off"
-                />
-              </Grid> */}
 
               <Grid item xs={12} sm={4}>
                 <TextField
                   required
                   fullWidth
+                  disabled
                   id="latitude"
                   name="latitude"
                   label="latitude"
@@ -178,12 +169,16 @@ export default function SignUp() {
                   InputLabelProps={{
                     shrink: true,
                   }}
+                  // InputProps={{
+                  //   readOnly: true,
+                  // }}
                 />
               </Grid>
               <Grid item xs={12} sm={4}>
                 <TextField
                   required
                   fullWidth
+                  disabled
                   id="longitude"
                   label="longitude"
                   name="longitude"
