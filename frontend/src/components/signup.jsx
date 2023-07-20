@@ -15,6 +15,7 @@ import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { FormControl, Input, InputLabel, Menu, Select } from "@mui/material";
 import { MenuItem } from "react-pro-sidebar";
+import { MapContainer, TileLayer } from "react-leaflet";
 
 const roles = [
   {
@@ -54,8 +55,7 @@ function Copyright(props) {
 const defaultTheme = createTheme();
 
 export default function SignUp() {
-  //for select
-  const [role, setRole] = useState("");
+  const [role, setRole] = useState(""); // for role selection
 
   const handleChange = (event) => {
     setRole(event.target.value);
@@ -69,6 +69,27 @@ export default function SignUp() {
       password: data.get("password"),
     });
   };
+
+  //this is for fetch address of respective users
+  const showLocation = () => {
+    navigator.geolocation.getCurrentPosition(success, error);
+  };
+
+  function success(pos) {
+    const lat = pos.coords.latitude;
+    const lng = pos.coords.longitude;
+
+    document.getElementById("latitude").value = lat;
+    document.getElementById("longitude").value = lng;
+  }
+
+  function error(err) {
+    if (err.code === 1) {
+      alert("Please provide geolocation access!!");
+    } else {
+      alert("Cannot get current location");
+    }
+  }
 
   return (
     <ThemeProvider theme={defaultTheme}>
@@ -123,7 +144,6 @@ export default function SignUp() {
                   fullWidth
                   id="firstName"
                   label="First Name"
-                  
                 />
               </Grid>
               <Grid item xs={12} sm={6}>
@@ -136,7 +156,7 @@ export default function SignUp() {
                   autoComplete="off"
                 />
               </Grid>
-              <Grid item xs={12}>
+              {/* <Grid item xs={12}>
                 <TextField
                   required
                   fullWidth
@@ -145,7 +165,46 @@ export default function SignUp() {
                   name="address"
                   autoComplete="off"
                 />
+              </Grid> */}
+
+              <Grid item xs={12} sm={4}>
+                <TextField
+                  required
+                  fullWidth
+                  id="latitude"
+                  name="latitude"
+                  label="latitude"
+                  autoComplete="off"
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
+                />
               </Grid>
+              <Grid item xs={12} sm={4}>
+                <TextField
+                  required
+                  fullWidth
+                  id="longitude"
+                  label="longitude"
+                  name="longitude"
+                  autoComplete="off"
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
+                />
+              </Grid>
+              <Grid item xs={12} sm={4}>
+                <Button
+                  fullWidth
+                  variant="contained"
+                  color="success"
+                  onClick={showLocation}
+                  sx={{p:1.9}}
+                >
+                  Fetch
+                </Button>
+              </Grid>
+
               <Grid item xs={12}>
                 <TextField
                   required
