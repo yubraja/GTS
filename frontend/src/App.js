@@ -27,7 +27,7 @@ function App() {
   const [isSidebar, setIsSidebar] = useState(false);
   const location = useLocation();
 
-  const showSidebarAndTopbar = location.pathname !== "/" && location.pathname!=='/signup' && location.pathname!=='/forgetps' && location.pathname!=='/Whoru';
+  const showSidebarAndTopbar = location.pathname !== "/" && location.pathname!=='/signup' && location.pathname!=='/forgetps';
 
   return (
     <ColorModeContext.Provider value={colorMode}>

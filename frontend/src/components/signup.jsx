@@ -103,7 +103,7 @@ export default function SignUp() {
             alignItems: "center",
           }}
         >
-          <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
+          <Avatar sx={{ m: 0, bgcolor: "secondary.main" }}>
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
@@ -192,7 +192,7 @@ export default function SignUp() {
                 <Button
                   fullWidth
                   variant="contained"
-                  color="success"
+                  bgcolor="primary"
                   onClick={showLocation}
                   sx={{p:1.9}}
                 >
