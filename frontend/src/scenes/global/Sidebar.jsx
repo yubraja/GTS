@@ -13,6 +13,7 @@ import PieChartOutlineOutlinedIcon from "@mui/icons-material/PieChartOutlineOutl
 import TimelineOutlinedIcon from "@mui/icons-material/TimelineOutlined";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 import MapOutlinedIcon from "@mui/icons-material/MapOutlined";
+import EditLocationIcon from '@mui/icons-material/EditLocation';
 
 const Item = ({ title, to, icon, selected, setSelected }) => {
   const theme = useTheme();
@@ -166,12 +167,19 @@ const Sidebar = () => {
               setSelected={setSelected}
             />
             <Item
-              title="map"
+              title="Live Location"
               to="/map"
-              icon={<CalendarTodayOutlinedIcon />}
+              icon={<EditLocationIcon />}
               selected={selected}
               setSelected={setSelected}
             />
+              <Item
+                title="Calendar"
+                to="/calendar"
+                icon={<CalendarTodayOutlinedIcon />}
+                selected={selected}
+                setSelected={setSelected}
+              />
             <Item
               title="FAQ Page"
               to="/faq"

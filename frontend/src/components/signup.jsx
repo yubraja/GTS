@@ -13,8 +13,7 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { FormControl, Input, InputLabel, Menu, Select } from "@mui/material";
-import { MenuItem } from "react-pro-sidebar";
+
 
 const roles = [
   {
@@ -25,10 +24,10 @@ const roles = [
     value: "Driver",
     label: "Driver || सवारी चालक",
   },
-  {
-    value: "Staff",
-    label: "Staff || कर्मचारी ",
-  },
+  // {
+  //   value: "Staff",
+  //   label: "Staff || कर्मचारी ",
+  // },
 ];
 
 function Copyright(props) {
@@ -54,8 +53,7 @@ function Copyright(props) {
 const defaultTheme = createTheme();
 
 export default function SignUp() {
-  //for select
-  const [role, setRole] = useState("");
+  const [role, setRole] = useState(""); // for role selection
 
   const handleChange = (event) => {
     setRole(event.target.value);
@@ -70,6 +68,27 @@ export default function SignUp() {
     });
   };
 
+  //this is for fetch address of respective users
+  const showLocation = () => {
+    navigator.geolocation.getCurrentPosition(success, error);
+  };
+
+  function success(pos) {
+    const lat = pos.coords.latitude;
+    const lng = pos.coords.longitude;
+
+    document.getElementById("latitude").value = lat;
+    document.getElementById("longitude").value = lng;
+  }
+
+  function error(err) {
+    if (err.code === 1) {
+      alert("Please provide geolocation access!!");
+    } else {
+      alert("Cannot get current location");
+    }
+  }
+
   return (
     <ThemeProvider theme={defaultTheme}>
       <Container component="main" maxWidth="xs">
@@ -82,7 +101,7 @@ export default function SignUp() {
             alignItems: "center",
           }}
         >
-          <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
+          <Avatar sx={{ m: 0, bgcolor: "secondary.main" }}>
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
@@ -123,7 +142,6 @@ export default function SignUp() {
                   fullWidth
                   id="firstName"
                   label="First Name"
-                  
                 />
               </Grid>
               <Grid item xs={12} sm={6}>
@@ -136,16 +154,50 @@ export default function SignUp() {
                   autoComplete="off"
                 />
               </Grid>
-              <Grid item xs={12}>
+
+              <Grid item xs={12} sm={4}>
                 <TextField
                   required
                   fullWidth
-                  id="address"
-                  label="Address"
-                  name="address"
+                  disabled
+                  id="latitude"
+                  name="latitude"
+                  label="latitude"
                   autoComplete="off"
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
+                  // InputProps={{
+                  //   readOnly: true,
+                  // }}
                 />
               </Grid>
+              <Grid item xs={12} sm={4}>
+                <TextField
+                  required
+                  fullWidth
+                  disabled
+                  id="longitude"
+                  label="longitude"
+                  name="longitude"
+                  autoComplete="off"
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
+                />
+              </Grid>
+              <Grid item xs={12} sm={4}>
+                <Button
+                  fullWidth
+                  variant="contained"
+                  bgcolor="primary"
+                  onClick={showLocation}
+                  sx={{p:1.9}}
+                >
+                  Fetch
+                </Button>
+              </Grid>
+
               <Grid item xs={12}>
                 <TextField
                   required

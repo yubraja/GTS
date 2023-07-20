@@ -20,6 +20,7 @@ import Signnn from "./components/Signnn";
 import Signup from "./components/signup";
 import ForgetPS from "./components/ForgetPS";
 import Map from "./scenes/map";
+import Whoru from './components/Whoru'
 
 function App() {
   const [theme, colorMode] = useMode();
@@ -45,6 +46,7 @@ function App() {
             <Routes>
               <Route path="/" element={<Signnn />} />
               <Route path="/signup" element={<Signup />} />
+              <Route path="/Whoru" element={<Whoru />} />
               <Route path="/forgetps" element={<ForgetPS />} />
               <Route path="/dash" element={<Dashboard />} />
               <Route path="/team" element={<Team />} />
