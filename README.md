@@ -17,4 +17,3 @@ npm start
 **Thank You!!!
 
 
-Any queries then you can visit our webserver on web.
