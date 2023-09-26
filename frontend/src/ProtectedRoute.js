@@ -13,7 +13,6 @@ const ProtectedRoute = (props) => {
   return (
     <>
       <Component/>
-
     </>
   );
 };
