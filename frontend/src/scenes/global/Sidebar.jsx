@@ -173,6 +173,13 @@ const Sidebar = () => {
               selected={selected}
               setSelected={setSelected}
             />
+            <Item
+              title="Dustbin Details"
+              to="/dustbin"
+              icon={<PieChartOutlineOutlinedIcon />}
+              selected={selected}
+              setSelected={setSelected}
+            />
               <Item
                 title="Calendar"
                 to="/calendar"
