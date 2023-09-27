@@ -22,6 +22,10 @@ const MapComponent = () => {
       const lat = pos.coords.latitude;
       const lng = pos.coords.longitude;
       const accuracy = pos.coords.accuracy;
+
+
+
+      
       const driver_lat = 27.67142; // here i have given our current location ramdomly
       const driver_lng = 85.3398;
 

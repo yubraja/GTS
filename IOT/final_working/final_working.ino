@@ -13,8 +13,8 @@
 #include <addons/RTDBHelper.h>
 
   /* 1. Define the WiFi credentials */
-#define WIFI_SSID "srijeshn_2.4"
-#define WIFI_PASSWORD "CLB27622A2"
+#define WIFI_SSID "Ncitcollege"
+#define WIFI_PASSWORD "Ncit@123"
 
 #define echoPin 2
 #define trigPin 4
@@ -22,10 +22,10 @@
 //For the following credentials, see examples/Authentications/SignInAsUser/EmailPassword/EmailPassword.ino
 
 /* 2. Define the API Key */
-#define API_KEY "Ya4F7vVgltkJjaTKqZvfQXwTqglXDzpPFyE342Kk"
+#define API_KEY "AdH6TOOyqS9sf9knSUpribniCrQwaTTrVq2zIvVx"
 
 /* 3. Define the RTDB URL */
-#define DATABASE_URL "https://iotproject-2e54e-default-rtdb.firebaseio.com/" //<databaseName>.firebaseio.com or <databaseName>.<region>.firebasedatabase.app
+#define DATABASE_URL "https://esp32-7930f-default-rtdb.firebaseio.com/" //<databaseName>.firebaseio.com or <databaseName>.<region>.firebasedatabase.app
 
 
 //Define Firebase Data object
@@ -40,7 +40,7 @@ long duration , distance;
 
 void setup()
 {
-
+  
   Serial.begin(9600);
   pinMode(trigPin, OUTPUT);
   pinMode(echoPin, INPUT);

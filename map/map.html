@@ -51,9 +51,40 @@
         const lat = pos.coords.latitude;
         const lng = pos.coords.longitude;
         const accuracy = pos.coords.accuracy;
+        
+        const ipDriver= '134.201.250.155';
+        const accessKey= ee8ec71a43e21eb3fad814717f0cddba;
 
 
 
+        fetch("http://api.ipstack.com/" + ipDriver +"?accessKey= ee8ec71a43e21eb3fad814717f0cddba").then(response=>{
+            if(response.ok  )
+            {
+                return response.json();
+
+            }
+            else{
+            throw new Error('API request error');
+            
+
+        }
+        fetch("http://api.ipstack.com/" + ipDriver +"?access_key=ee8ec71a43e21eb3fad814717f0cddba").then(response=>{
+            if(response.ok  )
+            {
+                return response.json();
+
+            }
+            else{
+                throw new Error('API request error');
+            }
+        }).then(data => {
+            console.log(data);
+        }).catch(error => {
+            console.error(error);
+        });
+        }).catch(error =>   {
+            console.error(error);
+        });
 
 
         const driver_lat = 27.67142;
@@ -91,7 +122,7 @@
             map.removeLayer(circle);
 
         }
-
+//if condition either it is driver or user
 
         marker = L.marker([lat, lng], { icon: userIcon }).addTo(map);
         circle = L.circle([lat, lng], { radius: accuracy }).addTo(map);
@@ -105,56 +136,50 @@
         map.setView([lat, lng]);
 
 
-        user_latlng = L.latLng(lat, lng);
         driver_latlng = L.latLng(driver_lat, driver_lng);
 
-        const vehiclesAround = checkVehiclesAround(user_latlng, driver_latlng);
 
-
-        if(email_count==1)
+        if(driver)
         {
-            sendEmail(user_email);
-
-
-
+            //all user data from database
+            //use loop
             
+            user_latlng = L.latLng(lat, lng);
+
+            const vehiclesAround = checkVehiclesAround(user_latlng, driver_latlng);
+
+            if (vehiclesAround) {
+
+                if (email_count == 0) {
+                    sendEmail(user_email);
+                    email_count++;
+                }
+            }
+
+
+
+
+
         }
 
 
 
 
-    }
-
-
-    function sendEmail(user_email) {
-
-        const subject = 'Vehicle Alert';
-        const body_english = 'There is a garbage vehicle around your location . Please, separate the degradable and Non-degradable waste  before throwing it. '
-        const body_nepali='तपाईंको स्थान वरपर फोहोर फाल्ने गाडी छ। कृपया, यसलाई फाल्न अघि कुहिने र नकुहिने फोहोर अलग गर्नुहोस्।';
-
-
-        Email.send({
-        Host: "smtp.gmail.com",
-        Username : "garbagetrackingsystem@gmail.com",
-        Password : "123GarbageTS@",
-        To : user_email,
-        From : "garbagetrackingsystem@gmail.com",
-        Subject : subject,
-        Body : body_english+' '+body_nepali,
-        }).then(
-            message => alert("mail sent successfully")
-        );
 
 
     }
-    function checkVehiclesAround(user_latlng, driver_lantlng) {
+
+    ///loop to each user checking each user
+-    function checkVehiclesAround(user_latlng, driver_lantlng) {
 
 
         distance = user_latlng.distanceTo(driver_latlng);
 
 
 
-        return distance;
+        if(distance<500){
+            return true;
+        }
 
         // if(distance(user_latlng,driver_lantlng))
 

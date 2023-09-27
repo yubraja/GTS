@@ -50,9 +50,11 @@ function App() {
               <Route path="/signup" element={<Signup />} />
               <Route path="/Whoru" element={<Whoru />} />
               <Route path="/forgetps" element={<ForgetPS />} />
+              <Route path="/map" element={<Map />} />
+
 
               <Route path="/dash" element={<ProtectedRoute Component={Dashboard} />} />
-              <Route path="/map" element={<ProtectedRoute Component={Map} />} />
+              {/* <Route path="/map" element={<ProtectedRoute Component={Map} />} /> */}
               <Route path="/form" element={<ProtectedRoute Component={Form} />} />
               <Route path="/bar" element={<ProtectedRoute Component={Bar} />} />
               <Route path="/pie" element={<ProtectedRoute Component={Pie} />} />
