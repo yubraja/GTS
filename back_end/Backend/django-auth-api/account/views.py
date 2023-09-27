@@ -6,6 +6,7 @@ from django.contrib.auth import authenticate
 from account.renderers import UserRenderer
 from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework import permissions
+from rest_framework.permissions import AllowAny
 
 
 
@@ -51,14 +52,14 @@ class UserLoginView(APIView):
         
         if user is not None:
             token=get_tokens_for_user(user)
-            response = JsonResponse({'message': 'Login Success'})
+            response = JsonResponse({'message': 'Login Success', 'refresh_token':token['refresh'], 'access_token': token['access']})
             response.set_cookie('access_token', token['access'], httponly=True)
             response.set_cookie('refresh_token', token['refresh'], httponly=True)
             
             return response
         else:
             return Response({'errors': {'non_field_errors': ['Email or Password is not Valid']}},
-                            status=status.HTTP_404_NOT_FOUND
+                            status=status.HTTP_400_BAD_REQUEST
                             )
 
         # return Response(serializer.errors,
@@ -84,6 +85,7 @@ class UserChangePasswordView(APIView):
         # return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)    
     
 class SendPasswordResetEmailView(APIView):
+    permission_classes = (AllowAny,)
     renderer_classes=[UserRenderer]
     def post(self,request,format=None):
         serializer=UserSendPasswordResetEmailSerializer(data=request.data)

@@ -13,6 +13,7 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { bgcolor } from "@mui/system";
+import Axios from 'axios'
 
 // TODO remove, this demo shouldn't need to reset the theme.
 
@@ -26,8 +27,31 @@ export default function SignInSide() {
       email: data.get("email"),
       password: data.get("password"),
     });
-  };
+  
+  // Create a formData object to hold user login data
+  const formData = new FormData();
+  formData.append("email", data.get("email"));
+  formData.append("password", data.get("password"));
 
+  // Send a POST request to your login API endpoint
+  Axios.post('http://localhost:8000/api/user/login/', formData)
+    .then((response) => {
+      console.log('Login success:', response.data);
+      // Redirect the user or perform other actions upon successful login
+
+
+       // Store access token and refresh token in localStorage
+       localStorage.setItem('access_token', response.data.access);
+       localStorage.setItem('refresh_token', response.data.refresh);
+
+    })
+    .catch((error) => {
+      console.error('Login error:', error);
+      // Handle login error, e.g., display error messages
+    });
+};
+
+  
   return (
     <Box
       sx={{
