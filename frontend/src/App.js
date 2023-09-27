@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { Component, useState } from "react";
 import { Routes, Route,useLocation } from "react-router-dom";
 import Topbar from "./scenes/global/Topbar";
 import Sidebar from "./scenes/global/Sidebar";
@@ -22,6 +22,7 @@ import ForgetPS from "./components/ForgetPS";
 import Map from "./scenes/map";
 import Whoru from './components/Whoru'
 import ProtectedRoute from "./ProtectedRoute";
+import Dustbin from "./scenes/dustbinn";
 
 function App() {
   const [theme, colorMode] = useMode();
@@ -50,10 +51,6 @@ function App() {
               <Route path="/Whoru" element={<Whoru />} />
               <Route path="/forgetps" element={<ForgetPS />} />
 
-              <Route path="/dash" element={<Dashboard />} />
-              <Route path="/map" element={<Map />} />
-
-{/*               
               <Route path="/dash" element={<ProtectedRoute Component={Dashboard} />} />
               <Route path="/map" element={<ProtectedRoute Component={Map} />} />
               <Route path="/form" element={<ProtectedRoute Component={Form} />} />
@@ -63,8 +60,8 @@ function App() {
               <Route path="/faq" element={<ProtectedRoute Component={FAQ} />} />
               <Route path="/calendar" element={<ProtectedRoute Component={Calendar} />} />
               <Route path="/geography" element={<ProtectedRoute Component={Geography} />} />
-              <Route path="/team" element={<Team />} /> */}
-              <Route path="/invoices" element={<Invoices />} /> 
+              {/* <Route path="/team" element={<Team />} />
+              <Route path="/invoices" element={<Invoices />} /> */}
             </Routes>
           </main>
         </div>
