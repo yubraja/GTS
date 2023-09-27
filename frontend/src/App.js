@@ -60,7 +60,7 @@ function App() {
               <Route path="/pie" element={<ProtectedRoute Component={Pie} />} />
               <Route path="/line" element={<ProtectedRoute Component={Line} />} />
               <Route path="/faq" element={<ProtectedRoute Component={FAQ} />} />
-              <Route path="/calendar" element={<ProtectedRoute Component={Calendar} />} />
+              <Route path="/calendar" element={<Calendar/>} />
               <Route path="/geography" element={<ProtectedRoute Component={Geography} />} />
               {/* <Route path="/team" element={<Team />} />
               <Route path="/invoices" element={<Invoices />} /> */}

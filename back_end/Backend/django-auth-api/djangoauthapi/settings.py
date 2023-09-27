@@ -157,12 +157,14 @@ CSP_FONT_SRC = ("'self'", "http://127.0.0.1:8000")
 
 #Email Configuration
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST='smtp.office365.com'
+EMAIL_HOST='smtp.gmail.com'
 EMAIL_PORT=587
-EMAIL_HOST_USER = os.environ.get('EMAIL_USER')
-EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_PASS')
+EMAIL_HOST_USER = 'smreeta.191543@gmail.com'
+EMAIL_HOST_PASSWORD = 'kxam hsod scau vmfz'
 EMAIL_USE_TLS = True 
-EMAIL_USE_SSL = False
+# EMAIL_USE_SSL = True
+# EMAIL_LOGGING = True
+DEFAULT_FROM_EMAIL = 'admin@project.com'
 
 #JWT Settings
 SIMPLE_JWT = {
