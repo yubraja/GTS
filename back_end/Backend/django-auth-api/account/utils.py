@@ -1,4 +1,5 @@
 from django.core.mail import EmailMessage
+from django.conf import settings
 import os
 
 class Util:
@@ -7,7 +8,7 @@ class Util:
         email= EmailMessage(
             subject=data['email_subject'],
             body=data['body'],
-            from_email=os.environ.get('EMAIL_FROM'),
+            from_email=settings.DEFAULT_FROM_EMAIL,
             to=[data['to_email']]
         )
         email.send()
