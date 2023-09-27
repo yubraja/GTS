@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { Component, useState } from "react";
 import { Routes, Route,useLocation } from "react-router-dom";
 import Topbar from "./scenes/global/Topbar";
 import Sidebar from "./scenes/global/Sidebar";
@@ -50,22 +50,22 @@ function App() {
               <Route path="/signup" element={<Signup />} />
               <Route path="/Whoru" element={<Whoru />} />
               <Route path="/forgetps" element={<ForgetPS />} />
-              <Route path="/dash" element={<Dashboard />} />
+              {/* <Route path="/dash" element={<Dashboard />} />
               <Route path="/map" element={<Map />} />
               <Route path="/form" element={<Form />} />
-              <Route path="/bar" element={<Bar />} />
-              <Route path="/dustbin" element={<Dustbin />} />
-              {/* <Route path="/dash" element={<ProtectedRoute Component={Dashboard} />} /> */}
-              {/* <Route path="/map" element={<ProtectedRoute Component={Map} />} /> */}
-              {/* <Route path="/form" element={<ProtectedRoute Component={Form} />} /> */}
-              {/* <Route path="/bar" element={<ProtectedRoute Component={Bar} />} /> */}
-              {/* <Route path="/pie" element={<ProtectedRoute Component={Pie} />} /> */}
-              {/* <Route path="/line" element={<ProtectedRoute Component={Line} />} /> */}
-              {/* <Route path="/faq" element={<ProtectedRoute Component={FAQ} />} /> */}
-              {/* <Route path="/calendar" element={<ProtectedRoute Component={Calendar} />} /> */}
+              <Route path="/bar" element={<Bar />} /> */}
+              <Route path="/dustbin" element={<ProtectedRoute Component={Dustbin} />} />
+              <Route path="/dash" element={<ProtectedRoute Component={Dashboard} />} />
+              <Route path="/map" element={<ProtectedRoute Component={Map} />} />
+              <Route path="/form" element={<ProtectedRoute Component={Form} />} />
+              <Route path="/bar" element={<ProtectedRoute Component={Bar} />} />
+              <Route path="/pie" element={<ProtectedRoute Component={Pie} />} />
+              <Route path="/line" element={<ProtectedRoute Component={Line} />} />
+              <Route path="/faq" element={<ProtectedRoute Component={FAQ} />} />
+              <Route path="/calendar" element={<ProtectedRoute Component={Calendar} />} />
               <Route path="/geography" element={<ProtectedRoute Component={Geography} />} />
-              {/* <Route path="/team" element={<Team />} />
-              <Route path="/invoices" element={<Invoices />} /> */}
+              <Route path="/team" element={<Team />} />
+              <Route path="/invoices" element={<Invoices />} />
             </Routes>
           </main>
         </div>
