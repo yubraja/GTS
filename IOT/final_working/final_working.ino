@@ -12,9 +12,9 @@
 //Provide the RTDB payload printing info and other helper functions.
 #include <addons/RTDBHelper.h>
 
-/* 1. Define the WiFi credentials */
-#define WIFI_SSID "Ncitcollege"
-#define WIFI_PASSWORD "Ncit@123"
+  /* 1. Define the WiFi credentials */
+#define WIFI_SSID "srijeshn_2.4"
+#define WIFI_PASSWORD "CLB27622A2"
 
 #define echoPin 2
 #define trigPin 4
@@ -43,11 +43,10 @@ void setup()
 
   Serial.begin(9600);
   pinMode(trigPin, OUTPUT);
-  
   pinMode(echoPin, INPUT);
-
   delay(1000);
- WiFi.begin(WIFI_SSID, WIFI_PASSWORD);
+
+  WiFi.begin(WIFI_SSID, WIFI_PASSWORD);
   Serial.print("Connecting to Wi-Fi");
   while (WiFi.status() != WL_CONNECTED)
   {
@@ -59,26 +58,18 @@ void setup()
   Serial.println(WiFi.localIP());
   Serial.println();
 
-
-
   Serial.printf("Firebase Client v%s\n\n", FIREBASE_CLIENT_VERSION);
 
-  /* Assign the api key (required) */
-  config.api_key = API_KEY;
+  // Create FirebaseConfig and FirebaseAuth instances
+  FirebaseConfig firebaseConfig;
+  FirebaseAuth firebaseAuth;
 
-  config.database_url = DATABASE_URL;
+  // Assign the API key and database URL to FirebaseConfig
+  firebaseConfig.api_key = API_KEY;
+  firebaseConfig.database_url = DATABASE_URL;
 
-
-
-  //////////////////////////////////////////////////////////////////////////////////////////////
-  //Please make sure the device free Heap is not lower than 80 k for ESP32 and 10 k for ESP8266,
-  //otherwise the SSL connection will fail.
-  //////////////////////////////////////////////////////////////////////////////////////////////
-
-  Firebase.begin(DATABASE_URL, API_KEY);
-
-  //Comment or pass false value when WiFi reconnection will control by your code or third party library
- // Firebase.reconnectWiFi(true);
+  // Initialize Firebase using the FirebaseConfig and FirebaseAuth instances
+  Firebase.begin(&firebaseConfig, &firebaseAuth);
 
   Firebase.setDoubleDigits(5);
 

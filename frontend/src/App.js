@@ -49,6 +49,11 @@ function App() {
               <Route path="/signup" element={<Signup />} />
               <Route path="/Whoru" element={<Whoru />} />
               <Route path="/forgetps" element={<ForgetPS />} />
+
+              <Route path="/dash" element={<Dashboard />} />
+              <Route path="/map" element={<Map />} />
+
+{/*               
               <Route path="/dash" element={<ProtectedRoute Component={Dashboard} />} />
               <Route path="/map" element={<ProtectedRoute Component={Map} />} />
               <Route path="/form" element={<ProtectedRoute Component={Form} />} />
@@ -58,8 +63,8 @@ function App() {
               <Route path="/faq" element={<ProtectedRoute Component={FAQ} />} />
               <Route path="/calendar" element={<ProtectedRoute Component={Calendar} />} />
               <Route path="/geography" element={<ProtectedRoute Component={Geography} />} />
-              {/* <Route path="/team" element={<Team />} />
-              <Route path="/invoices" element={<Invoices />} /> */}
+              <Route path="/team" element={<Team />} /> */}
+              <Route path="/invoices" element={<Invoices />} /> 
             </Routes>
           </main>
         </div>
