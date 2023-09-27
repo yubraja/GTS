@@ -63,6 +63,12 @@ export default function SignUp() {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     console.log({
+      role:data.get('role'),
+      firstName: data.get("firstName"),
+      lastName: data.get("lastName"),
+      longitude:data.get('longitude'),
+      latitude:data.get('latitude'),
+      number:data.get('number'),
       email: data.get("email"),
       password: data.get("password"),
     });
@@ -119,6 +125,7 @@ export default function SignUp() {
                   fullWidth
                   id="outlined-select-roles-native"
                   select
+                  name="role"
                   label="Select Your Role"
                   defaultValue="EUR"
                   autoFocus
@@ -159,7 +166,7 @@ export default function SignUp() {
                 <TextField
                   required
                   fullWidth
-                  disabled
+                  // disabled
                   id="latitude"
                   name="latitude"
                   label="latitude"
@@ -176,7 +183,7 @@ export default function SignUp() {
                 <TextField
                   required
                   fullWidth
-                  disabled
+                  // disabled
                   id="longitude"
                   label="longitude"
                   name="longitude"

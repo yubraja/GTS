@@ -26,6 +26,7 @@ export default function SignInSide() {
     console.log({
       email: data.get('email'),
       password: data.get('password'),
+      repassword: data.get('repassword'),
     });
   };
 
@@ -99,10 +100,10 @@ export default function SignInSide() {
                 margin="normal"
                 required
                 fullWidth
-                name="password"
+                name="repassword"
                 label="Re-Entered Password"
                 type="password"
-                id="password"
+                id="repassword"
                 autoComplete="current-password"
               />
               <Button
