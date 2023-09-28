@@ -5,11 +5,45 @@ import StatBox from '../../components/StatBox';
 import { useTheme } from '@emotion/react';
 import { tokens } from '../../theme';
 import TakeoutDiningIcon from '@mui/icons-material/TakeoutDining';
-import Data from './data'; // Adjust the import path as needed
+import  { useEffect, useState } from 'react';
+import { getDistanceValue } from './getDatabase';
+
 
 const Dustbin = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
+  const [distance, setDistance] = useState(null);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+      async function fetchData() {
+          try {
+              const distanceValue = await getDistanceValue();
+              setDistance(distanceValue);
+          } catch (err) {
+              setError(err.message);
+          }
+      }
+
+      fetchData();
+  }, []);
+
+  const total=27;
+  const spaceUsed=total-distance;
+  let color=colors.redAccent[100];
+  const  percentageCovered=parseInt((spaceUsed/total) * 100)>100?100:parseInt((spaceUsed/total) * 100);
+  if(percentageCovered<50)
+  {
+    color=colors.greenAccent[500];
+  }
+  else if(percentageCovered<80)
+  {
+    color=colors.redAccent[300];
+  }
+  else if(percentageCovered<100)
+  {
+    color=colors.redAccent[500];
+  }
 
   return (
     <Box m="20px" sx={{ flexGrow: 1 }}>
@@ -40,13 +74,13 @@ const Dustbin = () => {
             justifyContent="center"
           >
             <StatBox
-              title="Balkumari"
-              subtitle="+37%"
+              subtitle="Balkumari"
+              title={percentageCovered<0?`Please Close Dustbin`:percentageCovered>100?100+`%`:percentageCovered}
               progress="0.37"
-              increase="Rising"
+              increase={`Space Available= ${distance}CM ${distance>total?"(Dustbin Open Up)":""}`}
               icon={
                 <TakeoutDiningIcon
-                  sx={{ color: colors.redAccent[300], fontSize: '4rem' }}
+                  sx={{ color: {color}, fontSize: '4rem' }}
                 />
               }
             />
@@ -54,8 +88,6 @@ const Dustbin = () => {
           {/* Add more similar boxes for other locations as needed */}
         </Box>
 
-        {/* Render the Data component */}
-        <Data />
 
       </Box>
     </Box>
