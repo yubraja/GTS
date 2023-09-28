@@ -3,6 +3,8 @@ import { Formik } from "formik";
 import * as yup from "yup";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import Header from "../../components/Header";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Form = () => {
   const isNonMobile = useMediaQuery("(min-width:600px)");
@@ -11,6 +13,8 @@ const Form = () => {
     console.log(values);
   };
 
+  //alert message after user is created as the toastify
+  const notify = () => toast("User Created Successfully");
   return (
     <Box m="20px">
       <Header title="CREATE USER" subtitle="Create a New User Profile" />
@@ -128,11 +132,16 @@ const Form = () => {
                 helperText={touched.password && errors.password}
                 sx={{ gridColumn: "span 2" }}
               />
-             
             </Box>
             <Box display="flex" justifyContent="end" mt="20px">
-              <Button type="submit" color="secondary" variant="contained">
+              <Button
+                type="submit"
+                onSubmit={notify}
+                color="secondary"
+                variant="contained"
+              >
                 Create New User
+                <ToastContainer />
               </Button>
             </Box>
           </form>
