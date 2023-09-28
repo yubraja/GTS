@@ -25,8 +25,6 @@ import Map from "./scenes/map";
 import ProtectedRoute from "./ProtectedRoute";
 import Dustbin from "./scenes/dustbinn";
 
-import RealtimeData from "./scenes/dustbinn/data";
-
 function App() {
   const [theme, colorMode] = useMode();
   const location = useLocation();
