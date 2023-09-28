@@ -12,6 +12,11 @@ import Grid from "@mui/material/Grid";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
+<<<<<<< HEAD
+=======
+import { bgcolor } from "@mui/system";
+import Axios from 'axios'
+>>>>>>> 8a827c1e399fce63f9a3033e920b86e06f3965ca
 
 // TODO remove, this demo shouldn't need to reset the theme.
 
@@ -25,8 +30,13 @@ export default function SignInSide() {
       email: data.get("email"),
       password: data.get("password"),
     });
-  };
+  
+  // Create a formData object to hold user login data
+  const formData = new FormData();
+  formData.append("email", data.get("email"));
+  formData.append("password", data.get("password"));
 
+<<<<<<< HEAD
   // send data to the signup api
   fetch("http://localhost:8000/api/login").then((response) => {
     response.json().then((result) => {
@@ -34,6 +44,27 @@ export default function SignInSide() {
     });
   });
 
+=======
+  // Send a POST request to your login API endpoint
+  Axios.post('http://localhost:8000/api/user/login/', formData)
+    .then((response) => {
+      console.log('Login success:', response.data);
+      // Redirect the user or perform other actions upon successful login
+
+
+       // Store access token and refresh token in localStorage
+       localStorage.setItem('access_token', response.data.access);
+       localStorage.setItem('refresh_token', response.data.refresh);
+
+    })
+    .catch((error) => {
+      console.error('Login error:', error);
+      // Handle login error, e.g., display error messages
+    });
+};
+
+  
+>>>>>>> 8a827c1e399fce63f9a3033e920b86e06f3965ca
   return (
     <Box
       sx={{

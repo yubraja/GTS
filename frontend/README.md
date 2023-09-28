@@ -28,6 +28,7 @@ import Dustbin from "./scenes/dustbinn";
 import UserSidebar from "./scenes/global/UserSidebar";
 import AdminSidebar from "./scenes/global/AdminSidebar";
 
+<<<<<<< HEAD
 function App() {
   const [theme, colorMode] = useMode();
   const [isSidebar, setIsSidebar] = useState();
@@ -95,3 +96,9 @@ function App() {
 }
 
 export default App;
+=======
+For all related questions and discussions about this project, check out the discord: https://discord.gg/2FfPeEk2mX
+ 
+
+ Eh okay!
+>>>>>>> 8a827c1e399fce63f9a3033e920b86e06f3965ca
