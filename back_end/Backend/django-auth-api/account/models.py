@@ -93,8 +93,8 @@ class Event(models.Model):
     title = models.CharField(max_length=200)
     start_date = models.DateTimeField()
     end_date = models.DateTimeField()
-    description = models.TextField(blank=True, null=True)
-    # Add any other fields you need for your events
+  
+   
 
     def __str__(self):
         return self.title

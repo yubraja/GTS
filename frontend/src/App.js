@@ -25,6 +25,8 @@ import Map from "./scenes/map";
 import ProtectedRoute from "./ProtectedRoute";
 import Dustbin from "./scenes/dustbinn";
 
+import RealtimeData from "./scenes/dustbinn/data";
+
 function App() {
   const [theme, colorMode] = useMode();
   const location = useLocation();
@@ -63,13 +65,13 @@ function App() {
               {/* <Route path="/dustbin" element={<ProtectedRoute Component={Dustbin} />} />
           <Route path="/dash" element={<ProtectedRoute Component={Dashboard} />} />
               {/* <Route path="/map" element={<ProtectedRoute Component={Map} />} /> */}
-              <Route path="/form" element={<ProtectedRoute Component={Form} />} />
+              {/* <Route path="/form" element={<ProtectedRoute Component={Form} />} />
               <Route path="/bar" element={<ProtectedRoute Component={Bar} />} />
               <Route path="/pie" element={<ProtectedRoute Component={Pie} />} />
               <Route path="/line" element={<ProtectedRoute Component={Line} />} />
               <Route path="/faq" element={<ProtectedRoute Component={FAQ} />} />
               <Route path="/calendar" element={<ProtectedRoute Component={Calendar} />} />
-              <Route path="/geography" element={<ProtectedRoute Component={Geography} />} /> */}
+              <Route path="/geography" element={<ProtectedRoute Component={Geography} />} /> */} 
               <Route path="/team" element={<Team />} />
               <Route path="/invoices" element={<Invoices />} />
 

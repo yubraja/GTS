@@ -2,7 +2,6 @@
 
 
 const char* ssid="srijeshn_2.4";
-const char* password="CLB27622A2";
 
 
 
