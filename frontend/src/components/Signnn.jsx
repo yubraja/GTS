@@ -18,37 +18,36 @@ import Axios from 'axios'
 
 const defaultTheme = createTheme();
 
-export default function SignInSide() {
-  const handleSubmit = (event) => {
+export default function Signnn() {
+
+
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get("email"),
-      password: data.get("password"),
-    });
   
-  // Create a formData object to hold user login data
-  const formData = new FormData();
-  formData.append("email", data.get("email"));
-  formData.append("password", data.get("password"));
-
-  // Send a POST request to your login API endpoint
-  Axios.post('http://localhost:8000/api/user/login/', formData)
-    .then((response) => {
+    const email = event.currentTarget.email.value;
+    const password = event.currentTarget.password.value;
+  
+    try {
+      const response = await Axios.post('http://127.0.0.1:8000/api/user/login/', {
+        email,
+        password,
+      });
+  
+      // Handle a successful login response
       console.log('Login success:', response.data);
+  
+      // Store access token and refresh token in a secure manner (consider HttpOnly cookies)
+      localStorage.setItem('access_token', response.data.access);
+      localStorage.setItem('refresh_token', response.data.refresh);
+  
       // Redirect the user or perform other actions upon successful login
-
-
-       // Store access token and refresh token in localStorage
-       localStorage.setItem('access_token', response.data.access);
-       localStorage.setItem('refresh_token', response.data.refresh);
-
-    })
-    .catch((error) => {
+    } catch (error) {
       console.error('Login error:', error);
-      // Handle login error, e.g., display error messages
-    });
-};
+  
+      // Handle login error, e.g., display error messages to the user
+    }
+  };
+  
 
   
   return (
@@ -142,7 +141,7 @@ export default function SignInSide() {
                   fullWidth
                   variant="contained"
                   sx={{ mt: 3, mb: 2 }}
-                  href="/dash"
+                  href="/userDash"
                 >
                   Sign In
                 </Button>
