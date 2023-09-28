@@ -59,8 +59,8 @@ function App() {
               <Route path="/calendar" element={<Calendar />} />
               <Route path="/geography" element={<Geography />} />
               {/* <Route path="/dustbin" element={<ProtectedRoute Component={Dustbin} />} />
-              <Route path="/dash" element={<ProtectedRoute Component={Dashboard} />} />
-              <Route path="/map" element={<ProtectedRoute Component={Map} />} />
+          <Route path="/dash" element={<ProtectedRoute Component={Dashboard} />} />
+              {/* <Route path="/map" element={<ProtectedRoute Component={Map} />} /> */}
               <Route path="/form" element={<ProtectedRoute Component={Form} />} />
               <Route path="/bar" element={<ProtectedRoute Component={Bar} />} />
               <Route path="/pie" element={<ProtectedRoute Component={Pie} />} />
@@ -70,6 +70,7 @@ function App() {
               <Route path="/geography" element={<ProtectedRoute Component={Geography} />} /> */}
               <Route path="/team" element={<Team />} />
               <Route path="/invoices" element={<Invoices />} />
+
             </Routes>
           </main>
         </div>
