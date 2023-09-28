@@ -14,6 +14,12 @@ from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.utils.decorators import method_decorator
 
+# for events,date from calendar
+from rest_framework import viewsets
+from .models import Event
+from .serializers import EventSerializer
+from .permissions import IsAdminOrReadOnly
+
 # Generate Token Manually
 
 def get_tokens_for_user(user):
@@ -130,3 +136,12 @@ class UserLogoutView(APIView):
 @method_decorator(csrf_exempt, name='dispatch')
 class UserLogoutViewCSRFExempt(UserLogoutView):
     pass
+
+
+
+
+
+class EventViewSet(viewsets.ModelViewSet):
+    queryset = Event.objects.all()
+    serializer_class = EventSerializer
+    permission_classes = [IsAdminOrReadOnly]
