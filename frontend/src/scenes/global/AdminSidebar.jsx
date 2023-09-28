@@ -105,10 +105,10 @@ const Sidebar = () => {
                   fontWeight="bold"
                   sx={{ m: "10px 0 0 0" }}
                 >
-                  Rijal Jii
+                  Profile!
                 </Typography>
                 <Typography variant="h5" color={colors.greenAccent[500]}>
-                  Balkumari-01
+                  {`GTS`}
                 </Typography>
               </Box>
             </Box>
@@ -117,7 +117,7 @@ const Sidebar = () => {
           <Box paddingLeft={isCollapsed ? undefined : "10%"}>
             <Item
               title="Dashboard"
-              to="dash"
+              to="adminDash"
               icon={<HomeOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}

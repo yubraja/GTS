@@ -12,8 +12,11 @@ import Grid from "@mui/material/Grid";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
+<<<<<<< HEAD
+=======
 import { bgcolor } from "@mui/system";
 import Axios from 'axios'
+>>>>>>> 8a827c1e399fce63f9a3033e920b86e06f3965ca
 
 // TODO remove, this demo shouldn't need to reset the theme.
 
@@ -33,6 +36,15 @@ export default function SignInSide() {
   formData.append("email", data.get("email"));
   formData.append("password", data.get("password"));
 
+<<<<<<< HEAD
+  // send data to the signup api
+  fetch("http://localhost:8000/api/login").then((response) => {
+    response.json().then((result) => {
+      console.log(result);
+    });
+  });
+
+=======
   // Send a POST request to your login API endpoint
   Axios.post('http://localhost:8000/api/user/login/', formData)
     .then((response) => {
@@ -52,6 +64,7 @@ export default function SignInSide() {
 };
 
   
+>>>>>>> 8a827c1e399fce63f9a3033e920b86e06f3965ca
   return (
     <Box
       sx={{
@@ -145,7 +158,6 @@ export default function SignInSide() {
                   sx={{ mt: 3, mb: 2 }}
                   href="/dash"
                 >
-                  
                   Sign In
                 </Button>
                 <Grid container>
@@ -161,16 +173,16 @@ export default function SignInSide() {
                   </Grid>
                 </Grid>
                 <Button
-                fullWidth
-                variant="contained"
-                sx={{textDecoration:'none',
-              color:'white',
-              mt: 3, mb: 2,
-          }}
+                  fullWidth
+                  variant="contained"
+                  sx={{ textDecoration: "none", color: "white", mt: 3, mb: 2 }}
                 >
-                  <Link component="button" variant="body2" sx={{textDecoration:'none',color:'white',}}>
+                  <Link
+                    component="button"
+                    variant="body2"
+                    sx={{ textDecoration: "none", color: "white" }}
+                  >
                     {"Sign In with google! "}
-                    
                   </Link>
                 </Button>
                 {/* <Copyright sx={{ mt: 5 }} /> */}
