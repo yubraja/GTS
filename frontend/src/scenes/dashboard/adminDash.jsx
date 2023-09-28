@@ -1,4 +1,4 @@
-import { Box, Button,Grid, IconButton, Typography, useTheme } from "@mui/material";
+import { Box, Button, Grid, Link, useTheme } from "@mui/material";
 import { tokens } from "../../theme";
 // import { mockTransactions } from "../../data/mockData";
 import DownloadOutlinedIcon from "@mui/icons-material/DownloadOutlined";
@@ -8,6 +8,12 @@ import PersonAddIcon from "@mui/icons-material/PersonAdd";
 import TrafficIcon from "@mui/icons-material/Traffic";
 import Header from "../../components/Header";
 import StatBox from "../../components/StatBox";
+import Stack from "@mui/material/Stack";
+import PieChartOutlineOutlined from "@mui/icons-material/PieChartOutlineOutlined";
+import BarChartOutlined from "@mui/icons-material/BarChartOutlined";
+import TimelineOutlinedIcon from "@mui/icons-material/TimelineOutlined";
+import MapOutlinedIcon from "@mui/icons-material/MapOutlined";
+import ContactsOutlinedIcon from "@mui/icons-material/ContactsOutlined";
 
 const Dashboard = () => {
   const theme = useTheme();
@@ -37,23 +43,106 @@ const Dashboard = () => {
 
       {/* GRID & CHARTS */}
 
-      <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
+      <Stack
+        direction="row"
+        spacing={2}
+        sx={{
+          margin: "16px", // Adjust the margin value as needed
+          padding: "8px",
+        }}
+      >
+        <Link to="/bar" style={{ textDecoration: "none" }}>
+          <Button
+            sx={{
+              visibility: "hidden",
+            }}
+          >
+            <BarChartOutlined />
+            Bar Chart
+          </Button>
+        </Link>
+        <Link href='/pie' style={{ textDecoration: "none" }}>
+          <Button
+            sx={{
+              backgroundColor: colors.greenAccent[700],
+              color: colors.grey[100],
+              fontSize: "14px",
+              fontWeight: "bold",
+              padding: "10px ",
+            }}
+          >
+            <PieChartOutlineOutlined sx={{ mr: "10px" }} />
+            Pie Chart
+          </Button>
+        </Link>
         <Button
           sx={{
-            backgroundColor: colors.blueAccent[700],
+            backgroundColor: colors.greenAccent[700],
+            color: colors.grey[100],
+            fontSize: "14px",
+            fontWeight: "bold",
+            padding: "10px",
+          }}
+          href="/line"
+        >
+          <TimelineOutlinedIcon sx={{ mr: "10px" }} />
+          Line Chart
+        </Button>
+        <Button
+          sx={{
+            backgroundColor: colors.greenAccent[700],
             color: colors.grey[100],
             fontSize: "14px",
             fontWeight: "bold",
             padding: "10px 20px",
           }}
+          href="/bar"
+        >
+          <BarChartOutlined sx={{ mr: "10px" }} />
+          Bar Chart
+        </Button>
+        <Button
+          sx={{
+            backgroundColor: colors.greenAccent[700],
+            color: colors.grey[100],
+            fontSize: "14px",
+            fontWeight: "bold",
+            padding: "10px 20px",
+          }}
+          href="/team"
+        >
+          <ContactsOutlinedIcon sx={{ mr: "10px" }} />
+          Teams
+        </Button>
+        <Button
+          sx={{
+            backgroundColor: colors.greenAccent[700],
+            color: colors.grey[100],
+            fontSize: "14px",
+            fontWeight: "bold",
+            padding: "10px 20px",
+          }}
+          href="/form"
         >
           <DownloadOutlinedIcon sx={{ mr: "10px" }} />
-          Download Reports
+        Create User
         </Button>
-      </Grid>
+        <Button
+          sx={{
+            backgroundColor: colors.greenAccent[700],
+            color: colors.grey[100],
+            fontSize: "14px",
+            fontWeight: "bold",
+            padding: "10px 20px",
+          }}
+          href="/geography"
+        >
+          <MapOutlinedIcon sx={{ mr: "10px" }} />
+          Geography Chart
+        </Button>
+      </Stack>
 
-
-      <Box
+      <Grid
         display="grid"
         gridTemplateColumns="repeat(12, 1fr)"
         gridAutoRows="140px"
@@ -136,7 +225,7 @@ const Dashboard = () => {
             }
           />
         </Box>
-      </Box>
+      </Grid>
     </Box>
   );
 };
