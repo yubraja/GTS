@@ -1,8 +1,10 @@
 import { Component, useState } from "react";
 import { Routes, Route,useLocation } from "react-router-dom";
 import Topbar from "./scenes/global/Topbar";
-import Sidebar from "./scenes/global/Sidebar";
-import Dashboard from "./scenes/dashboard";
+import AdminSidebar from "./scenes/global/AdminSidebar";
+import UserSidebar from "./scenes/global/UserSidebar";
+import AdminDash from "./scenes/dashboard/adminDash";
+import UserDash from "./scenes/dashboard/userDash";
 import Team from "./scenes/team";
 import Invoices from "./scenes/invoices";
 // import Contacts from "./scenes/contacts";
@@ -25,7 +27,6 @@ import Dustbin from "./scenes/dustbinn";
 
 function App() {
   const [theme, colorMode] = useMode();
-  const [isSidebar, setIsSidebar] = useState(false);
   const location = useLocation();
 
   const showSidebarAndTopbar = location.pathname !== "/" && location.pathname!=='/signup' && location.pathname!=='/forgetps';
@@ -36,7 +37,7 @@ function App() {
         <CssBaseline />
 
         <div style={{ display: "flex" }}>
-          {showSidebarAndTopbar && <Sidebar />}
+          {showSidebarAndTopbar && <AdminSidebar />}
           <main style={{ flex: 1 }}>
             {showSidebarAndTopbar && <Topbar />}
 {/* 
@@ -48,7 +49,8 @@ function App() {
               <Route path="/" element={<Signnn />} />
               <Route path="/signup" element={<Signup />} />
               <Route path="/forgetps" element={<ForgetPS />} />
-              <Route path="/dash" element={<Dashboard />} />
+              <Route path="/adminDash" element={<AdminDash />} />
+              <Route path="/userDash" element={<UserDash />} />
               <Route path="/dustbin" element={<Dustbin />} />
               <Route path="/map" element={<Map />} />
               <Route path="/form" element={<Form />} />

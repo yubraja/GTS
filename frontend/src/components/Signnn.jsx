@@ -12,7 +12,6 @@ import Grid from "@mui/material/Grid";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { bgcolor } from "@mui/system";
 
 // TODO remove, this demo shouldn't need to reset the theme.
 
@@ -27,6 +26,13 @@ export default function SignInSide() {
       password: data.get("password"),
     });
   };
+
+  // send data to the signup api
+  fetch("http://localhost:8000/api/login").then((response) => {
+    response.json().then((result) => {
+      console.log(result);
+    });
+  });
 
   return (
     <Box
@@ -121,7 +127,6 @@ export default function SignInSide() {
                   sx={{ mt: 3, mb: 2 }}
                   href="/dash"
                 >
-                  
                   Sign In
                 </Button>
                 <Grid container>
@@ -137,16 +142,16 @@ export default function SignInSide() {
                   </Grid>
                 </Grid>
                 <Button
-                fullWidth
-                variant="contained"
-                sx={{textDecoration:'none',
-              color:'white',
-              mt: 3, mb: 2,
-          }}
+                  fullWidth
+                  variant="contained"
+                  sx={{ textDecoration: "none", color: "white", mt: 3, mb: 2 }}
                 >
-                  <Link component="button" variant="body2" sx={{textDecoration:'none',color:'white',}}>
+                  <Link
+                    component="button"
+                    variant="body2"
+                    sx={{ textDecoration: "none", color: "white" }}
+                  >
                     {"Sign In with google! "}
-                    
                   </Link>
                 </Button>
                 {/* <Copyright sx={{ mt: 5 }} /> */}

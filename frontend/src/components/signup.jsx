@@ -59,20 +59,45 @@ export default function SignUp() {
     setRole(event.target.value);
   };
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      role:data.get('role'),
-      firstName: data.get("firstName"),
-      lastName: data.get("lastName"),
-      longitude:data.get('longitude'),
-      latitude:data.get('latitude'),
-      number:data.get('number'),
-      email: data.get("email"),
-      password: data.get("password"),
+  // const handleSubmit = (event) => {
+  //   event.preventDefault();
+  //   const data = new FormData(event.currentTarget);
+  //   // send data to API
+  //   fetch("http://localhost:5000/api/user/signup", {})
+  //     .then((res) => res.json())
+  //     .then((data) => console.log(data));
+
+  //   console.log({
+  //     role: data.get("role"),
+  //     firstName: data.get("firstName"),
+  //     lastName: data.get("lastName"),
+  //     longitude: data.get("longitude"),
+  //     latitude: data.get("latitude"),
+  //     number: data.get("number"),
+  //     email: data.get("email"),
+  //     password: data.get("password"),
+  //   });
+  // };
+
+  const handleSubmit = async (data) => {
+    const response = await fetch("http://localhost:5000/api/user/signup", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
     });
+  
+    if (response.ok) {
+      const jsonResponse = await response.json();
+      return jsonResponse;
+    } else {
+      throw new Error(response.statusText);
+    }
   };
+
+
+
 
   //this is for fetch address of respective users
   const showLocation = () => {
@@ -199,7 +224,7 @@ export default function SignUp() {
                   variant="contained"
                   bgcolor="primary"
                   onClick={showLocation}
-                  sx={{p:1.9}}
+                  sx={{ p: 1.9 }}
                 >
                   Fetch
                 </Button>
