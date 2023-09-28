@@ -56,19 +56,8 @@
         const accessKey= ee8ec71a43e21eb3fad814717f0cddba;
 
 
-
-        fetch("http://api.ipstack.com/" + ipDriver +"?accessKey= ee8ec71a43e21eb3fad814717f0cddba").then(response=>{
-            if(response.ok  )
-            {
-                return response.json();
-
-            }
-            else{
-            throw new Error('API request error');
-            
-
-        }
         fetch("http://api.ipstack.com/" + ipDriver +"?access_key=ee8ec71a43e21eb3fad814717f0cddba").then(response=>{
+
             if(response.ok  )
             {
                 return response.json();
@@ -82,10 +71,7 @@
         }).catch(error => {
             console.error(error);
         });
-        }).catch(error =>   {
-            console.error(error);
-        });
-
+       
 
         const driver_lat = 27.67142;
 
