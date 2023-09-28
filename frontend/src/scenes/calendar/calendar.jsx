@@ -14,6 +14,7 @@ import {
 } from "@mui/material";
 import Header from "../../components/Header";
 import { tokens } from "../../theme";
+import axios from "axios"; // Import Axios
 
 const Calendar = () => {
   const theme = useTheme();
@@ -25,14 +26,35 @@ const Calendar = () => {
     const calendarApi = selected.view.calendar;
     calendarApi.unselect();
 
-    if (title) {
-      calendarApi.addEvent({
-        id: `${selected.dateStr}-${title}`,
-        title,
-        start: selected.startStr,
-        end: selected.endStr,
-        allDay: selected.allDay,
-      });
+    const isAdminUser = true; //  to check if the user is an admin
+
+    if (isAdminUser) {
+      if (title) {
+        const newEvent = {
+          id: `${selected.dateStr}-${title}`,
+          title,
+          start: selected.startStr,
+          end: selected.endStr,
+          allDay: selected.allDay,
+        };
+
+        calendarApi.addEvent(newEvent);
+
+        // Send a POST request to your backend to create the event
+        axios.post('http://localhost:8000/api/event/', newEvent) //  API endpoint
+          .then((response) => {
+            // Handle successful creation
+            console.log('Event created:', response.data);
+
+            calendarApi.refetchEvents();
+          })
+          .catch((error) => {
+            // Handle errors
+            console.error('Error creating event:', error);
+          });
+      }
+    } else {
+      alert("Only admin users can create events.");
     }
   };
 
