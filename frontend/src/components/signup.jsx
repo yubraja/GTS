@@ -14,7 +14,6 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 
-
 const roles = [
   {
     value: "Citizen",
@@ -30,31 +29,28 @@ const roles = [
   // },
 ];
 
-
-
 // TODO remove, this demo shouldn't need to reset the theme.
 
 const defaultTheme = createTheme();
 
 export default function SignUp() {
   const [role, setRole] = useState(""); // for role selection
-  
 
   const handleChange = (event) => {
     event.preventDefault();
     setRole(event.target.value);
   };
 
-
   const handleSubmit = async (data) => {
-    const response = await fetch("http://127.0.0.1:8000/api/user/signup", {
+    const response = await fetch("http://127.0.0.1:8000/api/user/signup/", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(data),
     });
-  
+    console.log(response.body);
+
     if (response.ok) {
       const jsonResponse = await response.json();
       return jsonResponse;
@@ -62,9 +58,6 @@ export default function SignUp() {
       throw new Error(response.statusText);
     }
   };
-
-
-
 
   //this is for fetch address of respective users
   const showLocation = () => {
