@@ -30,23 +30,7 @@ const roles = [
   // },
 ];
 
-function Copyright(props) {
-  return (
-    <Typography
-      variant="body2"
-      color="text.secondary"
-      align="center"
-      {...props}
-    >
-      {"Copyright © "}
-      <Link color="inherit" href="https://mui.com/">
-        Garbage Tracking System
-      </Link>{" "}
-      {new Date().getFullYear()}
-      {"."}
-    </Typography>
-  );
-}
+
 
 // TODO remove, this demo shouldn't need to reset the theme.
 
@@ -54,33 +38,16 @@ const defaultTheme = createTheme();
 
 export default function SignUp() {
   const [role, setRole] = useState(""); // for role selection
+  
 
   const handleChange = (event) => {
+    event.preventDefault();
     setRole(event.target.value);
   };
 
-  // const handleSubmit = (event) => {
-  //   event.preventDefault();
-  //   const data = new FormData(event.currentTarget);
-  //   // send data to API
-  //   fetch("http://localhost:5000/api/user/signup", {})
-  //     .then((res) => res.json())
-  //     .then((data) => console.log(data));
-
-  //   console.log({
-  //     role: data.get("role"),
-  //     firstName: data.get("firstName"),
-  //     lastName: data.get("lastName"),
-  //     longitude: data.get("longitude"),
-  //     latitude: data.get("latitude"),
-  //     number: data.get("number"),
-  //     email: data.get("email"),
-  //     password: data.get("password"),
-  //   });
-  // };
 
   const handleSubmit = async (data) => {
-    const response = await fetch("http://localhost:5000/api/user/signup", {
+    const response = await fetch("http://127.0.0.1:8000/api/user/signup", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -235,7 +202,7 @@ export default function SignUp() {
                   required
                   fullWidth
                   id="standard-number"
-                  label="Citizenship NO:"
+                  label={role === "Citizen" ? "Phone No" : "License Number"}
                   name="number"
                   type="number"
                   autoComplete="off"
@@ -291,7 +258,6 @@ export default function SignUp() {
                 </Link>
               </Grid>
             </Grid>
-            <Copyright sx={{ mt: 5 }} />
           </Box>
         </Box>
       </Container>
