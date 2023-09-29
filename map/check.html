@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>checking API</h1>
+    
+</body>
+<script>
+        const ipDriver = '';
+
+    
+        fetch("http://api.ipstack.com/" + ipDriver + "?access_key=ee8ec71a43e21eb3fad814717f0cddba")
+            .then(response => {
+                if (response.ok) {
+                    return response.json();
+                } else {
+                    throw new Error('API request error');
+                }
+            })
+            .then(data => {
+                // Access latitude and longitude here
+                const driver_lat = data.latitude;
+                const driver_lng = data.longitude;
+
+                // Now you can use driver_lat and driver_lng for further processing
+                console.log('Driver Latitude:', driver_lat);
+                console.log('Driver Longitude:', driver_lng);
+            })
+            .catch(error => {
+                console.error(error);
+            });
+</script>
+</html>
