@@ -34,7 +34,7 @@ export default function Signnn() {
       });
   
       // Handle a successful login response
-      console.log('Login success:', response.data);
+      console.log('Login successssssss:', response.data);
   
       // Store access token and refresh token in a secure manner (consider HttpOnly cookies)
       localStorage.setItem('access_token', response.data.access);
@@ -141,7 +141,7 @@ export default function Signnn() {
                   fullWidth
                   variant="contained"
                   sx={{ mt: 3, mb: 2 }}
-                  href="/userDash"
+                  href=""
                 >
                   Sign In
                 </Button>
