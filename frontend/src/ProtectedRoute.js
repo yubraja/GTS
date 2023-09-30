@@ -8,7 +8,11 @@ const ProtectedRoute = (props) => {
     let login = localStorage.getItem("login");
     if (!login) {
       Navigate("/");
+
     }
+    // else {
+    //   Navigate("/userDash");
+    // }
   });
   return (
     <>
