@@ -41,7 +41,7 @@ const Calendar = () => {
         calendarApi.addEvent(newEvent);
 
         // Send a POST request to your backend to create the event
-        axios.post('http://localhost:8000/api/event/', newEvent) //  API endpoint
+        axios.post('http://localhost:8000/api/event/api/', newEvent) //  API endpoint
           .then((response) => {
             // Handle successful creation
             console.log('Event created:', response.data);

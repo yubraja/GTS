@@ -5,9 +5,9 @@ from django.contrib.auth.models import BaseUserManager, AbstractBaseUser,Permiss
 
 # Custom User Manager 
 class UserManager(BaseUserManager):
-    def create_user(self, email, name,address,citizenship_no, password=None, password2=None):
+    def create_user(self, email, name,long,lat,citizenship_no,role, password=None, password2=None):
         """
-        Creates and saves a User with the given email, name, tc and password.
+        Creates and saves a User with the given email, name,  password.
         """
         if not email:
             raise ValueError("Users must have an email address")
@@ -15,8 +15,10 @@ class UserManager(BaseUserManager):
         user = self.model(
             email=self.normalize_email(email),
             name=name,
-            address=address,
+            lat = lat,
+            long = long,
             citizenship_no=citizenship_no,
+            role=role,
         )
 
         user.set_password(password)
@@ -56,17 +58,30 @@ class User(AbstractBaseUser,PermissionsMixin):
     
     citizenship_no = models.CharField(max_length=10, default="")
 
-    address = models.CharField(max_length=200,default="")
-    # tc=models.BooleanField()
+    lat = models.FloatField(null=True, blank=True)
+    long = models.FloatField(null=True, blank=True)
+ 
     is_active = models.BooleanField(default=True)
     is_admin = models.BooleanField(default=False)
     created_at=models.DateTimeField(auto_now_add=True)
     updated_at=models.DateTimeField(auto_now=True)
 
     objects = UserManager()
+    
+        
+    ROLES = (
+        ('Citizen', 'Citizen'),
+        ('Driver', 'Driver '),
+        ('Admin', 'Admin '),
+        
+    )
+
+    role = models.CharField(max_length=10, choices=ROLES, default='Citizen')
+    approved = models.BooleanField(default=False)
+# Driver approval status
 
     USERNAME_FIELD = "email"
-    REQUIRED_FIELDS = ["name", "address","citizenship_no"]
+    REQUIRED_FIELDS = ["name","role"]
 
     def __str__(self):
         return self.email
@@ -86,6 +101,10 @@ class User(AbstractBaseUser,PermissionsMixin):
         "Is the user a member of staff?"
         # Simplest possible answer: All admins are staff
         return self.is_admin
+    def save(self, *args, **kwargs):
+# Ensure admin users are always approved if self.role 	'admin':
+        self.approved = True
+        super().save(*args, **kwargs)
 
 
 

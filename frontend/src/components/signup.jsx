@@ -42,7 +42,11 @@ export default function SignUp() {
   };
 
   const handleSubmit = async (data) => {
+<<<<<<< Updated upstream
     const response = await fetch("http://127.0.0.1:8000/api/user/signup/", {
+=======
+    const response = await fetch("http://localhost:8000/api/user/register/", {
+>>>>>>> Stashed changes
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -133,10 +137,10 @@ export default function SignUp() {
                   required
                   fullWidth
                   id="firstName"
-                  label="First Name"
+                  label=" Name"
                 />
               </Grid>
-              <Grid item xs={12} sm={6}>
+              {/* <Grid item xs={12} sm={6}>
                 <TextField
                   required
                   fullWidth
@@ -145,7 +149,7 @@ export default function SignUp() {
                   name="lastName"
                   autoComplete="off"
                 />
-              </Grid>
+              </Grid> */}
 
               <Grid item xs={12} sm={4}>
                 <TextField
