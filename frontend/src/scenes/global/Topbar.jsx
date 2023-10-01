@@ -6,14 +6,20 @@ import LightModeOutlinedIcon from "@mui/icons-material/LightModeOutlined";
 import DarkModeOutlinedIcon from "@mui/icons-material/DarkModeOutlined";
 import SearchIcon from "@mui/icons-material/Search";
 import LogoutIcon from '@mui/icons-material/Logout';
+import axios from "axios";
 
 const Topbar = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const colorMode = useContext(ColorModeContext);
 
-  const backtohome=()=>{
+  const backtohome=async ()=>{
     window.location.href = "/";
+      axios.get(
+      "http://localhost:5000/logout",{
+        withCredentials:true
+      }
+     )
   }
 
   return (
