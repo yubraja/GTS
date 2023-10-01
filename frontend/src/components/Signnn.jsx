@@ -73,7 +73,7 @@ export default function Signnn() {
     } catch (error) {
       console.error("Login error:", error);
 
-      toast.error("Login Failed. Check your credentials.", {
+      toast.error("Login Failed! \n Check your credentials.", {
         position: toast.POSITION.TOP_CENTER,
         autoClose: 3000,
       });

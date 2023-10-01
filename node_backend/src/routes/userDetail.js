@@ -3,7 +3,7 @@ const router = express.Router();
 const User=require('../models/user')
 
 
-router.get('/',async(req,res)=>{
+router.get('/details',async(req,res)=>{
  const userId=req.session.userId
  const user=await User.findOne({_id:userId})
 if(user){

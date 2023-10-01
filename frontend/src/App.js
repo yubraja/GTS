@@ -1,6 +1,6 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Routes, useLocation } from 'react-router-dom';
-import { Box, CssBaseline, ThemeProvider, Typography } from '@mui/material';
+import {  Route, Routes, useLocation } from 'react-router-dom';
+import {CssBaseline, ThemeProvider, } from '@mui/material';
 import { ColorModeContext, useMode } from './theme';
 import AdminSidebar from './scenes/global/AdminSidebar';
 import Topbar from './scenes/global/Topbar';
@@ -51,56 +51,21 @@ function App() {
 
             {/* routes are here */}
             <Routes>
-<<<<<<< HEAD
               <Route path="/" element={<Signnn />} />
               <Route path="/signup" element={<Signup />} />
               <Route path="/forgetps" element={<ForgetPS />} />
               <Route path="/updateps" element={<UpdatePS />} />
-=======
-              <Route path="/" element={<ProtectedRoute Component={Signnn} />} />
-              <Route path="/signup" element={<ProtectedRoute Component={Signup} />} />
-              <Route path="/forgetps" element={<ProtectedRoute Component={ForgetPS} />} />
-              <Route path="/adminDash" element={<AdminDash />} />
-              <Route path="/userDash" element={<UserDash />} />
-              <Route path="/dustbin" element={<Dustbin />} />
-              <Route path="/map" element={<Map />} />
-              <Route path="/form" element={<Form />} />
-              <Route path="/bar" element={<Bar />} />
-              <Route path="/pie" element={<Pie />} />
-              <Route path="/line" element={<Line />} />
-              {/* <Route path="/faq" element={<FAQ />} /> */}
-              <Route path="/calendar" element={<Calendar />} />
-<<<<<<< Updated upstream
-              {/* <Route path="/geography" element={<Geography />} /> */}
->>>>>>> 50b2adebbbf37599cb36a017175364c577a48113
 
               <Route path="/userDash" element={<ProtectedRoute Component={UserDash} />} />
               <Route path="/adminDash" element={<ProtectedRoute Component={AdminDash} />} />
               <Route path="/driverDash" element={<ProtectedRoute Component={DriverDash} />} />
               <Route path="/dustbin" element={<ProtectedRoute Component={Dustbin} />} />
               <Route path="/map" element={<ProtectedRoute Component={Map} />} />
-<<<<<<< HEAD
               <Route path="/form" element={<ProtectedRoute Component={Form} />} />
-=======
-              <Route
-                path="/form"
-                element={<ProtectedRoute Component={Form} />}
-              />
-=======
-          <Route path="/geography" element={<Geography />} /> 
-            {/* <Route path="/dustbin" element={<ProtectedRoute Component={Dustbin} />} />
-             {/* <Route path="/dash" element={<ProtectedRoute Component={Dashboard} />} /> 
-             <Route path="/adminDash" element={<ProtectedRoute Component={AdminDash} />} />
-              <Route path="/userDash" element={<ProtectedRoute Component={UserDash} />} />
-              <Route path="/map" element={<ProtectedRoute Component={Map} />} /> 
-              <Route path="/form" element={<ProtectedRoute Component={Form} />} />
->>>>>>> Stashed changes
->>>>>>> 50b2adebbbf37599cb36a017175364c577a48113
               <Route path="/bar" element={<ProtectedRoute Component={Bar} />} />
               <Route path="/pie" element={<ProtectedRoute Component={Pie} />} />
               <Route path="/line" element={<ProtectedRoute Component={Line} />} />
               <Route path="/faq" element={<ProtectedRoute Component={FAQ} />} />
-<<<<<<< HEAD
               <Route path="/calendar" element={<ProtectedRoute Component={Calendar} />} />
               <Route path="/geography" element={<ProtectedRoute Component={Geography} />} />
               <Route path="/team" element={<ProtectedRoute Component={Team} />} />
@@ -108,28 +73,6 @@ function App() {
 
               {/* Add a catch-all route for unmatched URLs */}
               <Route path="*" element={<Error />} />
-=======
-<<<<<<< Updated upstream
-              <Route
-                path="/calendar"
-                element={<ProtectedRoute Component={Calendar} />}
-              />
-              <Route
-                path="/geography"
-                element={<ProtectedRoute Component={Geography} />}
-              />
-              <Route path="/team" element={<Team />} />
-              <Route path="/invoices" element={<Invoices />} />
-              {/* this routes are not hitted then we should show 404 page */}
-              <Route path="*" element={<h1>404 Not Found</h1>} />
-=======
-              <Route path="/calendar" element={<ProtectedRoute Component={Calendar} />} />
-              <Route path="/geography" element={<ProtectedRoute Component={Geography} />} /> 
-              <Route path="/team" element={<Team />} />
-              <Route path="/invoices" element={<Invoices />} />*/}
-
->>>>>>> Stashed changes
->>>>>>> 50b2adebbbf37599cb36a017175364c577a48113
             </Routes>
           </main>
         </div>

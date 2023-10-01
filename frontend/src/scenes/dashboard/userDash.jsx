@@ -1,17 +1,28 @@
-import { Box, Button, IconButton, Typography, useTheme } from "@mui/material";
+import { Box, useTheme } from "@mui/material";
 import { tokens } from "../../theme";
-// import { mockTransactions } from "../../data/mockData";
-import DownloadOutlinedIcon from "@mui/icons-material/DownloadOutlined";
 import EmailIcon from "@mui/icons-material/Email";
 import PointOfSaleIcon from "@mui/icons-material/PointOfSale";
-import PersonAddIcon from "@mui/icons-material/PersonAdd";
-import TrafficIcon from "@mui/icons-material/Traffic";
 import Header from "../../components/Header";
 import StatBox from "../../components/StatBox";
+import axios from "axios";
 
 const Dashboard = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+
+
+    // let userName;
+      const response = await axios.get(
+        "http://localhost:5000/user/details",
+      );
+      console.log(response)
+      // userName = response.data.firstName;
+      // console.log(userName)
+      // return userName;
+    };
 
   return (
     <Box m="20px">
@@ -35,6 +46,7 @@ const Dashboard = () => {
           alignItems="center"
           justifyContent="center"
         >
+          {handleSubmit}
           <StatBox
             title="12"
             subtitle="Emails Sent"
