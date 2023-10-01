@@ -52,6 +52,7 @@ export default function SignUp() {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
+<<<<<<< HEAD
     try {
       const response = await axios.post(
         "http://localhost:5000/user/register",
@@ -62,6 +63,27 @@ export default function SignUp() {
       console.log(msg);
     } catch (error) {
       console.error("Registration failed:", error);
+=======
+  const handleSubmit = async (data) => {
+<<<<<<< Updated upstream
+    const response = await fetch("http://127.0.0.1:8000/api/user/signup/", {
+=======
+    const response = await fetch("http://localhost:8000/api/user/register/", {
+>>>>>>> Stashed changes
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    });
+    console.log(response.body);
+
+    if (response.ok) {
+      const jsonResponse = await response.json();
+      return jsonResponse;
+    } else {
+      throw new Error(response.statusText);
+>>>>>>> 50b2adebbbf37599cb36a017175364c577a48113
     }
   };
 
@@ -146,12 +168,16 @@ export default function SignUp() {
                   required
                   fullWidth
                   id="firstName"
+<<<<<<< HEAD
                   onChange={changeValue}
                   value={dataRegister.firstName}
                   label="First Name"
+=======
+                  label=" Name"
+>>>>>>> 50b2adebbbf37599cb36a017175364c577a48113
                 />
               </Grid>
-              <Grid item xs={12} sm={6}>
+              {/* <Grid item xs={12} sm={6}>
                 <TextField
                   required
                   fullWidth
@@ -162,7 +188,7 @@ export default function SignUp() {
                   value={dataRegister.lastName}
                   autoComplete="off"
                 />
-              </Grid>
+              </Grid> */}
 
               <Grid item xs={12} sm={4}>
                 <TextField
