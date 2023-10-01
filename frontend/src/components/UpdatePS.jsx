@@ -13,34 +13,30 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import axios from 'axios';
-import { useState } from 'react';
+
 
 // TODO remove, this demo shouldn't need to reset the theme.
 
 const defaultTheme = createTheme();
 
-
 export default function SignInSide() {
-    // const [dataRegister, setDataRegister] = useState({
-    //     email: "",
-    //     password: "",
-    //   });
-
-    //   const handleChange = (e) => {
-    //     const { name, value } = e.target;
-    //     setDataRegister({ ...dataRegister, [name]: value });
-    //   };
-
   const handleSubmit = async (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    const email=data.get('email')
-    const response=await axios.post('http://localhost:5000/forgot/reset',{
-        email
+
+     const code=data.get('otp')
+    const  password=data.get('password')
+     const repassword=data.get('repassword')
+     const response=await axios.post('http://localhost:5000/forgot/update',{
+        code,
+        password
     }
     )
-    if(response.data.msg==="code has been sent to your email"){
-        window.location.href='/updatePS'
+    if(response.data.msg==="password changed successfully"){
+      window.location.href='/'
+    }
+    if(response.data.msg==="token expired"){
+      window.location.href='/forgetps'
     }
   };
 
@@ -94,21 +90,39 @@ export default function SignInSide() {
                 margin="normal"
                 required
                 fullWidth
-                id="email"
-                label="Email Address"
-                name="email"
-                autoComplete="email"
-                //onChange={handleChange}
+                id="otp"
+                label="OTP"
+                name="otp"
+                autoComplete="otp"
                 autoFocus
+              />
+              <TextField
+                margin="normal"
+                required
+                fullWidth
+                name="password"
+                label="Password"
+                type="password"
+                id="password"
+                autoComplete="current-password"
+              />
+              <TextField
+                margin="normal"
+                required
+                fullWidth
+                name="repassword"
+                label="Re-Entered Password"
+                type="password"
+                id="repassword"
+                autoComplete="current-password"
               />
               <Button
                 type="submit"
                 fullWidth
                 variant="contained"
                 sx={{ mt: 3, mb: 2 }}
-                onSubmit={handleSubmit}
               >
-                Send OTP
+                Reset Password
               </Button>
               <Grid container>
                 
