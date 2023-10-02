@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import FullCalendar, { formatDate } from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
@@ -21,14 +21,30 @@ const Calendar = () => {
   const colors = tokens(theme.palette.mode);
   const [currentEvents, setCurrentEvents] = useState([]);
 
+  const fetchData = async () => {
+    const eventData = await axios.get("http://localhost:5000/event/getEvents");
+    //console.log(eventData)
+    setCurrentEvents(eventData.data.events);
+    }
+    useEffect(() => {
+      fetchData();
+    }, []);
+  
+  console.log(currentEvents)
+  // let calendarApi = this.calendarRef.current.getApi()
+  // calendarApi.addEvent(currentEvents)
+
+  
   const handleDateClick = (selected) => {
     const title = prompt("Provide Date and Event:");
     const calendarApi = selected.view.calendar;
+
     calendarApi.unselect();
 
-    const isAdminUser = true; //  to check if the user is an admin
+    const isDriver = true;
+    const isAdmin = true; //  to check if the user is an admin
 
-    if (isAdminUser) {
+    if (isDriver || isAdmin) {
       if (title) {
         const newEvent = {
           id: `${selected.dateStr}-${title}`,
@@ -37,11 +53,21 @@ const Calendar = () => {
           end: selected.endStr,
           allDay: selected.allDay,
         };
-        console.log(newEvent)
-
-        calendarApi.addEvent(newEvent);
-
+        console.log(newEvent);
+        (async()=>await axios.post("http://localhost:5000/event/create",
+        newEvent,
+        {
+          withCredentials:true
+        }
+        )
+       )()
+      
+        //calendarApi.addEvent(event)
+  // Send a POST request to your backend to create the event
       }
+    } else {
+      alert("Only admin & Driver can create events.");
+    }
   };
 
   const handleEventClick = (selected) => {
@@ -56,7 +82,10 @@ const Calendar = () => {
 
   return (
     <Box m="20px">
-      <Header title="Waste Schedule!" subtitle="Full Year Waste Schedule Calender" />
+      <Header
+        title="Waste Schedule!"
+        subtitle="Full Year Waste Schedule Calender"
+      />
 
       <Box display="flex" justifyContent="space-between">
         {/* CALENDAR SIDEBAR */}
@@ -135,6 +164,5 @@ const Calendar = () => {
     </Box>
   );
 };
-}
 
 export default Calendar;
