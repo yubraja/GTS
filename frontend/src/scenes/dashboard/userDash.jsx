@@ -29,12 +29,11 @@ const Dashboard = () => {
       },[]);
 
 
-
-  return (
+      return (
     <Box m="20px">
       {/* HEADER */}
       <Box display="flex" justifyContent="space-between" alignItems="center">
-        <Header title={`Hello ${user.firstName}`} subtitle="Welcome to your dashboard" />
+        <Header title={`Welcome ${user.firstName} Jii`} subtitle="Welcome to your dashboard" />
       </Box>
 
       {/* GRID & CHARTS */}

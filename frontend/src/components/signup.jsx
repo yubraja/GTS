@@ -13,7 +13,6 @@ import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { width } from "@mui/system";
 
 const roles = [
   {
@@ -53,28 +52,26 @@ export default function SignUp() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    let msg;
-    try {
-      const response = await axios.post(
-        "http://localhost:5000/user/register",
-        dataRegister,
-        {
-          withCredentials: true,
-        },
-      );
-      //get response from backend
+    let response;
+    response = await axios.post(
+      "http://localhost:5000/user/register",
+      dataRegister,
+      {
+        withCredentials: true,
+      }
+    );
+    //get response from backend
+    console.log(response.data.msg)
+    console.log("hello")
 
-      msg = response.data.msg;
-      //toast use with this message
-      console.log(response);
-      toast.success(msg, {
+    if (response.data.msg.includes("success")) {
+      toast.success(response.data.msg, {
         position: toast.POSITION.TOP_CENTER,
         autoClose: 3000,
       });
-      throw msg;
-    } catch (error) {
-      console.log(msg);
-      toast.error(`Error! \n Plz check your credencials`, {
+    }
+    if (response.data.msg.includes("invalid")) {
+      toast.error(response.data.msg, {
         position: toast.POSITION.TOP_CENTER,
         autoClose: 3000,
       });

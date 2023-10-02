@@ -37,6 +37,10 @@ const userSchema = new Schema({
     type: Boolean,
     default: false,
   },
+  isActualDriver:{
+    type:Boolean,
+    default:false 
+  }
 });
 
 const user = mongoose.model('user', userSchema);
