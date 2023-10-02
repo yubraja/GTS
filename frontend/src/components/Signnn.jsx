@@ -13,6 +13,7 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import {Formik} from 'formik';
 
 const defaultTheme = createTheme();
 
@@ -93,6 +94,30 @@ export default function Signnn() {
         padding: "23px",
       }}
     >
+    {/* Formk tag setup  */}
+    <Formik
+       initialValues={{ email: '', password: '' }}
+       validate={values => {
+         const errors = {};
+         if (!values.email) {
+           errors.email = 'Required';
+         } else if (
+           !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)
+         ) {
+           errors.email = 'Invalid email address';
+         }
+         return errors;
+       }}
+       onSubmit={(values, { setSubmitting }) => {
+         setTimeout(() => {
+           alert(JSON.stringify(values, null, 2));
+           setSubmitting(false);
+         }, 400);
+       }}
+     >
+
+
+    
       <ThemeProvider theme={defaultTheme}>
         <Grid container component="main" sx={{ height: "80vh" }}>
           <CssBaseline />
@@ -206,6 +231,7 @@ export default function Signnn() {
           </Grid>
         </Grid>
       </ThemeProvider>
+      </Formik>
     </Box>
   );
 }
