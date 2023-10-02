@@ -17,12 +17,12 @@ router.post("/register", async (req, res) => {
     if (userData && userData.verified == true)
       return res
         .status(400)
-        .json({ msg: "User with given email already exist!" });
+        .json({ msg: "User with given email already exist! invalid " });
 
     if (userData && userData.verified == false)
       return res
         .status(400)
-        .json({ msg: "verification email has been sent to your email" });
+        .json({ msg: "verification email has been sent to your email success" });
 
     //hash password
     const salt = await bcrypt.genSalt(10);
@@ -49,9 +49,8 @@ router.post("/register", async (req, res) => {
 
     res
       .status(200)
-      .json({ msg: "An Email sent to your account please verify" });
+      .json({ msg: "An Email sent to your account please verify success" });
   } catch (error) {
-    console.log("here")
     res.status(400).json({ msg: error.message });
   }
 });

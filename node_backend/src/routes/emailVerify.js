@@ -9,7 +9,7 @@ require('dotenv').config();
 router.get('/:id/:token', async (req, res) => {
     try {
       let userData= await User.findOne({ _id: req.params.id });
-      if (!userData) return res.status(400).json({msg:'Invalid link'});
+      if (!userData) return res.status(400).json({msg:'invalid link'});
       let token;
 
     if(userData){
@@ -18,12 +18,12 @@ router.get('/:id/:token', async (req, res) => {
          token: req.params.token,
        });
      }
-      if (!token) return res.status(400).json({msg:'Invalid link'});
+      if (!token) return res.status(400).json({msg:'invalid link'});
       if (token){
         const currentTime= new Date().getTime()
         const diff=token.expireIn-currentTime
         if(diff<0){
-          res.status(400).json({msg:'link expired'})
+          res.status(400).json({msg:'link expired invalid'})
         }
       }
       

@@ -8,7 +8,7 @@ router.post('/create', async (req, res) => {
     const user=await User.findOne({_id:id});
     const role=user.role;
     if(role!=="Driver"){
-        res.json({msg:"can't create event"})
+        res.json({msg:"can't create event! invalid "})
     }
     const event = new Event({
         driver:id,
