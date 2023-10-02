@@ -57,10 +57,10 @@ export default function SignUp() {
     try {
       const response = await axios.post(
         "http://localhost:5000/user/register",
+        dataRegister,
         {
-          // withCredentials: true,
+          withCredentials: true,
         },
-        dataRegister
       );
       //get response from backend
 

@@ -5,30 +5,36 @@ import PointOfSaleIcon from "@mui/icons-material/PointOfSale";
 import Header from "../../components/Header";
 import StatBox from "../../components/StatBox";
 import axios from "axios";
+import { useState,useEffect } from "react";
 
 const Dashboard = () => {
+
+
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
 
-  const handleSubmit = async (event) => {
-    event.preventDefault();
+  const [user, setUser] = useState([]);
+
+  // useEffect with no dependencies
+  useEffect(() => {
+     (async () => {
+      const userData = await axios.get(
+        "http://localhost:5000/userDetail",{
+          withCredentials:true
+        }
+      )
+      setUser(userData.data.result)
+    }
+     )();
+      },[]);
 
 
-    // let userName;
-      const response = await axios.get(
-        "http://localhost:5000/user/details",
-      );
-      console.log(response)
-      // userName = response.data.firstName;
-      // console.log(userName)
-      // return userName;
-    };
 
   return (
     <Box m="20px">
       {/* HEADER */}
       <Box display="flex" justifyContent="space-between" alignItems="center">
-        <Header title="Hello User!" subtitle="Welcome to your dashboard" />
+        <Header title={`Hello ${user.firstName}`} subtitle="Welcome to your dashboard" />
       </Box>
 
       {/* GRID & CHARTS */}
@@ -46,7 +52,6 @@ const Dashboard = () => {
           alignItems="center"
           justifyContent="center"
         >
-          {handleSubmit}
           <StatBox
             title="12"
             subtitle="Emails Sent"
@@ -83,5 +88,4 @@ const Dashboard = () => {
     </Box>
   );
 };
-
 export default Dashboard;

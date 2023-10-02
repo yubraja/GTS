@@ -37,25 +37,11 @@ const Calendar = () => {
           end: selected.endStr,
           allDay: selected.allDay,
         };
+        console.log(newEvent)
 
         calendarApi.addEvent(newEvent);
 
-        // Send a POST request to your backend to create the event
-        axios.post('http://localhost:8000/api/event/api/', newEvent) //  API endpoint
-          .then((response) => {
-            // Handle successful creation
-            console.log('Event created:', response.data);
-
-            calendarApi.refetchEvents();
-          })
-          .catch((error) => {
-            // Handle errors
-            console.error('Error creating event:', error);
-          });
       }
-    } else {
-      alert("Only admin users can create events.");
-    }
   };
 
   const handleEventClick = (selected) => {
@@ -149,5 +135,6 @@ const Calendar = () => {
     </Box>
   );
 };
+}
 
 export default Calendar;
