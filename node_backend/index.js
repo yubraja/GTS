@@ -70,5 +70,9 @@ app.use('/forgot',forgotPasswordRoute)
 const eventControlRoute=require('./src/routes/eventControl');
 app.use('/event',eventControlRoute);
 
+//driver verification routes
+const driverVerificationRoute=require('./src/routes/driverVerification');
+app.use('/driverVerification',driverVerificationRoute);
+
 
 app.listen(port, () => console.log(`Listening on port ${port}...`));

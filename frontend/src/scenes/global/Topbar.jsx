@@ -7,6 +7,7 @@ import DarkModeOutlinedIcon from "@mui/icons-material/DarkModeOutlined";
 import SearchIcon from "@mui/icons-material/Search";
 import LogoutIcon from '@mui/icons-material/Logout';
 import axios from "axios";
+import { toast } from "react-toastify";
 
 const Topbar = () => {
   const theme = useTheme();
@@ -20,7 +21,18 @@ const Topbar = () => {
         withCredentials:true
       }
      )
-  }
+    }
+  //   if(backtohome.data.msg.includes("success")){
+  //     toast.success(backtohome.data.msg, {
+  //       position: toast.POSITION.TOP_CENTER,
+  //       autoClose: 3000,
+  //     })}
+  //     else{
+  //       toast.error(backtohome.data.msg, {
+  //         position: toast.POSITION.TOP_CENTER,
+  //         autoClose: 3000,
+  //       });}
+  // console.log(backtohome)
 
   return (
     <Box display="flex" justifyContent="space-between" p={2}>

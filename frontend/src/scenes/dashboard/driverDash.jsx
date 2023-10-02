@@ -1,23 +1,38 @@
-import { Box, Button, IconButton, Typography, useTheme } from "@mui/material";
+import { Box, useTheme } from "@mui/material";
 import { tokens } from "../../theme";
-// import { mockTransactions } from "../../data/mockData";
-import DownloadOutlinedIcon from "@mui/icons-material/DownloadOutlined";
 import EmailIcon from "@mui/icons-material/Email";
 import PointOfSaleIcon from "@mui/icons-material/PointOfSale";
-import PersonAddIcon from "@mui/icons-material/PersonAdd";
-import TrafficIcon from "@mui/icons-material/Traffic";
 import Header from "../../components/Header";
 import StatBox from "../../components/StatBox";
+import axios from "axios";
+import { useState, useEffect } from "react";
 
 const Dashboard = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
+  const [user, setUser] = useState([]);
+
+  // useEffect bata data fetch kinaki yo ek choti matra call hunxa page load huda
+  useEffect(() => { 
+    (async () => {
+      const userData = await axios.get(
+        "http://localhost:5000/userDetail",{
+          withCredentials:true
+        }
+      )
+      setUser(userData.data.result)
+    }
+     )();
+      },[]);
 
   return (
     <Box m="20px">
       {/* HEADER */}
       <Box display="flex" justifyContent="space-between" alignItems="center">
-        <Header title="Hello Driver Jii," subtitle="Welcome to your dashboard" />
+        <Header
+          title={`Hello ${user.firstName} Jii,`}
+          subtitle="Welcome to your dashboard"
+        />
       </Box>
 
       {/* GRID & CHARTS */}
@@ -66,7 +81,6 @@ const Dashboard = () => {
             }
           />
         </Box>
-        
       </Box>
     </Box>
   );
