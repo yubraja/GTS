@@ -33,22 +33,42 @@ export default function Signnn() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-
-    try {
-      const response = await axios.post(
+    let currentDash;
+    let response;
+     response = await axios.post(
         "http://localhost:5000/login",
         dataRegister,
         {
           withCredentials: true,
         }
       );
+   
+      
+     if(response.data.msg.includes("success")){
+      toast.success(response.data.msg, {
+        position: toast.POSITION.TOP_CENTER,
+        autoClose: 3000,
+      });
+    }
+    if(response.data.msg.includes("invalid")){
+      toast.error(response.data.msg, {
+        position: toast.POSITION.TOP_CENTER,
+        autoClose: 3000,
+      });
+    }
+     
 
-      if (response.status === 200) {
+      const user = await axios.get(
+        "http://localhost:5000/userDetail",{
+          withCredentials:true
+        }
+      );
+
+      if (user) {
         // Successful login
-
-        const role= response.data.result.role;
+        const role= user.data.result.role;
        // console.log(response.data.result.role)
-        let currentDash;
+       
         if (role === "Citizen") {
           currentDash = "/userDash";
         } else if (role === "Driver") {
@@ -56,28 +76,9 @@ export default function Signnn() {
         } else {
           currentDash = "/adminDash";
         }
-
-        // setIsAuthenticated(true);
-        navigate(currentDash, { replace: true });
-        toast.success("Login Successful", {
-          position: toast.POSITION.TOP_CENTER,
-          autoClose: 3000,
-        });
-      } else {
-        // Handle other response statuses as needed
-        toast.error("Login Failed!", {
-          position: toast.POSITION.TOP_CENTER,
-          autoClose: 3000,
-        });
       }
-    } catch (error) {
-      console.error("Login error:", error);
-
-      toast.error("Login Failed. Check your credentials.", {
-        position: toast.POSITION.TOP_CENTER,
-        autoClose: 3000,
-      });
-    }
+      navigate(currentDash, { replace: true });
+  
   };
 
   return (

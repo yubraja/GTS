@@ -4,8 +4,6 @@ import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Checkbox from "@mui/material/Checkbox";
 import Link from "@mui/material/Link";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
@@ -15,6 +13,7 @@ import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { width } from "@mui/system";
 
 const roles = [
   {
@@ -32,14 +31,14 @@ const defaultTheme = createTheme();
 export default function SignUp() {
   const [dataRegister, setDataRegister] = useState({
     role: "Citizen", // Set the default role here
-    firstName: "1",
-    lastName: "2",
-    password2: "12",
+    firstName: "",
+    lastName: "",
     latitude: "",
     longitude: "",
-    number: "12",
-    email: "b@gmail.com",
-    password: "12",
+    number: "",
+    email: "",
+    password: "",
+    password2: "",
   });
 
   const changeValue = (e) => {
@@ -48,48 +47,44 @@ export default function SignUp() {
     console.log(value, name);
     setDataRegister({ ...dataRegister, [name]: value });
   };
+
+  // herna ko lagi
   console.log(dataRegister);
+
   const handleSubmit = async (event) => {
     event.preventDefault();
-
-<<<<<<< HEAD
+    let msg;
     try {
       const response = await axios.post(
         "http://localhost:5000/user/register",
-        dataRegister
+        dataRegister,
+        {
+          withCredentials: true,
+        },
       );
       //get response from backend
-      const msg = response.data.msg;
-      console.log(msg);
-    } catch (error) {
-      console.error("Registration failed:", error);
-=======
-  const handleSubmit = async (data) => {
-<<<<<<< Updated upstream
-    const response = await fetch("http://127.0.0.1:8000/api/user/signup/", {
-=======
-    const response = await fetch("http://localhost:8000/api/user/register/", {
->>>>>>> Stashed changes
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
-    });
-    console.log(response.body);
 
-    if (response.ok) {
-      const jsonResponse = await response.json();
-      return jsonResponse;
-    } else {
-      throw new Error(response.statusText);
->>>>>>> 50b2adebbbf37599cb36a017175364c577a48113
+      msg = response.data.msg;
+      //toast use with this message
+      console.log(response);
+      toast.success(msg, {
+        position: toast.POSITION.TOP_CENTER,
+        autoClose: 3000,
+      });
+      throw msg;
+    } catch (error) {
+      console.log(msg);
+      toast.error(`Error! \n Plz check your credencials`, {
+        position: toast.POSITION.TOP_CENTER,
+        autoClose: 3000,
+      });
     }
   };
 
   const showLocation = () => {
     navigator.geolocation.getCurrentPosition(success, error);
   };
+  console.log(showLocation);
 
   function success(pos) {
     const lat = pos.coords.latitude;
@@ -109,9 +104,6 @@ export default function SignUp() {
       alert("Cannot get current location");
     }
   }
-
-  //toast message
-  const notify = () => toast("Wow so easy!");
 
   return (
     <ThemeProvider theme={defaultTheme}>
@@ -168,16 +160,12 @@ export default function SignUp() {
                   required
                   fullWidth
                   id="firstName"
-<<<<<<< HEAD
                   onChange={changeValue}
                   value={dataRegister.firstName}
                   label="First Name"
-=======
-                  label=" Name"
->>>>>>> 50b2adebbbf37599cb36a017175364c577a48113
                 />
               </Grid>
-              {/* <Grid item xs={12} sm={6}>
+              <Grid item xs={12} sm={6}>
                 <TextField
                   required
                   fullWidth
@@ -188,7 +176,7 @@ export default function SignUp() {
                   value={dataRegister.lastName}
                   autoComplete="off"
                 />
-              </Grid> */}
+              </Grid>
 
               <Grid item xs={12} sm={4}>
                 <TextField
@@ -275,29 +263,28 @@ export default function SignUp() {
                   autoComplete="off"
                 />
               </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  required
+                  fullWidth
+                  name="repassword"
+                  label="Re-entered Password"
+                  type="password"
+                  id="repassword"
+                  value={dataRegister.repassword}
+                  onChange={changeValue}
+                  autoComplete="off"
+                />
+              </Grid>
             </Grid>
             <Button
               type="submit"
               fullWidth
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
-              onClick={notify}
             >
               Sign Up
-              <ToastContainer
-                position="top-right"
-                autoClose={5000}
-                hideProgressBar={false}
-                newestOnTop={false}
-                closeOnClick
-                rtl={false}
-                pauseOnFocusLoss
-                draggable
-                pauseOnHover
-                theme="light"
-              />
-              {/* Same as */}
-              <ToastContainer />{" "}
+              <ToastContainer />
             </Button>
             <Grid container justifyContent="flex-end">
               <Grid item>

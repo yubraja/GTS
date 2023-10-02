@@ -7,10 +7,9 @@ router.get('/',async(req,res)=>{
  const userId=req.session.userId
  const user=await User.findOne({_id:userId})
 if(user){
-    res.send(user)
-    res.send(false)
-}
-})
+    res.json({result:user})
+}}
+)
 
 
 module.exports = router;

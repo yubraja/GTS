@@ -66,5 +66,9 @@ app.use('/user',userRoute)
 const forgotPasswordRoute=require('./src/routes/forgotPassword')
 app.use('/forgot',forgotPasswordRoute)
 
+//event  routes
+const eventControlRoute=require('./src/routes/eventControl');
+app.use('/event',eventControlRoute);
+
 
 app.listen(port, () => console.log(`Listening on port ${port}...`));

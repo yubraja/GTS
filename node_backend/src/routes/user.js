@@ -51,6 +51,7 @@ router.post("/register", async (req, res) => {
       .status(200)
       .json({ msg: "An Email sent to your account please verify" });
   } catch (error) {
+    console.log("here")
     res.status(400).json({ msg: error.message });
   }
 });
