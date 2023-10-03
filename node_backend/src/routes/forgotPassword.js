@@ -20,7 +20,10 @@ router.post('/reset', async (req, res) => {
       expireIn:new Date().getTime()+ 500*1000
      })
      await otpData.save()
+     
     if(user)
+
+
     await sendEmail(user.email, 'reset password', String(otpCode));
 
     res.status(200).json({msg:'code has been sent to your email success'});
