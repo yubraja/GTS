@@ -23,7 +23,7 @@ router.post('/reset', async (req, res) => {
     if(user)
     await sendEmail(user.email, 'reset password', String(otpCode));
 
-    res.status(200).json({msg:'code has been sent to your email'});
+    res.status(200).json({msg:'code has been sent to your email success'});
   } catch (error) {
     res.status(500).send({ msg: error.message });
   }
@@ -38,7 +38,7 @@ router.post('/update', async (req, res) => {
         const currentTime= new Date().getTime()
         const diff=data.expireIn-currentTime
         if(diff<0){
-          res.json({msg:'token expired'})
+          res.json({msg:'invalid --> token expired'})
          const otpId=data._id
         await otp.findByIdAndRemove(otpId);
         }
@@ -52,7 +52,7 @@ router.post('/update', async (req, res) => {
         user.password=hashPassword
         await user.save()
       }
-       res.json({msg:'password changed successfully'})
+       res.json({msg:'password changed successfully--> success'})
        const otpId=data._id
        await otp.findByIdAndRemove(otpId);
     } catch (error) {

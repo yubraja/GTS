@@ -27,7 +27,7 @@ const Dustbin = () => {
     fetchData();
   }, []);
 
-  const total = 27;
+  const total = 29;
   const spaceUsed = total - distance;
   let color = colors.redAccent[100];
   let percentageCovered =

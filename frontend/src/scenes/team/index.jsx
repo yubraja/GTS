@@ -8,6 +8,11 @@ import Header from "../../components/Header";
 import CheckIcon from '@mui/icons-material/Check';
 
 const Team = () => {
+
+  // api call for verification
+
+
+
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const columns = [

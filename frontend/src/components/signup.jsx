@@ -60,9 +60,6 @@ export default function SignUp() {
         withCredentials: true,
       }
     );
-    //get response from backend
-    console.log(response.data.msg)
-    console.log("hello")
 
     if (response.data.msg.includes("success")) {
       toast.success(response.data.msg, {
