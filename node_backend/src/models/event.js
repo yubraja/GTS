@@ -11,22 +11,10 @@ const eventSchema = new Schema({
     type: String,
     required: true,
   },
-  cId:{
-    type:String,
-    required:true
-  },
   start: {
-    type: Date,
+    type:String,
     required: true,
   },
-  end: {
-    type: Date,
-    required: true,
-  },
-  allday:{
-    type:Boolean,
-    default:false
-  }
 });
 
 const Event = mongoose.model("event", eventSchema);
