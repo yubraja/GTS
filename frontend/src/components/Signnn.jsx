@@ -12,22 +12,34 @@ import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import { Formik } from 'formik';
+import { Formik, Field, ErrorMessage, Form } from 'formik'; // Import Formik components
 import { toast } from 'react-toastify';
+import { red } from '@mui/material/colors';
+import { style } from '@mui/system';
+style({
+ErrorMessage: {
+    color: red,
+  },
+});
+
 
 const defaultTheme = createTheme();
 
 export default function Signnn() {
   const navigate = useNavigate();
 
-  const [dataRegister, setDataRegister] = React.useState({
-    email: '',
-    password: '',
-  });
-
-  const changeValue = (e) => {
-    const { name, value } = e.target;
-    setDataRegister({ ...dataRegister, [name]: value });
+  // Define your validation schema
+  const validate = (values) => {
+    const errors = {};
+    if (!values.email) {
+      errors.email = 'Email is Required';
+    } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)) {
+      errors.email = 'invalid email address';
+    }
+    if (!values.password) {
+      errors.password = 'Password is Required';
+    }
+    return errors;
   };
 
   // Custom function to display toasts
@@ -38,13 +50,9 @@ export default function Signnn() {
     });
   };
 
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-    const formData = new FormData(event.currentTarget);
-    const email = formData.get('email');
-
+  const handleSubmit = async (values, { setSubmitting }) => {
     try {
-      const response = await axios.post('http://localhost:5000/login', dataRegister, {
+      const response = await axios.post('http://localhost:5000/login', values, {
         withCredentials: true,
       });
 
@@ -75,6 +83,8 @@ export default function Signnn() {
     } catch (error) {
       console.error('Login error:', error);
       showToast('An error occurred during login', true); // Display error toast for network errors or other issues
+    } finally {
+      setSubmitting(false); // Ensure that form submission is complete
     }
   };
 
@@ -89,24 +99,10 @@ export default function Signnn() {
         padding: '23px',
       }}
     >
-      {/* Formik tag setup */}
       <Formik
         initialValues={{ email: '', password: '' }}
-        validate={(values) => {
-          const errors = {};
-          if (!values.email) {
-            errors.email = 'Required';
-          } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)) {
-            errors.email = 'Invalid email address';
-          }
-          return errors;
-        }}
-        onSubmit={(values, { setSubmitting }) => {
-          setTimeout(() => {
-            alert(JSON.stringify(values, null, 2));
-            setSubmitting(false);
-          }, 400);
-        }}
+        validate={validate} // Use the validate function
+        onSubmit={handleSubmit}
       >
         <ThemeProvider theme={defaultTheme}>
           <Grid container component="main" sx={{ height: '80vh' }}>
@@ -142,8 +138,9 @@ export default function Signnn() {
                 <Typography component="h1" variant="h5">
                   Sign in
                 </Typography>
-                <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 1 }}>
-                  <TextField
+                <Form>
+                  <Field
+                    as={TextField}
                     margin="normal"
                     required
                     fullWidth
@@ -151,11 +148,11 @@ export default function Signnn() {
                     label="Email Address"
                     name="email"
                     autoComplete="email"
-                    value={dataRegister.email}
-                    onChange={changeValue}
                     autoFocus
                   />
-                  <TextField
+                    <ErrorMessage name="email" component="div" className="error" />
+                  <Field
+                    as={TextField}
                     margin="normal"
                     required
                     fullWidth
@@ -164,9 +161,8 @@ export default function Signnn() {
                     type="password"
                     id="password"
                     autoComplete="current-password"
-                    value={dataRegister.password}
-                    onChange={changeValue}
                   />
+                  <ErrorMessage name="password" component="div" className="error" />
                   <Button
                     type="submit"
                     fullWidth
@@ -183,24 +179,11 @@ export default function Signnn() {
                     </Grid>
                     <Grid item>
                       <Link href="/signup" variant="body2">
-                        {"Don't have an account? Sign Up"}
+                        {"Don't have an account?"}
                       </Link>
                     </Grid>
                   </Grid>
-                  <Button
-                    fullWidth
-                    variant="contained"
-                    sx={{ textDecoration: 'none', color: 'white', mt: 3, mb: 2 }}
-                  >
-                    <Link
-                      component="button"
-                      variant="body2"
-                      sx={{ textDecoration: 'none', color: 'white' }}
-                    >
-                      {'Sign In with Google! '}
-                    </Link>
-                  </Button>
-                </Box>
+                </Form>
               </Box>
             </Grid>
           </Grid>
