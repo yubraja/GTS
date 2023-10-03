@@ -15,7 +15,7 @@ const sendEmailtoUser = async (email, subject, text) => {
       auth: {
         // user: "f3d23acddb00b0",
         // pass: "aeaea698ce060a"
-        user: "f3d23acddb00b0",
+        user: "f3d23acddb00b0", 
         pass: "aeaea698ce060a"
       }
     });
