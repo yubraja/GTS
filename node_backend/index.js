@@ -74,5 +74,8 @@ app.use('/event',eventControlRoute);
 const driverVerificationRoute=require('./src/routes/driverVerification');
 app.use('/driverVerification',driverVerificationRoute);
 
+//driver verification routes
+const sendEmailtoUser=require('./src/routes/sendEmailtoUser');
+app.use('/sendEmailtoUser',sendEmailtoUser);
 
 app.listen(port, () => console.log(`Listening on port ${port}...`));

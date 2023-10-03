@@ -18,7 +18,7 @@ const path = require("path");
         });
 
     await transporter.sendMail({
-      from: 'noreply@gmail.com',
+      from: 'GTSbyBSSY@gmail.com',
       to: email,
       subject: subject,
       html:data
