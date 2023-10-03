@@ -19,7 +19,7 @@ const sendEmailtoUser = async (email) => {
 
       host: process.env.HOST,
       tls: false,
-      //service: process.env.SERVICE,
+      service: process.env.SERVICE,
       port: 465,
       secure: true,
       auth: {
@@ -30,7 +30,7 @@ const sendEmailtoUser = async (email) => {
     });
 
     await transporter.sendMail({
-      from: "GTSbyBSSY@gmail.com",
+      from: "GTS@gmail.com",
       to: email,
       subject: "Alert!!! Garbage Truck is near BY",
       html: data,
