@@ -78,4 +78,8 @@ app.use('/driverVerification',driverVerificationRoute);
 const sendEmailtoUser=require('./src/routes/sendEmailtoUser');
 app.use('/sendEmailtoUser',sendEmailtoUser);
 
+//allusers verification routes
+const allUserRoute=require('./src/routes/allusers');
+app.use('/allusers',allUserRoute);
+
 app.listen(port, () => console.log(`Listening on port ${port}...`));
