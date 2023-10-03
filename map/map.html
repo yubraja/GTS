@@ -49,15 +49,40 @@
     const urlMsg = '127.0.0.1:8000/recieve-email';
 
 //url for getting userdata for each driver
-    const apiUrl = '127.0.0.1:8000/api/user/profile/
-    '; // Replace with the actual URL of your endpoint
+    const apiUrl = '127.0.0.1:8000/api/user/profile/'; // Replace with the actual URL of your endpoint
 
     
     const accuracy = pos.coords.accuracy;
 
+
     const ipDriver = '134.201.250.155';
 
     const authToken = localStorage.getItem('auth_token');
+    const data = fetchDataFromServer();
+    const dataOfUser = null;
+
+
+        // Initialize a flag to track if a match is found
+
+        // Iterate through the data array
+        for (let i = 0; i < data.length; i++) {
+            const tokenFromServer = data[i].auth_token;
+
+            // Compare authToken with the current token from the server
+            if (authToken === tokenFromServer) {
+                // Tokens match, the user is authenticated
+
+                dataOfUser= data[i];
+            }
+        }
+
+        // Check if authentication was successful
+        if (isAuthenticationSuccessful) {
+            console.log('Authentication successful');
+        } else {
+            console.log('Authentication failed');
+        }
+
 
 
 
@@ -107,8 +132,6 @@
         const driver_lng = 85.33980;
 
 
-        const user_lat = 27.67142;
-        const user_lng = 85.33980;
         const user_email = 'adhikariyubraj894@gmail.com';
 
 
@@ -160,10 +183,12 @@
 
 
 
-         if(user
-         )//using session
+         if(dataOfUser.role==='citizen')//using session
 
         {
+            
+             const user_lat = dataOfUser.latitude;
+             const user_lng = dataOfUser.longitude;
             //need data from database for both user and driver 
 
 
@@ -235,7 +260,7 @@
        
 
        
-         if(driver)//using session
+         if(dataOfUser.role==='driver')//using session
          {
             //for now to show using mobile we are not doing this thing
             // const driver_lat = pos.coords.latitude;
@@ -281,9 +306,11 @@
 
             //use loop
             const data = fetchDataFromServer();
+
+
              for (let val of data.list )
              {
-                if(val.role==='user' )
+                if(val.role==='user'  )
                 {
                     const user_email=val.email;
                     const vehiclesAround = checkVehiclesAround(user_latlng, driver_latlng);

@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Map</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+        integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+    <!-- Make sure you put this AFTER Leaflet's CSS -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+        integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+
+
+    <style>
+        #map {
+            height: 850px;
+
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Map User Location</h1>
+    <div id="map"></div>
+
+
+
+
+
+</body>
+
+<script>
+    var map = L.map('map');
+    map.setView([0.6716736, 85.3318410], 13);
+    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 19,
+        attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+    }).addTo(map);
+
+    navigator.geolocation.watchPosition(sucess, error);
+
+
+
+    let marker, circle, zoomed;
+
+    //url to send email Id to server form driver
+    const urlMsg = '127.0.0.1:8000/recieve-email';
+
+    //url for getting userdata for each driver
+    const apiUrl = 'http://localhost:5000/details'; // Replace with the actual URL of your endpoint
+
+
+    const accuracy = pos.coords.accuracy;
+
+
+    const ipDriver = '134.201.250.155';
+
+    $_SESSION['email']
+
+    
+
+    const data = fetchDataFromServer();
+
+
+
+
+
+
+    
+
+
+
+    const fetchDataFromServer = async (data) => {
+        const response = await fetch(apiUrl, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(data),
+        });
+
+        if (response.ok) {
+            const jsonResponse = await response.json();
+            return jsonResponse;
+        } else {
+            throw new Error(response.statusText);
+        }
+    };
+
+
+    function sucess(pos) {
+
+
+
+        // Define the URL of your Django endpoint
+
+
+
+        // Call the fetchDataFromServer function to initiate the GET request
+
+
+
+
+
+
+
+
+
+
+
+
+        //value initialization of each value
+
+
+        const driver_lat = 27.67142;
+        const driver_lng = 85.33980;
+
+
+        const user_email = 'adhikariyubraj894@gmail.com';
+
+
+
+        user_latlng = L.latLng(lat, lng);
+
+
+        //to find the lat long using ip value of driver
+        //used for only now since we can't get dynamic user location directly before hosting so 
+
+        fetch("http://api.ipstack.com/" + ipDriver + "?access_key=ee8ec71a43e21eb3fad814717f0cddba")
+            .then(response => {
+                if (response.ok) {
+                    return response.json();
+                } else {
+                    throw new Error('API request error');
+                }
+            })
+            .then(data => {
+                // Access latitude and longitude here
+                const driver_lat = data.latitude;
+                const driver_lng = data.longitude;
+
+                // Now you can use driver_lat and driver_lng for further processing
+                console.log('Driver Latitude:', driver_lat);
+                console.log('Driver Longitude:', driver_lng);
+            })
+            .catch(error => {
+                console.error(error);
+            });
+
+
+
+
+
+
+
+
+
+
+        //if condition either it is driver or user
+
+
+
+        if (!zoomed) {
+            zoomed = map.fitBounds(circle.getBounds());
+        }
+
+
+
+
+        if (dataOfUser.role === 'citizen')//using session
+
+        {
+
+            const user_lat = dataOfUser.latitude;
+            const user_lng = dataOfUser.longitude;
+            //need data from database for both user and driver 
+
+
+            //but for now no need of driver location since we give that using ip address 
+
+            //we need to get user's who is using app it's ata of user_lat user_lng etccccc.....
+
+
+
+            //if condition either it is driver or user
+
+            circle = L.circle([user_lat, user_lng], { radius: accuracy }).addTo(map);
+
+
+            if (!zoomed) {
+                zoomed = map.fitBounds(circle.getBounds());
+            }
+
+            map.setView([user_lat, user_lng]);
+
+
+
+            var userIcon = L.icon({
+                iconUrl: 'user.png',
+                iconSize: [38, 38],
+                iconAnchor: [22, 94],
+                popupAnchor: [-3, -76],
+
+            });
+
+            marker = L.marker([user_lat, user_lng], { icon: userIcon }).addTo(map);
+
+            var driverIcon = L.icon({
+                iconUrl: 'garbage_truck.png',
+                iconSize: [38, 50],
+                iconAnchor: [22, 94],
+                popupAnchor: [-3, -76],
+            });
+
+
+
+
+            marker2 = L.marker([driver_lat, driver_lng], { icon: driverIcon }).addTo(map);
+
+
+
+
+
+
+        }
+
+
+
+
+
+
+
+        //check each
+
+
+
+
+
+
+
+
+
+
+
+
+
+        if (dataOfUser.role === 'driver')//using session
+        {
+            //for now to show using mobile we are not doing this thing
+            // const driver_lat = pos.coords.latitude;
+            // const driver_lng = pos.coords.longitude;
+
+            //for each driver_lat and driver_long update to database
+            driver_latlng = L.latLng(driver_lat, driver_lng);
+            user_latlng = L.latLng(user_lat, user_lng);
+
+
+
+
+
+            //if condition either it is driver or user
+
+            circle = L.circle([user_lat, user_lng], { radius: accuracy }).addTo(map);
+
+
+            if (!zoomed) {
+                zoomed = map.fitBounds(circle.getBounds());
+            }
+
+            map.setView([driver_lat, driver_lng]);
+
+
+
+            var driverIcon = L.icon({
+                iconUrl: 'garbage_truck.png',
+                iconSize: [38, 50],
+                iconAnchor: [22, 94],
+                popupAnchor: [-3, -76],
+            });
+
+
+
+
+            marker2 = L.marker([driver_lat, driver_lng], { icon: driverIcon }).addTo(map);
+
+
+            //all user data from database
+
+
+
+            //use loop
+            const data = fetchDataFromServer();
+
+
+            for (let val of data.list) {
+                if (val.role === 'user') {
+                    const user_email = val.email;
+                    const vehiclesAround = checkVehiclesAround(user_latlng, driver_latlng);
+
+
+
+
+                    if (vehiclesAround) {
+
+                        sendEmailToServer(user_email);
+
+                    }
+
+                }
+
+            }
+
+
+
+
+        }
+
+        if (marker) {
+
+            map.removeLayer(marker);
+            map.removeLayer(circle);
+
+        }
+
+
+
+
+
+    }
+
+
+
+    function error(err) {
+
+        if (err.code === 1) {
+            alert("Please provide geolocation access!!");
+        }
+        else {
+            alert("Cannot get current location");
+        }
+
+    }
+
+
+
+
+
+
+
+
+    ///loop to each user checking each user
+    -    function checkVehiclesAround(user_latlng, driver_lantlng) {
+
+
+        distance = user_latlng.distanceTo(driver_latlng);
+
+
+
+        if (distance < 500) {
+            return true;
+        }
+
+        // if(distance(user_latlng,driver_lantlng))
+
+    }
+
+
+
+
+    // Define the API endpoint URL
+
+    // Function to send the user's email to the server
+    function sendEmailToServer(userEmail) {
+        const emailData = {
+            email: userEmail,
+            // Add any other data you want to send to the server
+        };
+
+        fetch(urlMsg, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(emailData),
+        })
+            .then(response => {
+                if (response.ok) {
+                    console.log('Email sent to server successfully');
+                } else {
+                    console.error('Failed to send email to server');
+                }
+            })
+            .catch(error => {
+                console.error('Error sending email:', error);
+            });
+    }
+
+
+
+
+</script>
+
+</html>
