@@ -1,38 +1,34 @@
-const nodemailer = require('nodemailer');
+const nodemailer = require("nodemailer");
 const ejs = require("ejs");
 const path = require("path");
 
-const sendEmailtoUser = async (email, subject, text) => {
+const sendEmailtoUser = async (email) => {
   try {
-    const requiredPath = path.join(__dirname, "../utils/emailverifyTemplate.ejs");
+    const requiredPath = path.join(__dirname, "../utils/emailtouser.ejs");
     const data = await ejs.renderFile(requiredPath, {
-      text: text
+      text: "Your email text goes here", // Define the 'text' variable or pass the actual text
     });
 
     const transporter = nodemailer.createTransport({
-      host: "sandbox.smtp.mailtrap.io",
+      host: "smtp.mailtrap.io",
       port: 2525,
       auth: {
         // user: "f3d23acddb00b0",
         // pass: "aeaea698ce060a"
         user: "f3d23acddb00b0", 
-        pass: "aeaea698ce060a"
+        pass: "aeaea698ce060a",
       }
     });
 
-    const subject = 'Vehicle Alert';
-    const body_english = 'There is a garbage vehicle around your location . Please, separate the degradable and Non-degradable waste  before throwing it. '
-    const body_nepali = 'तपाईंको स्थान वरपर फोहोर फाल्ने गाडी छ। कृपया, यसलाई फाल्न अघि कुहिने र नकुहिने फोहोर अलग गर्नुहोस्।';
-
-
     await transporter.sendMail({
-      from: 'noreply@gmail.com',
+      from: "GTSbyBSSY@gmail.com",
       to: email,
-      subject: subject,
-      html: data
+      subject: "Alert!!! Garbage Truck is near BY",
+      html: data,
     });
   } catch (error) {
-    res.json({ error: err })
+    console.error(error);
+    // Handle the error appropriately or remove this catch block
   }
 };
 
