@@ -6,7 +6,7 @@ const sendEmailtoUser = async (email) => {
   try {
     const requiredPath = path.join(__dirname, "../utils/emailtouser.ejs");
     const data = await ejs.renderFile(requiredPath, {
-      text: "Your email text goes here", // Define the 'text' variable or pass the actual text
+      text: "NearBY", // Define the 'text' variable or pass the actual text
     });
 
     const transporter = nodemailer.createTransport({
@@ -26,6 +26,7 @@ const sendEmailtoUser = async (email) => {
         user: process.env.USER,
         pass: process.env.PASS,
       },
+
     });
 
     await transporter.sendMail({
