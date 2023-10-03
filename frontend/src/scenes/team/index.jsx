@@ -2,10 +2,10 @@ import { Box, Typography, useTheme } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
 import { tokens } from "../../theme";
 import { mockDataTeam } from "../../data/mockData";
-import AdminPanelSettingsOutlinedIcon from "@mui/icons-material/AdminPanelSettingsOutlined";
 import LockOpenOutlinedIcon from "@mui/icons-material/LockOpenOutlined";
 import SecurityOutlinedIcon from "@mui/icons-material/SecurityOutlined";
 import Header from "../../components/Header";
+import CheckIcon from '@mui/icons-material/Check';
 
 const Team = () => {
   const theme = useTheme();
@@ -14,7 +14,7 @@ const Team = () => {
     { field: "id", headerName: "ID" },
     {
       field: "name",
-      headerName: "Name",
+      headerName: "Full Name",
       flex: 1,
       cellClassName: "name-column--cell",
     },
@@ -27,7 +27,7 @@ const Team = () => {
     },
     {
       field: "phone",
-      headerName: "Phone Number",
+      headerName: "License No",
       flex: 1,
     },
     {
@@ -37,7 +37,7 @@ const Team = () => {
     },
     {
       field: "accessLevel",
-      headerName: "Access Level",
+      headerName: "Verify Driver",
       flex: 1,
       renderCell: ({ row: { access } }) => {
         return (
@@ -56,7 +56,7 @@ const Team = () => {
             }
             borderRadius="4px"
           >
-            {access === "admin" && <AdminPanelSettingsOutlinedIcon />}
+            {access === "admin" && <CheckIcon />}
             {access === "manager" && <SecurityOutlinedIcon />}
             {access === "user" && <LockOpenOutlinedIcon />}
             <Typography color={colors.grey[100]} sx={{ ml: "5px" }}>
@@ -70,7 +70,7 @@ const Team = () => {
 
   return (
     <Box m="20px">
-      <Header title="TEAM" subtitle="Managing the Team Members" />
+      <Header title="Actual Driver Verification Page" subtitle="Verify Driver On the basis of the Liscense No" />
       <Box
         m="40px 0 0 0"
         height="75vh"

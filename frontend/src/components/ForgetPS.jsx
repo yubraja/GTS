@@ -12,22 +12,36 @@ import Grid from '@mui/material/Grid';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-
-
+import axios from 'axios';
+import { useState } from 'react';
 
 // TODO remove, this demo shouldn't need to reset the theme.
 
 const defaultTheme = createTheme();
 
+
 export default function SignInSide() {
-  const handleSubmit = (event) => {
+    // const [dataRegister, setDataRegister] = useState({
+    //     email: "",
+    //     password: "",
+    //   });
+
+    //   const handleChange = (e) => {
+    //     const { name, value } = e.target;
+    //     setDataRegister({ ...dataRegister, [name]: value });
+    //   };
+
+  const handleSubmit = async (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-      repassword: data.get('repassword'),
-    });
+    const email=data.get('email')
+    const response=await axios.post('http://localhost:5000/forgot/reset',{
+        email
+    }
+    )
+    if(response.data.msg==="code has been sent to your email"){
+        window.location.href='/updatePS'
+    }
   };
 
   return (
@@ -84,35 +98,17 @@ export default function SignInSide() {
                 label="Email Address"
                 name="email"
                 autoComplete="email"
+                //onChange={handleChange}
                 autoFocus
-              />
-              <TextField
-                margin="normal"
-                required
-                fullWidth
-                name="password"
-                label="Password"
-                type="password"
-                id="password"
-                autoComplete="current-password"
-              />
-              <TextField
-                margin="normal"
-                required
-                fullWidth
-                name="repassword"
-                label="Re-Entered Password"
-                type="password"
-                id="repassword"
-                autoComplete="current-password"
               />
               <Button
                 type="submit"
                 fullWidth
                 variant="contained"
                 sx={{ mt: 3, mb: 2 }}
+                onSubmit={handleSubmit}
               >
-                Reset Password
+                Send OTP
               </Button>
               <Grid container>
                 

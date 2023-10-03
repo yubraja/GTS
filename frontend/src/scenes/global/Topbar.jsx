@@ -6,15 +6,33 @@ import LightModeOutlinedIcon from "@mui/icons-material/LightModeOutlined";
 import DarkModeOutlinedIcon from "@mui/icons-material/DarkModeOutlined";
 import SearchIcon from "@mui/icons-material/Search";
 import LogoutIcon from '@mui/icons-material/Logout';
+import axios from "axios";
+import { toast } from "react-toastify";
 
 const Topbar = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const colorMode = useContext(ColorModeContext);
 
-  const backtohome=()=>{
+  const backtohome=async ()=>{
     window.location.href = "/";
-  }
+      axios.get(
+      "http://localhost:5000/logout",{
+        withCredentials:true
+      }
+     )
+    }
+  //   if(backtohome.data.msg.includes("success")){
+  //     toast.success(backtohome.data.msg, {
+  //       position: toast.POSITION.TOP_CENTER,
+  //       autoClose: 3000,
+  //     })}
+  //     else{
+  //       toast.error(backtohome.data.msg, {
+  //         position: toast.POSITION.TOP_CENTER,
+  //         autoClose: 3000,
+  //       });}
+  // console.log(backtohome)
 
   return (
     <Box display="flex" justifyContent="space-between" p={2}>

@@ -1,10 +1,8 @@
-import * as React from "react";
+import React, { useState } from "react";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Checkbox from "@mui/material/Checkbox";
 import Link from "@mui/material/Link";
 import Paper from "@mui/material/Paper";
 import Box from "@mui/material/Box";
@@ -12,44 +10,78 @@ import Grid from "@mui/material/Grid";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-
-import Axios from 'axios'
-// TODO remove, this demo shouldn't need to reset the theme.
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const defaultTheme = createTheme();
 
 export default function Signnn() {
+  // const { setIsAuthenticated } = useAuth();
+  const navigate = useNavigate();
 
+  const [dataRegister, setDataRegister] = useState({
+    email: "",
+    password: "",
+  });
+
+  console.log(dataRegister);
+  const changeValue = (e) => {
+    const { name, value } = e.target;
+    setDataRegister({ ...dataRegister, [name]: value });
+  };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-  
-    const email = event.currentTarget.email.value;
-    const password = event.currentTarget.password.value;
-  
-    try {
-      const response = await Axios.post('http://127.0.0.1:8000/api/user/login/', {
-        email,
-        password,
+    let currentDash;
+    let response;
+     response = await axios.post(
+        "http://localhost:5000/login",
+        dataRegister,
+        {
+          withCredentials: true, //yo pathaune vaneko when we need cookie and userid
+        }
+      );
+   
+      
+     if(response.data.msg.includes("success")){
+      toast.success(response.data.msg, {
+        position: toast.POSITION.TOP_CENTER,
+        autoClose: 3000,
       });
-  
-      // Handle a successful login response
-      console.log('Login success:', response.data);
-  
-      // Store access token and refresh token in a secure manner (consider HttpOnly cookies)
-      localStorage.setItem('access_token', response.data.access);
-      localStorage.setItem('refresh_token', response.data.refresh);
-  
-      // Redirect the user or perform other actions upon successful login
-    } catch (error) {
-      console.error('Login error:', error);
-  
-      // Handle login error, e.g., display error messages to the user
+    } 
+    if(response.data.msg.includes("invalid"))
+    {
+      toast.error(response.data.msg, {
+        position: toast.POSITION.TOP_CENTER,
+        autoClose: 3000,
+      });
     }
-  };
-  
+     
 
+      const user = await axios.get(
+        "http://localhost:5000/userDetail",{
+          withCredentials:true
+        }
+      );
+
+      if (user) {
+        // Successful login
+        const role= user.data.result.role;
+       // console.log(response.data.result.role)
+       
+        if (role === "Citizen") {
+          currentDash = "/userDash";
+        } else if (role === "Driver") {
+          currentDash = "/driverDash";
+        } else {
+          currentDash = "/adminDash";
+        }
+      }
+      navigate(currentDash, { replace: true });
   
+  };
+
   return (
     <Box
       sx={{
@@ -70,7 +102,6 @@ export default function Signnn() {
             sm={4}
             md={7}
             sx={{
-              // backgroundImage: 'url(https://source.unsplash.com/random?wallpapers)',
               backgroundImage:
                 "url(https://images.pexels.com/photos/2768961/pexels-photo-2768961.jpeg?auto=compress&cs=tinysrgb&w=800)",
               backgroundRepeat: "no-repeat",
@@ -120,6 +151,8 @@ export default function Signnn() {
                   label="Email Address"
                   name="email"
                   autoComplete="email"
+                  value={dataRegister.email}
+                  onChange={changeValue}
                   autoFocus
                 />
                 <TextField
@@ -131,17 +164,15 @@ export default function Signnn() {
                   type="password"
                   id="password"
                   autoComplete="current-password"
+                  value={dataRegister.password}
+                  onChange={changeValue}
                 />
-                <FormControlLabel
-                  control={<Checkbox value="remember" color="primary" />}
-                  label="Remember me"
-                />
+
                 <Button
                   type="submit"
                   fullWidth
                   variant="contained"
                   sx={{ mt: 3, mb: 2 }}
-                  href="/userDash"
                 >
                   Sign In
                 </Button>
@@ -167,10 +198,9 @@ export default function Signnn() {
                     variant="body2"
                     sx={{ textDecoration: "none", color: "white" }}
                   >
-                    {"Sign In with google! "}
+                    {"Sign In with Google! "}
                   </Link>
                 </Button>
-                {/* <Copyright sx={{ mt: 5 }} /> */}
               </Box>
             </Box>
           </Grid>

@@ -13,7 +13,19 @@ import PieChartOutlineOutlinedIcon from "@mui/icons-material/PieChartOutlineOutl
 import TimelineOutlinedIcon from "@mui/icons-material/TimelineOutlined";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 import MapOutlinedIcon from "@mui/icons-material/MapOutlined";
-import EditLocationIcon from '@mui/icons-material/EditLocation';
+import EditLocationIcon from "@mui/icons-material/EditLocation";
+
+
+// Backend ma garnu parne kura 
+// # views.py
+// from django.contrib.auth.decorators import login_required
+// from django.http import JsonResponse
+
+// @login_required
+// def get_user_role(request):
+//     user = request.user
+//     role = user.role  # Assuming you have a "role" field in your user model
+//     return JsonResponse({'role': role})
 
 const Item = ({ title, to, icon, selected, setSelected }) => {
   const theme = useTheme();
@@ -38,6 +50,7 @@ const Sidebar = () => {
   const colors = tokens(theme.palette.mode);
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [selected, setSelected] = useState("Sign");
+  const [role, setRole] = useState("User");
 
   return (
     <Box
@@ -78,7 +91,7 @@ const Sidebar = () => {
                 ml="15px"
               >
                 <Typography variant="h3" color={colors.grey[100]}>
-                🙏
+                  🙏
                 </Typography>
                 <IconButton onClick={() => setIsCollapsed(!isCollapsed)}>
                   <MenuOutlinedIcon />
@@ -114,12 +127,15 @@ const Sidebar = () => {
             </Box>
           )}
 
-          <Box paddingLeft={isCollapsed ? undefined : "10%"} sx={{
-            height:"65vh"
-          }}>
+          <Box
+            paddingLeft={isCollapsed ? undefined : "10%"}
+            sx={{
+              height: "65vh",
+            }}
+          >
             <Item
               title="Dashboard"
-              to="adminDash"
+              to={role === "User" ? "/userDash" : "/adminDash"}
               icon={<HomeOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
@@ -175,13 +191,13 @@ const Sidebar = () => {
               selected={selected}
               setSelected={setSelected}
             />
-              <Item
-                title="Calendar"
-                to="/calendar"
-                icon={<CalendarTodayOutlinedIcon />}
-                selected={selected}
-                setSelected={setSelected}
-              />
+            <Item
+              title="Calendar"
+              to="/calendar"
+              icon={<CalendarTodayOutlinedIcon />}
+              selected={selected}
+              setSelected={setSelected}
+            />
             <Item
               title="FAQ Page"
               to="/faq"
@@ -189,8 +205,6 @@ const Sidebar = () => {
               selected={selected}
               setSelected={setSelected}
             />
-
-        
           </Box>
         </Menu>
       </ProSidebar>

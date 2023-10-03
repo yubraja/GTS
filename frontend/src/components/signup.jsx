@@ -1,11 +1,9 @@
-import * as React from "react";
-import { useState } from "react";
+import React, { useState } from "react";
+import axios from "axios";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Checkbox from "@mui/material/Checkbox";
 import Link from "@mui/material/Link";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
@@ -13,70 +11,87 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const roles = [
   {
     value: "Citizen",
-    label: "Citizen || नागरिक ",
+    label: "Citizen || नागरिक",
   },
   {
     value: "Driver",
     label: "Driver || सवारी चालक",
   },
-  // {
-  //   value: "Staff",
-  //   label: "Staff || कर्मचारी ",
-  // },
 ];
-
-
-
-// TODO remove, this demo shouldn't need to reset the theme.
 
 const defaultTheme = createTheme();
 
 export default function SignUp() {
-  const [role, setRole] = useState(""); // for role selection
-  
+  const [dataRegister, setDataRegister] = useState({
+    role: "Citizen", // Set the default role here
+    firstName: "",
+    lastName: "",
+    latitude: "",
+    longitude: "",
+    number: "",
+    email: "",
+    password: "",
+    password2: "",
+  });
 
-  const handleChange = (event) => {
-    event.preventDefault();
-    setRole(event.target.value);
+  const changeValue = (e) => {
+    const { value, name } = e.target;
+    e.preventDefault();
+    console.log(value, name);
+    setDataRegister({ ...dataRegister, [name]: value });
   };
 
+  // herna ko lagi
+  console.log(dataRegister);
 
-  const handleSubmit = async (data) => {
-    const response = await fetch("http://127.0.0.1:8000/api/user/signup", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
-    });
-  
-    if (response.ok) {
-      const jsonResponse = await response.json();
-      return jsonResponse;
-    } else {
-      throw new Error(response.statusText);
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    let response;
+    response = await axios.post(
+      "http://localhost:5000/user/register",
+      dataRegister,
+      {
+        withCredentials: true,
+      }
+    );
+    //get response from backend
+    console.log(response.data.msg)
+    console.log("hello")
+
+    if (response.data.msg.includes("success")) {
+      toast.success(response.data.msg, {
+        position: toast.POSITION.TOP_CENTER,
+        autoClose: 3000,
+      });
+    }
+    if (response.data.msg.includes("invalid")) {
+      toast.error(response.data.msg, {
+        position: toast.POSITION.TOP_CENTER,
+        autoClose: 3000,
+      });
     }
   };
 
-
-
-
-  //this is for fetch address of respective users
   const showLocation = () => {
     navigator.geolocation.getCurrentPosition(success, error);
   };
+  console.log(showLocation);
 
   function success(pos) {
     const lat = pos.coords.latitude;
     const lng = pos.coords.longitude;
 
-    document.getElementById("latitude").value = lat;
-    document.getElementById("longitude").value = lng;
+    setDataRegister({
+      ...dataRegister,
+      latitude: lat,
+      longitude: lng,
+    });
   }
 
   function error(err) {
@@ -119,8 +134,10 @@ export default function SignUp() {
                   select
                   name="role"
                   label="Select Your Role"
-                  defaultValue="EUR"
+                  defaultValue="Citizen"
                   autoFocus
+                  onChange={changeValue}
+                  value={dataRegister.role}
                   SelectProps={{
                     native: true,
                   }}
@@ -140,6 +157,8 @@ export default function SignUp() {
                   required
                   fullWidth
                   id="firstName"
+                  onChange={changeValue}
+                  value={dataRegister.firstName}
                   label="First Name"
                 />
               </Grid>
@@ -150,6 +169,8 @@ export default function SignUp() {
                   id="lastName"
                   label="Last Name"
                   name="lastName"
+                  onChange={changeValue}
+                  value={dataRegister.lastName}
                   autoComplete="off"
                 />
               </Grid>
@@ -158,28 +179,27 @@ export default function SignUp() {
                 <TextField
                   required
                   fullWidth
-                  // disabled
                   id="latitude"
                   name="latitude"
                   label="latitude"
                   autoComplete="off"
+                  onChange={changeValue}
+                  value={dataRegister.latitude}
                   InputLabelProps={{
                     shrink: true,
                   }}
-                  // InputProps={{
-                  //   readOnly: true,
-                  // }}
                 />
               </Grid>
               <Grid item xs={12} sm={4}>
                 <TextField
                   required
                   fullWidth
-                  // disabled
                   id="longitude"
                   label="longitude"
                   name="longitude"
                   autoComplete="off"
+                  onChange={changeValue}
+                  value={dataRegister.longitude}
                   InputLabelProps={{
                     shrink: true,
                   }}
@@ -202,14 +222,16 @@ export default function SignUp() {
                   required
                   fullWidth
                   id="standard-number"
-                  label={role === "Citizen" ? "Phone No" : "License Number"}
+                  label={
+                    dataRegister.role === "Citizen"
+                      ? "Phone No"
+                      : "License Number"
+                  }
                   name="number"
                   type="number"
+                  onChange={changeValue}
+                  value={dataRegister.number}
                   autoComplete="off"
-                  // InputLabelProps={{
-                  //   shrink: true,
-                  // }}
-                  // variant="standard"
                 />
               </Grid>
               <Grid item xs={12}>
@@ -219,6 +241,8 @@ export default function SignUp() {
                   id="email"
                   label="Email Address"
                   name="email"
+                  value={dataRegister.email}
+                  onChange={changeValue}
                   autoComplete="off"
                 />
               </Grid>
@@ -231,15 +255,22 @@ export default function SignUp() {
                   label="Password"
                   type="password"
                   id="password"
+                  value={dataRegister.password}
+                  onChange={changeValue}
                   autoComplete="off"
                 />
               </Grid>
               <Grid item xs={12}>
-                <FormControlLabel
-                  control={
-                    <Checkbox value="allowExtraEmails" color="primary" />
-                  }
-                  label="Remember Me"
+                <TextField
+                  required
+                  fullWidth
+                  name="repassword"
+                  label="Re-entered Password"
+                  type="password"
+                  id="repassword"
+                  value={dataRegister.repassword}
+                  onChange={changeValue}
+                  autoComplete="off"
                 />
               </Grid>
             </Grid>
@@ -250,6 +281,7 @@ export default function SignUp() {
               sx={{ mt: 3, mb: 2 }}
             >
               Sign Up
+              <ToastContainer />
             </Button>
             <Grid container justifyContent="flex-end">
               <Grid item>

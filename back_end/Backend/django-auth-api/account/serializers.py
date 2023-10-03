@@ -1,4 +1,6 @@
-from django.forms import ValidationError
+from account import permissions
+from django.forms import GenericIPAddressField, ValidationError
+from requests import Response
 from rest_framework import serializers
 from account.models import User
 from django.contrib.auth.hashers import check_password
@@ -9,18 +11,24 @@ from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
 
 from django.contrib.auth.tokens import PasswordResetTokenGenerator
 from account.utils import Util
+from rest_framework.response import Response
+from .models import User 
+
 
 # for events,date from calendar
 from .models import Event
 
 
-class UserRegisterationSerializer(serializers.ModelSerializer):
+class UserRegisterationSerializer(serializers.ModelSerializer):             #POST method
     password2 = serializers.CharField(
         style={'input_type:password'}, write_only=True)
-
     class Meta:
         model = User
-        fields = ['email',"name",'citizenship_no', 'address', 'password', 'password2']
+<<<<<<< HEAD
+        fields = ['role','email',"name",'number','longitude','latitude', 'password', 'password2']
+=======
+        fields = ['email',"name",'citizenship_no','long','lat', 'password', 'password2','role']  
+>>>>>>> 50b2adebbbf37599cb36a017175364c577a48113
         extra_kwargs = {
             'password': {'write_only': True}
         }
@@ -38,7 +46,7 @@ class UserRegisterationSerializer(serializers.ModelSerializer):
         return User.objects.create_user(**validate_data)
 
 
-class UserLoginSerializer(serializers.ModelSerializer):
+class UserLoginSerializer(serializers.ModelSerializer):             #POST method
     email = serializers.EmailField(max_length=255)
 
     class Meta:
@@ -46,13 +54,13 @@ class UserLoginSerializer(serializers.ModelSerializer):
         fields = ['email', 'password']
 
 
-class UserProfileSerializer(serializers.ModelSerializer):
+class UserProfileSerializer(serializers.ModelSerializer):           #GET method
     class Meta:
         model = User
         fields = ['id', 'email', 'name']
 
 
-class UserChangePasswordSerializer(serializers.Serializer):
+class UserChangePasswordSerializer(serializers.Serializer):            #POST method
     password = serializers.CharField(max_length=255,
                                      style={'input_type': 'password'},
                                      write_only=True)
@@ -82,7 +90,7 @@ class UserChangePasswordSerializer(serializers.Serializer):
         return data
 
 
-class UserSendPasswordResetEmailSerializer(serializers.Serializer):
+class UserSendPasswordResetEmailSerializer(serializers.Serializer):         #POST method
     email = serializers.EmailField(max_length=255)
 
     class Meta:
@@ -109,7 +117,7 @@ class UserSendPasswordResetEmailSerializer(serializers.Serializer):
             raise ValidationError('You are not a Registered User')
 
 
-class UserPasswordResetSerializer(serializers.Serializer):
+class UserPasswordResetSerializer(serializers.Serializer):              #POST method
     password = serializers.CharField(max_length=255,
                                      style={'input_type': 'password'},
                                      write_only=True)
@@ -142,11 +150,13 @@ class UserPasswordResetSerializer(serializers.Serializer):
                     'Token is not Valid or Expired')
             
             
-class UserLogoutSerializer(serializers.Serializer):
+class UserLogoutSerializer(serializers.Serializer):         #POST method
     pass
-            
+          
+
+        
     
-class EventSerializer(serializers.ModelSerializer):
+class EventSerializer(serializers.ModelSerializer):     #POST method
     class Meta:
         model = Event
         fields = '__all__'
