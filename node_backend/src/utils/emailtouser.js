@@ -2,7 +2,7 @@ const nodemailer = require('nodemailer');
 const ejs = require("ejs");
 const path = require("path");
 
-const sendEmail= async (email, subject, text) => {
+const sendEmailtoUser= async (email, subject, text) => {
   try {
   const requiredPath = path.join(__dirname, "../utils/emailverifyTemplate.ejs");
   const data = await ejs.renderFile(requiredPath, {
@@ -32,4 +32,4 @@ const sendEmail= async (email, subject, text) => {
   }
 };
 
-module.exports = sendEmail;
+module.exports = sendEmailtoUser;
