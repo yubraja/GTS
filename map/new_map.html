@@ -40,12 +40,6 @@
         const lng = pos.coords.longitude;
         const accuracy = pos.coords.accuracy;
 
-        fetch('http://your_server_endpoint')
-            .then(response => response.json())
-            .then(data => {
-                const driverLat = data.driver_latitude;
-                const driverLng = data.driver_longitude;
-                
                 var driverIcon = L.icon({
                     iconUrl: 'garbage_truck.png',
                     iconSize: [38, 50],
@@ -74,11 +68,7 @@
                 }
 
                 map.setView([lat, lng]);
-            })
-            .catch(error => {
-                console.error('Error:', error);
-            });
-    }
+            }
 
     function error(err) {
         if (err.code === 1) {
