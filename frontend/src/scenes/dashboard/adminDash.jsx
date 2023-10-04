@@ -103,7 +103,7 @@ const Dashboard = () => {
         </Button>
         <Button
           sx={{
-            backgroundColor: colors.greenAccent[700],
+            backgroundColor: colors.redAccent[600],
             color: colors.grey[100],
             fontSize: "14px",
             fontWeight: "bold",
@@ -112,7 +112,7 @@ const Dashboard = () => {
           href="/team"
         >
           <ContactsOutlinedIcon sx={{ mr: "10px" }} />
-          Teams
+          Driver
         </Button>
         <Button
           sx={{
