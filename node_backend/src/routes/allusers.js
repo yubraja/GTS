@@ -6,7 +6,7 @@ const User = require("../models/user");
 router.get("/", async (req, res) => {
   try {
     const users = await User.find({
-        role: { $in: ["User", "Driver"] },
+      // role: { $in: ["User", "Driver"] },
     });
 
     if (users.length > 0) {

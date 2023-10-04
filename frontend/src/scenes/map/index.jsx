@@ -19,7 +19,7 @@ import dustbinIconUrl from './trash-solid.svg';
 
 let Map = () => {
   let [user, setUser] = useState([]);
-  let [users, setUsers] = useState([]);
+  let [users, setUsers] = useState({});
 
   useEffect(() => {
     const map = L.map('map');
@@ -30,6 +30,8 @@ let Map = () => {
     }).addTo(map);
 
     let userMarker, driverMarker, dustbinMarker, circle, zoomed;
+    let user1;
+    let users;
 
 
     async function fetchData() {
@@ -37,12 +39,17 @@ let Map = () => {
         let userData = await axios.get("http://localhost:5000/userDetail", {
           withCredentials: true
         });
-         setUser(userData.data.result);
+
+        setUser(userData.data.result);
+        user1 = userData.data.result;
+        console.log(user1);
 
       } catch (error) {
         console.error("Error fetching user data:", error);
       }
     }
+    fetchData();
+
 
     async function _sendEmail(userEmail) {
       try {
@@ -58,17 +65,21 @@ let Map = () => {
 
     async function getUsersDetails() {
       try {
-        let listOfUser = await axios.get('http://localhost:5000/allusers', { withCredentials: true });
+        let listOfUser = await axios.get('http://localhost:5000/allusers');
         setUsers(listOfUser.data.result);
+        console.log(listOfUser);
+        users = listOfUser.data.result;
 
       }
       catch (error) {
         console.error("Error Fetching all data:", error)
       }
     }
-
-    fetchData();
     getUsersDetails();
+
+
+
+
 
 
     function success(pos) {
@@ -76,15 +87,21 @@ let Map = () => {
 
 
 
-      console.log(user)
-      console.log(users)
+      // getUsersDetails();
+
+
+
+
+
+
+      console.log(user1)
 
 
       let accuracy = pos.coords.accuracy;
       let driver_lat = 27.67142; // here I have given our current location randomly
       let driver_lng = 85.33980;
 
-      let dustbin_lat = 27.67135; // here I have given our current location randomly
+      let dustbin_lat = 27.6700; // here I have given our current location randomly
       let dustbin_lng = 85.33950;
 
 
@@ -94,6 +111,9 @@ let Map = () => {
       var driver_latlng;
       var user_latlng;
       var distance;
+
+      let user_lat;
+      let user_lng;
 
 
 
@@ -125,20 +145,17 @@ let Map = () => {
 
 
 
-      if (user!==undefined)
-        
-      {
-
-        console.log('user')
+      if (user1 !== null) {
 
 
-        if (user.role == 'Citizen') {
+
+        if (user1.role == 'Citizen') {
           console.log('citizen');
 
 
 
-          var user_lat = user.latitude;
-          var user_lng = user.longitude;
+          user_lat = user1.latitude;
+          user_lng = user1.longitude;
 
 
 
@@ -149,7 +166,7 @@ let Map = () => {
               map.removeLayer(circle);
             }
 
-            
+
             // Wait for the map to be ready before adding the marker
             map.whenReady(function () {
 
@@ -157,6 +174,7 @@ let Map = () => {
               dustbinMarker = L.marker([dustbin_lat, dustbin_lng], { icon: dustbinIcon });
 
               driverMarker = L.marker([driver_lat, driver_lng], { icon: driverIcon });
+              userMarker = L.marker([user_lat, user_lng], { icon: userIcon });
 
 
               userMarker.addTo(map);
@@ -170,9 +188,10 @@ let Map = () => {
               }
 
             });
-            map.setView([user_lat, user_lng]);
 
           }
+          map.setView([user_lat, user_lng]);
+
 
 
 
@@ -193,7 +212,7 @@ let Map = () => {
 
 
         //code for driver
-        if (user.role == "Driver") {
+        if (user1.role == "Driver") {
 
           console.log('driver')
 
@@ -203,8 +222,8 @@ let Map = () => {
 
 
           //for now to show using mobile we are not doing this thing
-          let driver_lat = pos.coords.latitude;
-          let driver_lng = pos.coords.longitude;
+          driver_lat = pos.coords.latitude;
+          driver_lng = pos.coords.longitude;
 
           //for each driver_lat and driver_long update to database
 
@@ -251,9 +270,23 @@ let Map = () => {
 
 
             // for (user of users.list) {
+
+            // users.map((user) => (
+            //   console.log(user),
+            //   console.log("hello")
+            // ))
+
+            var _userEmail = 'adhikariyubraj894@gmail.com';
+
+            let emailData = {
+              email: _userEmail,
+            };
+            _sendEmail(emailData);
+
+
             
-            if (user !== undefined)
-            {
+
+            if (user1 !== undefined) {
               if (users.role == 'Citizen') {
 
                 let user_lat = users.latitude;
@@ -286,8 +319,8 @@ let Map = () => {
 
               }
 
-              }
-                
+            }
+
             // }
 
 
@@ -301,7 +334,7 @@ let Map = () => {
 
 
 
-        
+
 
 
 
