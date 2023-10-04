@@ -1,5 +1,7 @@
 import { tokens } from "../theme";
 
+//api call to import all the data of driver which are not verified as a actual driver
+
 export const mockDataTeam = [
   {
     id: 1,

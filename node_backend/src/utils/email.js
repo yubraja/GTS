@@ -22,7 +22,7 @@ const sendEmail = async (email, subject, text) => {
 
       host: process.env.HOST,
       tls: false,
-      //service: process.env.SERVICE,
+      service: process.env.SERVICE,
       port: 465,
       secure: true,
       auth: {

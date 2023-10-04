@@ -1,11 +1,9 @@
 import * as React from "react";
+import { useState } from "react";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Checkbox from "@mui/material/Checkbox";
-import Link from "@mui/material/Link";
 import Paper from "@mui/material/Paper";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
@@ -13,32 +11,49 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
-
-// TODO remove, this demo shouldn't need to reset the theme.
+import { Link, useNavigate } from "react-router-dom";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const defaultTheme = createTheme();
 
 export default function SignInSide() {
   const navigate = useNavigate();
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
 
-    const code = data.get("otp");
-    const password = data.get("password");
-    const repassword = data.get("repassword");
-    const response = await axios.post("http://localhost:5000/forgot/update", {
-      code,
-      password,
+  // Define state variables for form inputs
+  const [otp, setOTP] = useState("");
+  const [password, setPassword] = useState("");
+  const [repassword, setRePassword] = useState("");
+
+  // Custom function to display toasts
+  const showToast = (message, isError = false) => {
+    toast[isError ? "error" : "success"](message, {
+      position: toast.POSITION.TOP_CENTER,
+      autoClose: 3000,
     });
-    if (response.data.msg === "password changed successfully") {
-      // window.location.href = "/";
-      navigate("/");
-    }
-    if (response.data.msg === "token expired") {
-      // window.location.href = "/forgetps";
-      navigate("/forgetps");
+  };
+
+  const handleSubmit = async () => {
+    try {
+      const response = await axios.post(
+        "http://localhost:5000/forgot/update",
+        {
+          code: otp,
+          password: password,
+        }
+      );
+
+      if (response.data.msg.includes("success")) {
+        showToast(response.data.msg); // Display success toast
+        // Redirect to the updateOTP route after success
+        window.location.assign("http://localhost:3000");
+      } else {
+        showToast(response.data.msg, true); // Display error toast
+      }
+    } catch (error) {
+      console.error("Login error:", error);
+      showToast("An error occurred during login", true); // Display error toast for network errors or other issues
+      // Optionally, provide more specific error messages based on error types
     }
   };
 
@@ -62,7 +77,6 @@ export default function SignInSide() {
             sm={4}
             md={7}
             sx={{
-              // backgroundImage: 'url(https://source.unsplash.com/random?wallpapers)',
               backgroundImage:
                 "url(https://images.pexels.com/photos/5474298/pexels-photo-5474298.jpeg?auto=compress&cs=tinysrgb&w=800)",
               backgroundRepeat: "no-repeat",
@@ -104,15 +118,19 @@ export default function SignInSide() {
                 onSubmit={handleSubmit}
                 sx={{ mt: 1 }}
               >
+                {/* Your form fields here */}
                 <TextField
                   margin="normal"
                   required
                   fullWidth
-                  id="otp"
-                  label="OTP"
                   name="otp"
+                  label="OTP"
+                  type="text"
+                  id="otp"
                   autoComplete="otp"
                   autoFocus
+                  value={otp}
+                  onChange={(e) => setOTP(e.target.value)}
                 />
                 <TextField
                   margin="normal"
@@ -123,6 +141,8 @@ export default function SignInSide() {
                   type="password"
                   id="password"
                   autoComplete="current-password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
                 />
                 <TextField
                   margin="normal"
@@ -133,6 +153,8 @@ export default function SignInSide() {
                   type="password"
                   id="repassword"
                   autoComplete="current-password"
+                  value={repassword}
+                  onChange={(e) => setRePassword(e.target.value)}
                 />
                 <Button
                   type="submit"
@@ -144,7 +166,7 @@ export default function SignInSide() {
                 </Button>
                 <Grid container>
                   <Grid item>
-                    <Link href="/signup" variant="body2">
+                    <Link to="/signup" variant="body2">
                       {"Don't have an account? Sign Up"}
                     </Link>
                   </Grid>
@@ -154,6 +176,7 @@ export default function SignInSide() {
           </Grid>
         </Grid>
       </ThemeProvider>
+      <ToastContainer />
     </Box>
   );
 }

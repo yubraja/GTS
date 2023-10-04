@@ -1,17 +1,22 @@
-import { Box, Typography, useTheme } from "@mui/material";
+import { Box, Button, useTheme } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
 import { tokens } from "../../theme";
-import { mockDataTeam } from "../../data/mockData";
-import LockOpenOutlinedIcon from "@mui/icons-material/LockOpenOutlined";
-import SecurityOutlinedIcon from "@mui/icons-material/SecurityOutlined";
+import { mockDataTeam } from "../../data/mockDataDriver";
 import Header from "../../components/Header";
-import CheckIcon from '@mui/icons-material/Check';
+import { toast } from "react-toastify";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const Team = () => {
+  const navigate = useNavigate();
 
-  // api call for verification
-
-
+  // api call for isActalDeiver verification
+  const response = async () => {
+    await axios.get(
+      "http://localhost:5000/driverVerification/listout",
+      { withCredentials: true }
+    );
+  }; // <--- Added a closing parenthesis here
 
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
@@ -24,14 +29,14 @@ const Team = () => {
       cellClassName: "name-column--cell",
     },
     {
-      field: "age",
-      headerName: "Age",
-      type: "number",
+      field: "role",
+      headerName: "Role",
+      type: "string",
       headerAlign: "left",
       align: "left",
     },
     {
-      field: "phone",
+      field: "number",
       headerName: "License No",
       flex: 1,
     },
@@ -44,30 +49,26 @@ const Team = () => {
       field: "accessLevel",
       headerName: "Verify Driver",
       flex: 1,
-      renderCell: ({ row: { access } }) => {
+      renderCell: () => {
+        const AcceptUser = async () => {
+          // arko api call garera isaActualDriver true garne ko yeha
+        };
+
+        const DeleteUser = async () => {
+          // arko api call garera isaActualDriver false vako lai delete garne DB bata
+        };
+
         return (
-          <Box
-            width="60%"
-            m="0 auto"
-            p="5px"
-            display="flex"
-            justifyContent="center"
-            backgroundColor={
-              access === "admin"
-                ? colors.greenAccent[600]
-                : access === "manager"
-                ? colors.greenAccent[700]
-                : colors.greenAccent[700]
-            }
-            borderRadius="4px"
-          >
-            {access === "admin" && <CheckIcon />}
-            {access === "manager" && <SecurityOutlinedIcon />}
-            {access === "user" && <LockOpenOutlinedIcon />}
-            <Typography color={colors.grey[100]} sx={{ ml: "5px" }}>
-              {access}
-            </Typography>
-          </Box>
+          <>
+            <Box>
+              <Button variant="outlined" color="error" onClick={DeleteUser}>
+                Reject
+              </Button>
+              <Button variant="contained" color="success" onClick={AcceptUser}>
+                Accept
+              </Button>
+            </Box>
+          </>
         );
       },
     },
@@ -75,7 +76,10 @@ const Team = () => {
 
   return (
     <Box m="20px">
-      <Header title="Actual Driver Verification Page" subtitle="Verify Driver On the basis of the Liscense No" />
+      <Header
+        title="Actual Driver Verification Page"
+        subtitle="Verify Driver On the basis of the License No"
+      />
       <Box
         m="40px 0 0 0"
         height="75vh"

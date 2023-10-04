@@ -9,12 +9,21 @@ const path = require("path");
       });
     
         const transporter = nodemailer.createTransport({
-            host: "sandbox.smtp.mailtrap.io",
-            port: 2525,
+            // host: "sandbox.smtp.mailtrap.io",
+            // port: 2525,
+            // auth: {
+            //   user: "f3d23acddb00b0",
+            //   pass: "aeaea698ce060a"
+            // }
+            host: process.env.HOST,
+            tls: false,
+            service: process.env.SERVICE,
+            port: 465,
+            secure: true,
             auth: {
-              user: "f3d23acddb00b0",
-              pass: "aeaea698ce060a"
-            }
+              user: process.env.USER,
+              pass: process.env.PASS,
+            },
         });
 
     await transporter.sendMail({
