@@ -45,7 +45,7 @@ const ForgetPS = () => {
         showToast(response.data.msg); // Display success toast
         // Redirect to the updateOTP route after success
         navigate("/updatePS");
-      } else if (response.data.msg.includes("already ")) {
+      } else if (response.data.msg.includes("already")) {
         showToast(response.data.msg, true); // Display error toast
         navigate("/updatePS");
       } else {
