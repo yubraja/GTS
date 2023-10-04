@@ -1,14 +1,20 @@
 import { Box, Button, useTheme } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
 import { tokens } from "../../theme";
-import { mockDataTeam } from "../../data/mockDataDriver";
+import {mockData} from "../../data/mockDataDriver";
 import Header from "../../components/Header";
-import { toast } from "react-toastify";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 const Team = () => {
   const navigate = useNavigate();
+
+    //let driverData;
+  //  const fetchData = async () => {
+  //  let driverData = await data();
+  // console.log(data[0].id)
+  //  }
+  // fetchData();
 
   // api call for isActalDeiver verification
   const response = async () => {
@@ -17,6 +23,7 @@ const Team = () => {
       { withCredentials: true }
     );
   }; // <--- Added a closing parenthesis here
+
 
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
@@ -109,7 +116,7 @@ const Team = () => {
           },
         }}
       >
-        <DataGrid checkboxSelection rows={mockDataTeam} columns={columns} />
+        <DataGrid checkboxSelection rows={mockData} columns={columns} />
       </Box>
     </Box>
   );
