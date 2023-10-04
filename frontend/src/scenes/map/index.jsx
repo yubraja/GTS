@@ -23,7 +23,7 @@ let Map = () => {
 
   useEffect(() => {
     const map = L.map('map');
-    map.setView([27.67142, 85.3318410], 13);
+    map.setView([27.67142, 85.3318410], 16);
     L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
       maxZoom: 19,
       attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
@@ -138,7 +138,6 @@ let Map = () => {
 
 
 
-
           if (user_lat !== undefined && user_lng !== undefined) {
             if (userMarker) {
               map.removeLayer(userMarker);
@@ -234,8 +233,8 @@ let Map = () => {
 
 
 
-            for (user of users.list) {
-              if (user.role == 'Citizen') {
+            // for (user of users.list) {
+              if (users.role == 'Citizen') {
 
                 let user_lat = user.latitude;
                 let user_lng = user.longitude;
@@ -266,7 +265,7 @@ let Map = () => {
 
 
               }
-            }
+            // }
 
 
 
@@ -284,13 +283,11 @@ let Map = () => {
 
 
 
-        }
+      }
 
 
 
 
-
-        map.setView([driver_lat, driver_lng]);
 
     }
 
