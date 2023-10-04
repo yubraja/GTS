@@ -56,7 +56,7 @@ let Map = () => {
       }
     }
 
-    async function getUserDetails() {
+    async function getUsersDetails() {
       try {
         let listOfUser = await axios.get('http://localhost:5000/allusers', { withCredentials: true });
         setUsers(listOfUser.data.result);
@@ -67,8 +67,14 @@ let Map = () => {
       }
     }
 
+    fetchData();
+    getUsersDetails();
+
 
     function success(pos) {
+
+
+
 
       console.log(user)
       console.log(users)
@@ -115,20 +121,19 @@ let Map = () => {
       });
       //dustbin marker is seen by both user 
 
-      dustbinMarker = L.marker([dustbin_lat, dustbin_lng], { icon: dustbinIcon });
-
-
-
       //for citizen role
 
 
 
-      if (user !== null)
+      if (user!==undefined)
         
       {
 
+        console.log('user')
+
 
         if (user.role == 'Citizen') {
+          console.log('citizen');
 
 
 
@@ -144,14 +149,16 @@ let Map = () => {
               map.removeLayer(circle);
             }
 
-            userMarker = L.marker([user_lat, user_lng], { icon: userIcon });
-
-            driverMarker
-              = L.marker([driver_lat, driver_lng], { icon: driverIcon });
-
-
+            
             // Wait for the map to be ready before adding the marker
             map.whenReady(function () {
+
+
+              dustbinMarker = L.marker([dustbin_lat, dustbin_lng], { icon: dustbinIcon });
+
+              driverMarker = L.marker([driver_lat, driver_lng], { icon: driverIcon });
+
+
               userMarker.addTo(map);
               driverMarker
                 .addTo(map);
@@ -186,7 +193,13 @@ let Map = () => {
 
 
         //code for driver
-        if (user.role == 'Driver') {
+        if (user.role == "Driver") {
+
+          console.log('driver')
+
+
+
+
 
 
           //for now to show using mobile we are not doing this thing
@@ -205,14 +218,17 @@ let Map = () => {
             }
 
 
-            driverMarker
-              = L.marker([driver_lat, driver_lng], { icon: driverIcon });
-
 
             // Wait for the map to be ready before adding the marker
             map.whenReady(function () {
-              driverMarker
-                .addTo(map);
+
+
+
+              dustbinMarker = L.marker([dustbin_lat, dustbin_lng], { icon: dustbinIcon });
+
+              driverMarker = L.marker([driver_lat, driver_lng], { icon: driverIcon });
+
+              driverMarker.addTo(map);
               dustbinMarker.addTo(map);
               circle = L.circle([driver_lat, driver_lng], { radius: accuracy }).addTo(map);
 
@@ -229,16 +245,20 @@ let Map = () => {
 
             driver_latlng = L.latLng(driver_lat, driver_lng);
             console.log(driver_latlng);
+            console.log(users);
 
 
 
 
             // for (user of users.list) {
+            
+            if (user !== undefined)
+            {
               if (users.role == 'Citizen') {
 
-                let user_lat = user.latitude;
-                let user_lng = user.longitude;
-                var _userEmail = user.email;
+                let user_lat = users.latitude;
+                let user_lng = users.longitude;
+                var _userEmail = users.email;
 
                 let emailData = {
                   email: _userEmail,
@@ -265,6 +285,9 @@ let Map = () => {
 
 
               }
+
+              }
+                
             // }
 
 
@@ -301,7 +324,6 @@ let Map = () => {
       }
     }
 
-    fetchData();
     navigator.geolocation.watchPosition(success, error);
 
     return () => {
